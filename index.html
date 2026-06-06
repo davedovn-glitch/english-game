@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+<meta charset="UTF-8">
+<!-- Samsung Internet + Chrome Android viewport fix -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- Chặn Samsung browser auto-translate -->
+<meta name="google" content="notranslate">
+<title translate="no">English Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --gold:#f5c518;--card:#fffbe8;--purple:#7c4dff;--pink:#ff4081;
+  --dark:#1a1a2e;
+  --font:'Fredoka One',cursive;--body:'Nunito',sans-serif;
+  /* Safe area cho Android nav bar */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-top:    env(safe-area-inset-top, 0px);
+}
+html,body{
+  width:100%;height:100%;overflow:hidden;
+  font-family:var(--body);background:var(--dark);
+  /* Chặn text selection khi trẻ tap */
+  -webkit-user-select:none;user-select:none;
+  touch-action:manipulation;
+}
+input,textarea{-webkit-user-select:text;user-select:text}
+
+.screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
+.screen.on{display:flex}
+
+/* ── INTRO ── */
+#s-intro{background:linear-gradient(160deg,#0d1b4b,#1a0a3e,#0d2b1e)}
+.stars{position:absolute;inset:0;background-image:
+  radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),
+  radial-gradient(2px 2px at 40% 10%,#ffd700 0%,transparent 100%),
+  radial-gradient(1px 1px at 65% 40%,#fff 0%,transparent 100%),
+  radial-gradient(2px 2px at 80% 15%,#b388ff 0%,transparent 100%),
+  radial-gradient(1px 1px at 25% 70%,#fff 0%,transparent 100%),
+  radial-gradient(1px 1px at 90% 60%,#ffd700 0%,transparent 100%);
+  animation:twinkle 3s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.5}to{opacity:1}}
+.intro-box{
+  position:relative;text-align:center;
+  padding:36px 32px;
+  padding-bottom:calc(36px + var(--safe-bottom));
+  background:rgba(255,255,255,.07);
+  border:3px solid var(--gold);border-radius:28px;
+  width:min(400px,92%);
+  box-shadow:0 0 60px rgba(245,197,24,.3)
+}
+.logo{font-size:64px;animation:bob 2.5s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+h1{font-family:var(--font);font-size:30px;color:var(--gold);
+  text-shadow:0 2px 12px rgba(245,197,24,.5);margin:8px 0 4px}
+.sub{color:#c8b8ff;font-size:14px;margin-bottom:22px;line-height:1.5}
+#inp-name{
+  width:100%;padding:14px 18px;border-radius:14px;
+  border:2px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1);color:#fff;
+  font-size:18px;font-family:var(--body);font-weight:600;outline:none;
+  /* Samsung keyboard push fix */
+  -webkit-appearance:none;
+}
+#inp-name::placeholder{color:rgba(255,255,255,.4)}
+#inp-name:focus{border-color:var(--gold)}
+.btn{
+  display:block;width:100%;margin-top:12px;
+  /* Minimum 48px touch target */
+  padding:15px;border:none;border-radius:14px;cursor:pointer;
+  font-family:var(--font);font-size:20px;
+  transition:transform .15s,box-shadow .15s;
+  min-height:54px;
+}
+.btn-gold{background:linear-gradient(135deg,#f5c518,#c8960c);color:#3a2000;box-shadow:0 5px 0 #7a5000}
+.btn-gold:active{transform:translateY(3px);box-shadow:0 2px 0 #7a5000}
+
+/* ── MAP ── */
+#s-map{background:linear-gradient(180deg,#6ec6f5 0%,#a8e063 65%,#5cb85c 100%)}
+#hud{
+  position:absolute;top:0;left:0;right:0;
+  padding-top:calc(8px + var(--safe-top));
+  padding-bottom:8px;padding-left:16px;padding-right:16px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);z-index:10;gap:8px
+}
+#hud-name{font-family:var(--font);color:var(--gold);font-size:15px;white-space:nowrap}
+.hud-badges{display:flex;gap:8px}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:13px;font-weight:800;padding:5px 12px;border-radius:20px;white-space:nowrap}
+.badge.star{color:var(--gold)}
+#btn-report{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:13px;font-weight:800;padding:7px 14px;border-radius:12px;cursor:pointer;
+  font-family:var(--body);min-width:44px;min-height:44px;
+}
+#map-scene{position:relative;width:100%;height:100%;overflow:hidden}
+#map-scene::before{content:"☁️   ☁️   ☁️";position:absolute;top:8%;left:5%;
+  font-size:24px;opacity:.7;pointer-events:none;letter-spacing:24px}
+
+/* NPC pins — lớn hơn để dễ tap */
+.npc-pin{position:absolute;display:flex;flex-direction:column;align-items:center;
+  cursor:pointer;/* minimum touch area */padding:4px}
+.npc-pin:active .npc-bubble{transform:scale(0.95)}
+.npc-bubble{background:var(--card);border:3px solid #e0c060;border-radius:18px;
+  padding:10px 12px;text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+  transition:transform .15s;position:relative;
+  /* Đủ lớn để tap */min-width:70px;
+}
+.npc-face{font-size:36px;line-height:1;display:block}
+.npc-label{font-family:var(--font);font-size:11px;color:#5a3000;margin-top:2px;white-space:nowrap}
+.q-dot{position:absolute;top:-8px;right:-8px;background:var(--pink);color:#fff;font-size:11px;
+  font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;border:2px solid #fff;animation:bob 1s ease-in-out infinite}
+.done-dot{background:#4caf50}
+.npc-pin.locked .npc-bubble{filter:grayscale(.8);opacity:.5}
+.lock-tag{font-size:11px;font-weight:800;color:#444;margin-top:4px;
+  background:rgba(255,255,255,.7);padding:2px 8px;border-radius:10px}
+
+/* ── DIALOGUE ── */
+#s-talk{background:linear-gradient(160deg,#0d0628,#1a0840,#0d1a30)}
+.talk-wrap{
+  display:flex;flex-direction:column;height:100%;width:100%;max-width:560px;margin:0 auto;
+  /* Account for Android nav bar at bottom */
+  padding-bottom:var(--safe-bottom);
+}
+.talk-head{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 16px;
+  padding-top:calc(12px + var(--safe-top));
+  background:rgba(255,255,255,.06);
+  border-bottom:2px solid rgba(255,255,255,.08);flex-shrink:0
+}
+#t-face{font-size:46px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.t-info{flex:1}
+#t-name{font-family:var(--font);font-size:20px;color:var(--gold)}
+#t-role{font-size:12px;color:#b8aadd;font-weight:600}
+#btn-back{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#ccc;
+  font-size:13px;font-weight:800;padding:10px 16px;border-radius:12px;cursor:pointer;
+  font-family:var(--body);min-height:44px;white-space:nowrap;
+}
+#chat{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  padding:14px 14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+#chat::-webkit-scrollbar{width:3px}
+#chat::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
+.msg{display:flex;align-items:flex-end;gap:8px;max-width:84%;animation:fadeUp .2s ease-out}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg.npc{align-self:flex-start}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.av{font-size:22px;flex-shrink:0}
+.bub{padding:11px 15px;border-radius:18px;font-size:16px;font-weight:700;line-height:1.5}
+.npc .bub{background:rgba(255,255,255,.11);color:#fff;border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,.12)}
+.me  .bub{background:linear-gradient(135deg,#7c4dff,#512da8);color:#fff;border-bottom-right-radius:4px}
+.fix .bub{background:rgba(255,160,50,.12);color:#ffcc88;border:1px solid rgba(255,160,50,.25);font-size:14px;border-radius:12px}
+.dots span{display:inline-block;width:8px;height:8px;background:rgba(255,255,255,.5);border-radius:50%;
+  margin:0 2px;animation:dot 1.2s ease-in-out infinite}
+.dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* Items */
+#item-row{padding:10px 14px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+#item-row p{font-size:13px;color:#b8aadd;font-weight:800;margin-bottom:8px}
+#item-grid{display:flex;flex-wrap:wrap;gap:8px}
+.item-btn{
+  background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);border-radius:14px;
+  padding:12px 16px;cursor:pointer;color:#fff;font-weight:800;font-size:15px;
+  font-family:var(--body);display:flex;align-items:center;gap:8px;
+  /* Big touch target */min-height:52px;transition:background .15s;
+}
+.item-btn:active{background:rgba(245,197,24,.25);border-color:var(--gold)}
+.item-icon{font-size:24px}
+
+/* Input */
+#inp-area{padding:10px 12px;background:rgba(0,0,0,.4);border-top:2px solid rgba(255,255,255,.08);flex-shrink:0}
+#hint{background:rgba(110,198,245,.12);border:1px solid rgba(110,198,245,.3);border-radius:10px;
+  padding:8px 13px;margin-bottom:8px;font-size:13px;color:#90d8ff;font-weight:700;display:none}
+#inp-row{display:flex;gap:8px}
+#txt{
+  flex:1;padding:13px 15px;border-radius:12px;border:2px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.09);color:#fff;font-size:16px;
+  font-family:var(--body);font-weight:700;outline:none;
+  min-height:50px;-webkit-appearance:none;
+}
+#txt::placeholder{color:rgba(255,255,255,.35)}
+#txt:focus{border-color:var(--purple)}
+/* Mic + Send — lớn dễ tap */
+#btn-mic{
+  width:52px;height:52px;
+  background:linear-gradient(135deg,#e91e63,#880e4f);
+  border:none;border-radius:14px;font-size:22px;cursor:pointer;
+  box-shadow:0 4px 0 #560027;flex-shrink:0;
+}
+#btn-mic:active{transform:translateY(3px);box-shadow:0 1px 0 #560027}
+#btn-mic.on{background:linear-gradient(135deg,#ff1744,#f50057);
+  animation:pulseMic .7s ease-in-out infinite alternate}
+@keyframes pulseMic{
+  from{box-shadow:0 4px 0 #560027}
+  to{box-shadow:0 4px 0 #560027,0 0 0 10px rgba(255,23,68,0)}}
+#btn-send{
+  padding:0 18px;height:52px;
+  background:linear-gradient(135deg,#7c4dff,#512da8);
+  border:none;border-radius:14px;color:#fff;font-family:var(--font);
+  font-size:16px;cursor:pointer;box-shadow:0 4px 0 #2a0080;flex-shrink:0;
+}
+#btn-send:active{transform:translateY(3px);box-shadow:0 1px 0 #2a0080}
+#chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.chip{
+  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#e8e0ff;
+  font-size:14px;font-weight:800;padding:9px 16px;border-radius:20px;cursor:pointer;
+  font-family:var(--body);min-height:42px;
+}
+.chip:active{background:rgba(124,77,255,.3);border-color:var(--purple);color:#fff}
+
+/* ── MODALS ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;
+  justify-content:center;z-index:100;backdrop-filter:blur(4px);
+  padding:16px;padding-bottom:calc(16px + var(--safe-bottom))}
+.overlay.on{display:flex}
+.mbox{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
+  border-radius:24px;padding:26px;width:100%;max-width:420px;
+  max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+  box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.mbox h2{font-family:var(--font);font-size:22px;color:var(--gold);margin-bottom:16px;text-align:center}
+.mclose{display:block;margin:16px auto 0;padding:12px 28px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);color:#ccc;font-size:15px;font-weight:800;
+  border-radius:12px;cursor:pointer;font-family:var(--body);min-height:48px}
+#rew-anim{font-size:60px;animation:pop .5s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes pop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1)}}
+#rew-title{font-family:var(--font);font-size:22px;color:var(--gold);margin:8px 0 6px}
+#rew-desc{color:#c8aaff;font-size:14px;font-weight:700;margin-bottom:16px}
+#rew-badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.rb{background:rgba(255,255,255,.09);border:2px solid #c8960c;border-radius:12px;
+  padding:10px 16px;color:var(--gold);font-size:14px;font-weight:800;text-align:center}
+#m-report .sec{background:rgba(255,255,255,.06);border-radius:12px;padding:13px;margin-bottom:10px}
+#m-report .sec h3{font-family:var(--font);font-size:15px;color:var(--gold);margin-bottom:7px}
+#m-report .sec p{color:#d0c8ff;font-size:13px;font-weight:700;line-height:1.8}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{background:rgba(124,77,255,.25);border:1px solid rgba(124,77,255,.4);color:#d0aaff;
+  font-size:12px;padding:4px 12px;border-radius:20px;font-weight:800}
+.unlock-em{font-size:52px;animation:bob 2s ease-in-out infinite}
+#ul-title{font-family:var(--font);font-size:22px;color:var(--gold);margin:10px 0 6px}
+#ul-desc{color:#c8aaff;font-size:14px;font-weight:700;margin-bottom:18px}
+
+/* Status bars */
+#tts-bar{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(124,77,255,.9);color:#fff;font-weight:800;font-size:13px;
+  padding:8px 20px;border-radius:24px;z-index:200;display:none;font-family:var(--body)}
+#mic-toast{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(233,30,99,.9);color:#fff;font-weight:800;font-size:14px;
+  padding:10px 24px;border-radius:28px;z-index:200;display:none;font-family:var(--body)}
+#toast{position:fixed;bottom:calc(20px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.88);color:#fff;font-weight:800;font-size:14px;
+  padding:10px 24px;border-radius:28px;z-index:300;display:none;font-family:var(--body);
+  width:max-content;max-width:90vw;text-align:center}
+
+/* Audio unlock overlay */
+#audio-unlock{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;
+  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+#audio-unlock div{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
+  border-radius:24px;padding:32px;text-align:center;width:min(320px,88%)}
+#audio-unlock .big{font-size:52px;margin-bottom:12px}
+#audio-unlock p{color:#c8b8ff;font-size:15px;font-weight:700;margin-bottom:20px;line-height:1.5}
+</style>
+</head>
+<body>
+
+<!-- Audio unlock (Android autoplay policy) -->
+<div id="audio-unlock">
+  <div>
+    <div class="big">🔊</div>
+    <p>Tap to start<br>the adventure!</p>
+    <button class="btn btn-gold" style="font-size:18px" onclick="unlockAudio()">Let's Go! 🚀</button>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="s-intro" class="screen">
+  <div class="stars"></div>
+  <div class="intro-box">
+    <div class="logo">🗺️</div>
+    <h1 translate="no">English Adventure</h1>
+    <p class="sub">Nói tiếng Anh để khám phá Magic Town! ✨</p>
+    <input id="inp-name" placeholder="What is your name?"
+      maxlength="18" autocomplete="off" autocorrect="off"
+      autocapitalize="words" spellcheck="false">
+    <button class="btn btn-gold" onclick="startGame()">🚀 Start Adventure!</button>
+  </div>
+</div>
+
+<!-- MAP -->
+<div id="s-map" class="screen">
+  <div id="hud">
+    <span id="hud-name">🧒 Explorer</span>
+    <div class="hud-badges">
+      <span class="badge star" id="b-stars">⭐ 0</span>
+      <span class="badge" id="b-coins">🪙 0</span>
+    </div>
+    <button id="btn-report" onclick="showReport()">📊 Report</button>
+  </div>
+  <div id="map-scene">
+    <div class="npc-pin" id="pin-leo"  style="left:6%;top:36%"  onclick="openTalk('leo')">
+      <div class="npc-bubble"><span class="npc-face">💂</span><div class="npc-label" translate="no">Guard Leo</div><div class="q-dot" id="dot-leo">!</div></div>
+    </div>
+    <div class="npc-pin" id="pin-tom"  style="left:33%;top:11%" onclick="openTalk('tom')">
+      <div class="npc-bubble"><span class="npc-face">👨‍🌾</span><div class="npc-label" translate="no">Farmer Tom</div><div class="q-dot" id="dot-tom">!</div></div>
+    </div>
+    <div class="npc-pin" id="pin-lucy" style="left:60%;top:9%"  onclick="openTalk('lucy')">
+      <div class="npc-bubble"><span class="npc-face">👩‍🍳</span><div class="npc-label" translate="no">Chef Lucy</div><div class="q-dot" id="dot-lucy">!</div></div>
+    </div>
+    <div class="npc-pin locked" id="pin-mia"  style="left:80%;top:16%" onclick="openTalk('mia')">
+      <div class="npc-bubble"><span class="npc-face">👩‍⚕️</span><div class="npc-label" translate="no">Dr. Mia</div></div>
+      <div class="lock-tag" id="lt-mia">🔒 2⭐</div>
+    </div>
+    <div class="npc-pin locked" id="pin-nora" style="left:25%;top:58%" onclick="openTalk('nora')">
+      <div class="npc-bubble"><span class="npc-face">🧙‍♀️</span><div class="npc-label" translate="no">Wizard Nora</div></div>
+      <div class="lock-tag" id="lt-nora">🔒 4⭐</div>
+    </div>
+    <div class="npc-pin locked" id="pin-max"  style="left:60%;top:56%" onclick="openTalk('max')">
+      <div class="npc-bubble"><span class="npc-face">🐶</span><div class="npc-label" translate="no">Puppy Max</div></div>
+      <div class="lock-tag" id="lt-max">🔒 6⭐</div>
+    </div>
+  </div>
+</div>
+
+<!-- DIALOGUE -->
+<div id="s-talk" class="screen">
+  <div class="talk-wrap">
+    <div class="talk-head">
+      <div id="t-face">💂</div>
+      <div class="t-info">
+        <div id="t-name" translate="no">Guard Leo</div>
+        <div id="t-role">Town Gate Guardian</div>
+      </div>
+      <button id="btn-back" onclick="goMap()">← Map</button>
+    </div>
+    <div id="chat"></div>
+    <div id="item-row" style="display:none">
+      <p>👇 Choose the right item:</p>
+      <div id="item-grid"></div>
+    </div>
+    <div id="inp-area">
+      <div id="hint"></div>
+      <div id="inp-row">
+        <input id="txt" placeholder="Type in English…"
+          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();send()}">
+        <button id="btn-mic" onclick="toggleMic()">🎤</button>
+        <button id="btn-send" onclick="send()">Go ➤</button>
+      </div>
+      <div id="chips"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div id="m-reward" class="overlay" onclick="if(event.target===this)closeModal('m-reward')">
+  <div class="mbox" style="text-align:center">
+    <div id="rew-anim">🎉</div>
+    <div id="rew-title">Quest Complete!</div>
+    <div id="rew-desc"></div>
+    <div id="rew-badges"></div>
+    <button class="btn btn-gold" style="font-size:16px" onclick="closeModal('m-reward')">Awesome! ✨</button>
+  </div>
+</div>
+<div id="m-unlock" class="overlay" onclick="if(event.target===this)closeModal('m-unlock')">
+  <div class="mbox" style="text-align:center">
+    <div class="unlock-em">🔓</div>
+    <div id="ul-title">New Area!</div>
+    <div id="ul-desc"></div>
+    <button class="btn btn-gold" style="font-size:16px" onclick="closeModal('m-unlock')">Explore! 🗺️</button>
+  </div>
+</div>
+<div id="m-report" class="overlay" onclick="if(event.target===this)closeModal('m-report')">
+  <div class="mbox">
+    <h2>📊 Learning Report</h2>
+    <div id="report-body"></div>
+    <button class="mclose" onclick="closeModal('m-report')">Close</button>
+  </div>
+</div>
+
+<div id="tts-bar">🔊 Speaking…</div>
+<div id="mic-toast">🎤 Listening… speak now!</div>
+<div id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════
+// 🔑 ĐIỀN KEY VÀO ĐÂY
+// ══════════════════════════════════════════
+const OPENAI_KEY     = 'sk-...';
+const ELEVENLABS_KEY = 'sk_...';
+const EL_VOICE_ID    = '21m00Tcm4TlvDq8ikWAM'; // Rachel — thân thiện, rõ ràng
+
+// ══════════════════════════════════════════
+// NPC DATA
+// ══════════════════════════════════════════
+const NPCS = {
+  leo:  { name:'Guard Leo',    face:'💂',  role:'Town Gate Guardian',
+    words:['hello','name','key','open','find'],
+    quest:{id:'q1',stars:1,coins:5,item:{icon:'🏰',label:'Gate Badge'}},
+    script:[
+      {say:"Hello, traveler! What is your name?",      key:'name',  chips:["My name is Ben.","My name is Sam."],    hint:"Say: My name is [your name]"},
+      {say:"Nice to meet you! Can you help me?",       key:'yes',   chips:["Yes, I can!","Sure!"],                  hint:"Say: Yes, I can!"},
+      {say:"I lost my red key. Find it for me!",       key:null,    chips:[],  hint:"Pick the right item!", items:true},
+      {say:"You found it! Say: I found the red key.",  key:'found', chips:["I found the red key!"],                 hint:"Say: I found the red key!"},
+      {say:"Great job! You earned a star! ⭐",          key:null,    chips:["Thank you!"], hint:"", done:true},
+    ],
+    items:[{icon:'🗝️',label:'Red Key',ok:true},{icon:'🔑',label:'Blue Key',ok:false},{icon:'🍎',label:'Apple',ok:false}]
+  },
+  tom:  { name:'Farmer Tom',   face:'👨‍🌾', role:'Happy Farmer',
+    words:['like','apple','water','tree','give'],
+    quest:{id:'q2',stars:1,coins:8,item:{icon:'🍎',label:'Magic Apple'}},
+    script:[
+      {say:"Hello! Do you like apples?",               key:'like',  chips:["Yes, I like apples!"],                 hint:"Say: Yes, I like apples!"},
+      {say:"My tree needs water. Can you help?",       key:'yes',   chips:["Yes, I can help!"],                    hint:"Say: Yes, I can help!"},
+      {say:"Find the water for me, please!",           key:null,    chips:[],  hint:"Pick the right item!", items:true},
+      {say:"Say: I give you the water.",               key:'give',  chips:["I give you the water!"],               hint:"Say: I give you the water!"},
+      {say:"Thank you! Here is a magic apple! 🍎⭐",    key:null,    chips:["Thank you!"], hint:"", done:true},
+    ],
+    items:[{icon:'💧',label:'Water',ok:true},{icon:'🍞',label:'Bread',ok:false},{icon:'🌸',label:'Flower',ok:false}]
+  },
+  lucy: { name:'Chef Lucy',    face:'👩‍🍳', role:'Magic Kitchen Chef',
+    words:['hungry','want','egg','soup','cook'],
+    quest:{id:'q3',stars:1,coins:6,item:{icon:'🍲',label:'Magic Soup'}},
+    script:[
+      {say:"Welcome! Are you hungry?",                 key:'yes',   chips:["Yes, I am hungry!"],                   hint:"Say: Yes, I am hungry!"},
+      {say:"What do you want to eat?",                 key:'want',  chips:["I want soup!"],                        hint:"Say: I want soup!"},
+      {say:"I need one egg. Can you find it?",         key:null,    chips:[],  hint:"Pick the right item!", items:true},
+      {say:"Say: Here is the egg, Chef Lucy!",         key:'egg',   chips:["Here is the egg, Chef Lucy!"],         hint:"Say: Here is the egg!"},
+      {say:"Amazing! Magic soup is ready! 🍲⭐",        key:null,    chips:["Thank you!","Yummy!"], hint:"", done:true},
+    ],
+    items:[{icon:'🥚',label:'Egg',ok:true},{icon:'🥛',label:'Milk',ok:false},{icon:'🗝️',label:'Key',ok:false}]
+  },
+  mia:  { name:'Doctor Mia',   face:'👩‍⚕️', role:'Town Doctor', unlock:2,
+    words:['feel','good','hurt','help','better'],
+    quest:{id:'q4',stars:1,coins:10,item:{icon:'💊',label:'Magic Medicine'}},
+    script:[
+      {say:"Hello! How do you feel today?",            key:'good',  chips:["I feel good!"],                        hint:"Say: I feel good!"},
+      {say:"A bird has a hurt leg! Can you help?",     key:'help',  chips:["Yes, I can help!"],                    hint:"Say: I can help!"},
+      {say:"Find a bandage for the bird!",             key:null,    chips:[],  hint:"Pick the right item!", items:true},
+      {say:"Say: The bird feels better now!",          key:'better',chips:["The bird feels better now!"],          hint:"Say: The bird feels better!"},
+      {say:"Well done! You are so kind! 🐦⭐",          key:null,    chips:["Thank you!"], hint:"", done:true},
+    ],
+    items:[{icon:'🩹',label:'Bandage',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🗝️',label:'Key',ok:false}]
+  },
+  nora: { name:'Wizard Nora',  face:'🧙‍♀️', role:'Forest Wizard', unlock:4,
+    words:['explore','flower','river','magic','find'],
+    quest:{id:'q5',stars:2,coins:15,item:{icon:'🪄',label:'Magic Wand'}},
+    script:[
+      {say:"Hello explorer! Why are you here?",        key:'explore',chips:["I want to explore!"],                 hint:"Say: I want to explore!"},
+      {say:"I lost my magic flower! Can you find it?", key:'help',   chips:["Yes, I can help!"],                   hint:"Say: I can help!"},
+      {say:"Look near the river! Find the flower!",    key:null,     chips:[],  hint:"Pick the right item!", items:true},
+      {say:"Say: I found the magic flower!",           key:'flower', chips:["I found the magic flower!"],          hint:"Say: I found the magic flower!"},
+      {say:"Incredible! Take my magic wand! 🪄⭐⭐",    key:null,     chips:["Thank you!","Wow!"], hint:"", done:true},
+    ],
+    items:[{icon:'🌸',label:'Magic Flower',ok:true},{icon:'🪨',label:'Stone',ok:false},{icon:'💧',label:'Water',ok:false}]
+  },
+  max:  { name:'Puppy Max',    face:'🐶',  role:'Lost Puppy', unlock:6,
+    words:['lost','help','crown','home','find'],
+    quest:{id:'q6',stars:2,coins:20,item:{icon:'👑',label:'Hero Crown'}},
+    script:[
+      {say:"Woof! I am Max. I am lost! Help me!",      key:'help',  chips:["I will help you!"],                   hint:"Say: I will help you!"},
+      {say:"I need the golden crown. Find it!",        key:null,    chips:[],  hint:"Pick the right item!", items:true},
+      {say:"Say: Here is the crown, Max!",             key:'crown', chips:["Here is the crown, Max!"],             hint:"Say: Here is the crown!"},
+      {say:"WOOF! I am home! You are the best! 👑⭐⭐",  key:null,    chips:["You're welcome!"], hint:"", done:true},
+    ],
+    items:[{icon:'👑',label:'Crown',ok:true},{icon:'🕯️',label:'Candle',ok:false},{icon:'🚪',label:'Door',ok:false}]
+  }
+};
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let G={name:'Explorer',stars:0,coins:0,done:[],words:[],mistakes:0,inv:[],start:Date.now()};
+let cur=null,step=0,micOn=false,recog=null,aiHistory=[];
+function load(){try{const s=localStorage.getItem('eng_rpg3');if(s)G={...G,...JSON.parse(s)}}catch(e){}}
+function save(){try{localStorage.setItem('eng_rpg3',JSON.stringify(G))}catch(e){}}
+
+// ══════════════════════════════════════════
+// AUDIO UNLOCK (Android autoplay fix)
+// ══════════════════════════════════════════
+let audioCtx=null;
+function unlockAudio(){
+  // Create AudioContext on user gesture — required by Android Chrome
+  try{ audioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  document.getElementById('audio-unlock').style.display='none';
+  show('s-intro');
+}
+
+// ══════════════════════════════════════════
+// SCREENS
+// ══════════════════════════════════════════
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
+function startGame(){
+  const n=document.getElementById('inp-name').value.trim();
+  G.name=n||'Explorer'; save(); updateHUD(); refreshMap(); show('s-map');
+}
+function goMap(){stopAudio();stopMic();show('s-map');cur=null}
+
+// ══════════════════════════════════════════
+// HUD + MAP
+// ══════════════════════════════════════════
+function updateHUD(){
+  document.getElementById('hud-name').textContent='🧒 '+G.name;
+  document.getElementById('b-stars').textContent='⭐ '+G.stars;
+  document.getElementById('b-coins').textContent='🪙 '+G.coins;
+}
+function refreshMap(){
+  Object.keys(NPCS).forEach(id=>{
+    const dot=document.getElementById('dot-'+id);
+    if(dot&&G.done.includes(NPCS[id].quest.id)){dot.textContent='✅';dot.classList.add('done-dot')}
+  });
+  Object.entries({mia:2,nora:4,max:6}).forEach(([id,req])=>{
+    if(G.stars>=req){
+      const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
+      if(pin)pin.classList.remove('locked');
+      if(lt)lt.style.display='none';
+    }
+  });
+}
+
+// ══════════════════════════════════════════
+// ELEVENLABS TTS
+// ══════════════════════════════════════════
+let curAudio=null;
+async function speak(text){
+  stopAudio();
+  if(!ELEVENLABS_KEY||ELEVENLABS_KEY==='sk_...'){browserSpeak(text);return}
+  document.getElementById('tts-bar').style.display='block';
+  try{
+    const res=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${EL_VOICE_ID}`,{
+      method:'POST',
+      headers:{'xi-api-key':ELEVENLABS_KEY,'Content-Type':'application/json','Accept':'audio/mpeg'},
+      body:JSON.stringify({text,model_id:'eleven_turbo_v2',
+        voice_settings:{stability:0.5,similarity_boost:0.75,style:0.3,use_speaker_boost:true}})
+    });
+    if(!res.ok)throw new Error('EL '+res.status);
+    const blob=await res.blob();
+    const url=URL.createObjectURL(blob);
+    curAudio=new Audio(url);
+    // Resume AudioContext if suspended (Android)
+    if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
+    curAudio.onended=()=>{document.getElementById('tts-bar').style.display='none';URL.revokeObjectURL(url)};
+    curAudio.onerror=()=>document.getElementById('tts-bar').style.display='none';
+    await curAudio.play();
+  }catch(e){
+    document.getElementById('tts-bar').style.display='none';
+    console.warn('ElevenLabs:',e.message);
+    browserSpeak(text);
+  }
+}
+function stopAudio(){
+  if(curAudio){curAudio.pause();curAudio=null}
+  document.getElementById('tts-bar').style.display='none';
+  window.speechSynthesis?.cancel();
+}
+function browserSpeak(text){
+  const s=window.speechSynthesis;if(!s)return;
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US';u.rate=0.88;u.pitch=1.1;
+  const v=s.getVoices();
+  const p=v.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google')||x.name.includes('Samantha')))||v.find(x=>x.lang.startsWith('en'));
+  if(p)u.voice=p;
+  s.speak(u);
+}
+
+// ══════════════════════════════════════════
+// OPENAI
+// ══════════════════════════════════════════
+const SYS=(npc,s,t)=>`You are ${npc.name}, a friendly NPC in a children's English RPG.
+Child is 6-10 years old, Vietnamese. RULES: max 10 words per sentence. Simple English only.
+One question at a time. Be warm and encouraging. Quest step ${s}/${t}.
+If quest is done say QUEST_DONE. If child needs to pick item say SHOW_ITEMS. Stay in fantasy world.`;
+
+async function askAI(npc,msg){
+  if(!OPENAI_KEY||OPENAI_KEY==='sk-...')return{reply:null,done:false,showItems:false};
+  try{
+    const r=await fetch('https://api.openai.com/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+OPENAI_KEY},
+      body:JSON.stringify({model:'gpt-4o-mini',max_tokens:100,temperature:0.7,
+        messages:[{role:'system',content:SYS(npc,step,npc.script.length)},...aiHistory,{role:'user',content:msg}]})
+    });
+    if(!r.ok)throw new Error(r.status);
+    const d=await r.json();
+    const reply=d.choices?.[0]?.message?.content?.trim()||'';
+    aiHistory.push({role:'user',content:msg},{role:'assistant',content:reply});
+    const done=reply.includes('QUEST_DONE'),showItems=reply.includes('SHOW_ITEMS');
+    return{reply:reply.replace(/QUEST_DONE|SHOW_ITEMS/g,'').trim(),done,showItems};
+  }catch(e){console.warn('OpenAI:',e.message);return{reply:null,done:false,showItems:false}}
+}
+
+// ══════════════════════════════════════════
+// DIALOGUE
+// ══════════════════════════════════════════
+function openTalk(id){
+  const npc=NPCS[id];if(!npc)return;
+  if(npc.unlock&&G.stars<npc.unlock){toast(`🔒 Need ${npc.unlock} ⭐ first!`);return}
+  cur=id;step=0;aiHistory=[];
+  document.getElementById('t-face').textContent=npc.face;
+  document.getElementById('t-name').textContent=npc.name;
+  document.getElementById('t-role').textContent=npc.role;
+  clearChat();hideItems();setChips([]);setHint('');
+  document.getElementById('txt').value='';
+  show('s-talk');
+  if(G.done.includes(npc.quest.id)){
+    const lines=["You already helped me! Thank you! 😊","Hi again, friend! You are great! ⭐","Welcome back, brave explorer! 🎉"];
+    const m=lines[~~(Math.random()*lines.length)];
+    setTimeout(()=>{addNPC(m);speak(m)},400);
+    return;
+  }
+  setTimeout(runStep,400);
+}
+function runStep(){
+  const npc=NPCS[cur];if(!npc||step>=npc.script.length)return;
+  const s=npc.script[step];
+  addNPC(s.say);speak(s.say);setChips(s.chips||[]);setHint(s.hint||'');
+  if(s.items)showItems(npc.items);else hideItems();
+}
+function send(){
+  const v=document.getElementById('txt').value.trim();
+  if(!v||!cur)return;
+  document.getElementById('txt').value='';
+  addMe(v);setChips([]);
+  processInput(v);
+}
+async function processInput(text){
+  showTyping();
+  const ai=await askAI(NPCS[cur],text);
+  removeTyping();
+  if(ai.reply){
+    addNPC(ai.reply);speak(ai.reply);
+    if(ai.done){setTimeout(completeQuest,1200);return}
+    if(ai.showItems){showItems(NPCS[cur].items);return}
+    step++;if(step>=NPCS[cur].script.length)completeQuest();
+    save();
+  }else{
+    handleMock(text);
+  }
+}
+function handleMock(text){
+  const npc=NPCS[cur],s=npc.script[step];if(!s)return;
+  const low=text.toLowerCase();
+  if(s.key){
+    const ok=low.includes(s.key)||(s.chips||[]).some(c=>low.includes(c.toLowerCase().split(' ')[0]));
+    if(!ok){
+      G.mistakes++;
+      const f=[`Almost! Try: "${s.chips[0]}" 😊`,`Good try! Say: "${s.chips[0]}"`,`You can do it! 💪`][~~(Math.random()*3)];
+      setTimeout(()=>{addFix(f);speak(f)},300);return;
+    }
+    if(!G.words.includes(s.key))G.words.push(s.key);
+  }
+  npc.words.forEach(w=>{if(!G.words.includes(w))G.words.push(w)});
+  step++;
+  if(step>=npc.script.length){completeQuest();return}
+  const ns=npc.script[step];if(ns.done){completeQuest();return}
+  showTyping();setTimeout(()=>{removeTyping();runStep()},800);
+  save();
+}
+
+// Items
+function showItems(items){
+  const g=document.getElementById('item-grid');g.innerHTML='';
+  items.forEach(it=>{
+    const b=document.createElement('button');b.className='item-btn';
+    b.innerHTML=`<span class="item-icon">${it.icon}</span>${it.label}`;
+    b.onclick=()=>pickItem(it);g.appendChild(b);
+  });
+  document.getElementById('item-row').style.display='';
+}
+function hideItems(){document.getElementById('item-row').style.display='none'}
+function pickItem(it){
+  addMe(`${it.icon} ${it.label}`);hideItems();
+  if(it.ok){
+    step++;showTyping();setTimeout(()=>{removeTyping();runStep()},800);
+  }else{
+    const w=["That is not it! Try again! 😊","Hmm, look again! 👀","Not that one!"][~~(Math.random()*3)];
+    setTimeout(()=>{addNPC(w);speak(w);showItems(NPCS[cur].items)},500);
+  }
+}
+
+// Complete quest
+function completeQuest(){
+  const npc=NPCS[cur],q=npc.quest;
+  if(!G.done.includes(q.id))G.done.push(q.id);
+  G.stars+=q.stars;G.coins+=q.coins;
+  if(q.item&&!G.inv.some(i=>i.label===q.item.label))G.inv.push(q.item);
+  save();updateHUD();checkUnlocks();goMap();
+  document.getElementById('rew-anim').textContent='🎉';
+  document.getElementById('rew-title').textContent='Quest Complete!';
+  document.getElementById('rew-desc').textContent=npc.name+' is very happy!';
+  document.getElementById('rew-badges').innerHTML=
+    `<div class="rb">⭐ +${q.stars}</div><div class="rb">🪙 +${q.coins}</div>`+
+    (q.item?`<div class="rb">${q.item.icon} ${q.item.label}</div>`:'');
+  openModal('m-reward');
+  speak(`Quest complete! You earned ${q.stars} star!`);
+  refreshMap();
+}
+function checkUnlocks(){
+  Object.entries({mia:2,nora:4,max:6}).forEach(([id,req])=>{
+    const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
+    if(G.stars>=req&&pin&&pin.classList.contains('locked')){
+      pin.classList.remove('locked');if(lt)lt.style.display='none';
+      const n={mia:'🏥 Clinic — Dr. Mia is waiting!',nora:'🌲 Magic Forest — Wizard Nora!',max:'🏯 Castle — Puppy Max needs help!'};
+      document.getElementById('ul-title').textContent='New Area Unlocked!';
+      document.getElementById('ul-desc').textContent=n[id]||id;
+      setTimeout(()=>openModal('m-unlock'),1600);
+    }
+  });
+}
+
+// ══════════════════════════════════════════
+// CHAT LOG
+// ══════════════════════════════════════════
+function addNPC(t){removeTyping();add('npc',`<span class="av">${NPCS[cur]?.face||'🤖'}</span><div class="bub">${t}</div>`)}
+function addMe(t){add('me',`<span class="av">🧒</span><div class="bub">${t}</div>`)}
+function addFix(t){add('fix',`<div class="bub">💡 ${t}</div>`)}
+function add(cls,html){
+  const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;
+  const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function clearChat(){document.getElementById('chat').innerHTML=''}
+function showTyping(){
+  removeTyping();
+  const d=document.createElement('div');d.className='msg npc typing-msg';
+  d.innerHTML=`<span class="av">${NPCS[cur]?.face||'🤖'}</span><div class="bub"><div class="dots"><span></span><span></span><span></span></div></div>`;
+  const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function removeTyping(){document.querySelectorAll('.typing-msg').forEach(e=>e.remove())}
+function setChips(arr){
+  const c=document.getElementById('chips');c.innerHTML='';
+  arr.forEach(t=>{const b=document.createElement('button');b.className='chip';b.textContent=t;
+    b.onclick=()=>{document.getElementById('txt').value=t;send()};c.appendChild(b)});
+}
+function setHint(t){const h=document.getElementById('hint');h.textContent=t?'💡 '+t:'';h.style.display=t?'':'none'}
+
+// ══════════════════════════════════════════
+// MICROPHONE — Web Speech API
+// ══════════════════════════════════════════
+function toggleMic(){
+  if(micOn){stopMic();return}
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('Microphone not supported on this browser');return}
+  stopAudio();
+  recog=new SR();recog.lang='en-US';recog.interimResults=false;recog.maxAlternatives=1;
+  micOn=true;
+  document.getElementById('btn-mic').classList.add('on');
+  document.getElementById('mic-toast').style.display='block';
+  recog.onresult=e=>{const t=e.results[0][0].transcript;stopMic();document.getElementById('txt').value=t;send()};
+  recog.onerror=e=>{stopMic();if(e.error!=='aborted')toast("Couldn't hear. Try again! 🎤")};
+  recog.onend=stopMic;
+  recog.start();
+}
+function stopMic(){
+  micOn=false;try{recog&&recog.stop()}catch(e){}
+  document.getElementById('btn-mic').classList.remove('on');
+  document.getElementById('mic-toast').style.display='none';
+}
+
+// ══════════════════════════════════════════
+// MODALS / TOAST
+// ══════════════════════════════════════════
+function openModal(id){document.getElementById(id).classList.add('on')}
+function closeModal(id){document.getElementById(id).classList.remove('on')}
+function toast(msg){
+  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
+  clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2500);
+}
+
+// ══════════════════════════════════════════
+// REPORT
+// ══════════════════════════════════════════
+function showReport(){
+  const mins=Math.floor((Date.now()-G.start)/60000);
+  const words=G.words.length?G.words.map(w=>`<span class="tag">${w}</span>`).join(''):'<span style="color:#888">none yet</span>';
+  const inv=G.inv.length?G.inv.map(i=>`<span class="tag">${i.icon} ${i.label}</span>`).join(''):'<span style="color:#888">none yet</span>';
+  document.getElementById('report-body').innerHTML=`
+    <div class="sec"><h3>👦 Player</h3><p>Name: <b>${G.name}</b><br>Session: ~${mins} min</p></div>
+    <div class="sec"><h3>⭐ Progress</h3><p>Stars: <b>${G.stars}</b> &nbsp; Coins: <b>${G.coins}</b><br>Quests: <b>${G.done.length}/6</b> &nbsp; Mistakes: <b>${G.mistakes}</b></p></div>
+    <div class="sec"><h3>📚 Words practiced</h3><div class="tags">${words}</div></div>
+    <div class="sec"><h3>🎒 Items collected</h3><div class="tags">${inv}</div></div>`;
+  openModal('m-report');
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+load();
+document.getElementById('inp-name').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();startGame()}});
+window.speechSynthesis?.getVoices();
+window.speechSynthesis?.addEventListener?.('voiceschanged',()=>window.speechSynthesis.getVoices());
+</script>
+</body>
+</html>
