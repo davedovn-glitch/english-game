@@ -2,34 +2,23 @@
 <html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
-<!-- Samsung Internet + Chrome Android viewport fix -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<!-- Chặn Samsung browser auto-translate -->
 <meta name="google" content="notranslate">
 <title translate="no">English Adventure</title>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --gold:#f5c518;--card:#fffbe8;--purple:#7c4dff;--pink:#ff4081;
-  --dark:#1a1a2e;
+  --gold:#f5c518;--card:#fffbe8;--purple:#7c4dff;--pink:#ff4081;--dark:#1a1a2e;
+  --green:#4caf50;--teal:#00bcd4;
   --font:'Fredoka One',cursive;--body:'Nunito',sans-serif;
-  /* Safe area cho Android nav bar */
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --safe-top:    env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);--safe-top:env(safe-area-inset-top,0px);
 }
-html,body{
-  width:100%;height:100%;overflow:hidden;
-  font-family:var(--body);background:var(--dark);
-  /* Chặn text selection khi trẻ tap */
-  -webkit-user-select:none;user-select:none;
-  touch-action:manipulation;
-}
+html,body{width:100%;height:100%;overflow:hidden;font-family:var(--body);background:var(--dark);
+  -webkit-user-select:none;user-select:none;touch-action:manipulation}
 input,textarea{-webkit-user-select:text;user-select:text}
-
 .screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
 .screen.on{display:flex}
 
@@ -41,241 +30,221 @@ input,textarea{-webkit-user-select:text;user-select:text}
   radial-gradient(1px 1px at 65% 40%,#fff 0%,transparent 100%),
   radial-gradient(2px 2px at 80% 15%,#b388ff 0%,transparent 100%),
   radial-gradient(1px 1px at 25% 70%,#fff 0%,transparent 100%),
-  radial-gradient(1px 1px at 90% 60%,#ffd700 0%,transparent 100%);
+  radial-gradient(1px 1px at 55% 85%,#ffd700 0%,transparent 100%),
+  radial-gradient(2px 2px at 90% 50%,#fff 0%,transparent 100%);
   animation:twinkle 3s ease-in-out infinite alternate}
 @keyframes twinkle{from{opacity:.5}to{opacity:1}}
-.intro-box{
-  position:relative;text-align:center;
-  padding:36px 32px;
-  padding-bottom:calc(36px + var(--safe-bottom));
-  background:rgba(255,255,255,.07);
-  border:3px solid var(--gold);border-radius:28px;
-  width:min(400px,92%);
-  box-shadow:0 0 60px rgba(245,197,24,.3)
-}
-.logo{font-size:64px;animation:bob 2.5s ease-in-out infinite}
+.intro-box{position:relative;text-align:center;padding:28px 26px;
+  padding-bottom:calc(28px + var(--safe-bottom));
+  background:rgba(255,255,255,.07);border:3px solid var(--gold);border-radius:28px;
+  width:min(400px,92%);box-shadow:0 0 60px rgba(245,197,24,.3)}
+.logo{font-size:56px;animation:bob 2.5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-h1{font-family:var(--font);font-size:30px;color:var(--gold);
-  text-shadow:0 2px 12px rgba(245,197,24,.5);margin:8px 0 4px}
-.sub{color:#c8b8ff;font-size:14px;margin-bottom:22px;line-height:1.5}
-#inp-name{
-  width:100%;padding:14px 18px;border-radius:14px;
-  border:2px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.1);color:#fff;
-  font-size:18px;font-family:var(--body);font-weight:600;outline:none;
-  /* Samsung keyboard push fix */
-  -webkit-appearance:none;
-}
+h1{font-family:var(--font);font-size:27px;color:var(--gold);margin:6px 0 3px}
+.sub{color:#c8b8ff;font-size:13px;margin-bottom:18px;line-height:1.5}
+#inp-name{width:100%;padding:12px 15px;border-radius:13px;border:2px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1);color:#fff;font-size:17px;font-family:var(--body);
+  font-weight:600;outline:none;-webkit-appearance:none}
 #inp-name::placeholder{color:rgba(255,255,255,.4)}
 #inp-name:focus{border-color:var(--gold)}
-.btn{
-  display:block;width:100%;margin-top:12px;
-  /* Minimum 48px touch target */
-  padding:15px;border:none;border-radius:14px;cursor:pointer;
-  font-family:var(--font);font-size:20px;
-  transition:transform .15s,box-shadow .15s;
-  min-height:54px;
-}
+.btn{display:block;width:100%;margin-top:10px;padding:13px;border:none;border-radius:13px;
+  cursor:pointer;font-family:var(--font);font-size:18px;min-height:50px;
+  transition:transform .12s,box-shadow .12s}
 .btn-gold{background:linear-gradient(135deg,#f5c518,#c8960c);color:#3a2000;box-shadow:0 5px 0 #7a5000}
 .btn-gold:active{transform:translateY(3px);box-shadow:0 2px 0 #7a5000}
 
 /* ── MAP ── */
 #s-map{background:linear-gradient(180deg,#6ec6f5 0%,#a8e063 65%,#5cb85c 100%)}
-#hud{
-  position:absolute;top:0;left:0;right:0;
-  padding-top:calc(8px + var(--safe-top));
-  padding-bottom:8px;padding-left:16px;padding-right:16px;
+#hud{position:absolute;top:0;left:0;right:0;
+  padding:calc(7px + var(--safe-top)) 12px 7px;
   display:flex;align-items:center;justify-content:space-between;
-  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);z-index:10;gap:8px
-}
-#hud-name{font-family:var(--font);color:var(--gold);font-size:15px;white-space:nowrap}
-.hud-badges{display:flex;gap:8px}
+  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);z-index:10;gap:6px}
+#hud-name{font-family:var(--font);color:var(--gold);font-size:13px;white-space:nowrap}
+.hud-badges{display:flex;gap:5px}
 .badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;
-  font-size:13px;font-weight:800;padding:5px 12px;border-radius:20px;white-space:nowrap}
+  font-size:12px;font-weight:800;padding:4px 9px;border-radius:16px;white-space:nowrap}
 .badge.star{color:var(--gold)}
-#btn-report{
-  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
-  font-size:13px;font-weight:800;padding:7px 14px;border-radius:12px;cursor:pointer;
-  font-family:var(--body);min-width:44px;min-height:44px;
-}
+.hud-btns{display:flex;gap:5px}
+.hud-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:12px;font-weight:800;padding:5px 9px;border-radius:9px;cursor:pointer;
+  font-family:var(--body);min-height:34px}
+.hud-btn:active{background:rgba(255,255,255,.25)}
 #map-scene{position:relative;width:100%;height:100%;overflow:hidden}
-#map-scene::before{content:"☁️   ☁️   ☁️";position:absolute;top:8%;left:5%;
-  font-size:24px;opacity:.7;pointer-events:none;letter-spacing:24px}
-
-/* NPC pins — lớn hơn để dễ tap */
-.npc-pin{position:absolute;display:flex;flex-direction:column;align-items:center;
-  cursor:pointer;/* minimum touch area */padding:4px}
-.npc-pin:active .npc-bubble{transform:scale(0.95)}
-.npc-bubble{background:var(--card);border:3px solid #e0c060;border-radius:18px;
-  padding:10px 12px;text-align:center;
-  box-shadow:0 6px 18px rgba(0,0,0,.25);
-  transition:transform .15s;position:relative;
-  /* Đủ lớn để tap */min-width:70px;
-}
-.npc-face{font-size:36px;line-height:1;display:block}
-.npc-label{font-family:var(--font);font-size:11px;color:#5a3000;margin-top:2px;white-space:nowrap}
-.q-dot{position:absolute;top:-8px;right:-8px;background:var(--pink);color:#fff;font-size:11px;
-  font-weight:800;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;
+#map-scene::before{content:"☁️   ☁️   ☁️";position:absolute;top:7%;left:4%;
+  font-size:22px;opacity:.7;pointer-events:none;letter-spacing:22px}
+.npc-pin{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:4px}
+.npc-pin:active .npc-bubble{transform:scale(0.93)}
+.npc-bubble{background:var(--card);border:3px solid #e0c060;border-radius:17px;padding:8px 10px;
+  text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .12s;
+  position:relative;min-width:62px}
+.npc-face{font-size:32px;line-height:1;display:block}
+.npc-label{font-family:var(--font);font-size:10px;color:#5a3000;margin-top:2px;white-space:nowrap}
+.q-dot{position:absolute;top:-8px;right:-8px;background:var(--pink);color:#fff;font-size:10px;
+  font-weight:800;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;
   justify-content:center;border:2px solid #fff;animation:bob 1s ease-in-out infinite}
 .done-dot{background:#4caf50}
 .npc-pin.locked .npc-bubble{filter:grayscale(.8);opacity:.5}
-.lock-tag{font-size:11px;font-weight:800;color:#444;margin-top:4px;
-  background:rgba(255,255,255,.7);padding:2px 8px;border-radius:10px}
+.lock-tag{font-size:10px;font-weight:800;color:#444;margin-top:3px;
+  background:rgba(255,255,255,.7);padding:2px 6px;border-radius:9px}
 
 /* ── DIALOGUE ── */
 #s-talk{background:linear-gradient(160deg,#0d0628,#1a0840,#0d1a30)}
-.talk-wrap{
-  display:flex;flex-direction:column;height:100%;width:100%;max-width:560px;margin:0 auto;
-  /* Account for Android nav bar at bottom */
-  padding-bottom:var(--safe-bottom);
-}
-.talk-head{
-  display:flex;align-items:center;gap:12px;
-  padding:12px 16px;
-  padding-top:calc(12px + var(--safe-top));
-  background:rgba(255,255,255,.06);
-  border-bottom:2px solid rgba(255,255,255,.08);flex-shrink:0
-}
-#t-face{font-size:46px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
-.t-info{flex:1}
-#t-name{font-family:var(--font);font-size:20px;color:var(--gold)}
-#t-role{font-size:12px;color:#b8aadd;font-weight:600}
-#btn-back{
-  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#ccc;
-  font-size:13px;font-weight:800;padding:10px 16px;border-radius:12px;cursor:pointer;
-  font-family:var(--body);min-height:44px;white-space:nowrap;
-}
+.talk-wrap{display:flex;flex-direction:column;height:100%;width:100%;max-width:560px;margin:0 auto;
+  padding-bottom:var(--safe-bottom)}
+.talk-head{display:flex;align-items:center;gap:10px;padding:9px 13px;
+  padding-top:calc(9px + var(--safe-top));
+  background:rgba(255,255,255,.06);border-bottom:2px solid rgba(255,255,255,.08);flex-shrink:0}
+#t-face{font-size:42px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+.t-info{flex:1;min-width:0}
+#t-name{font-family:var(--font);font-size:18px;color:var(--gold)}
+#t-role{font-size:11px;color:#b8aadd;font-weight:600}
+#quest-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:3px;overflow:hidden}
+#quest-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--pink));border-radius:2px;
+  transition:width .4s ease}
+.head-btns{display:flex;gap:6px;flex-shrink:0}
+.head-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#ccc;
+  font-size:12px;font-weight:800;padding:8px 11px;border-radius:11px;cursor:pointer;
+  font-family:var(--body);min-height:40px;white-space:nowrap}
+.head-btn:active{background:rgba(255,255,255,.2)}
+.head-btn.vn{border-color:rgba(0,188,212,.4);color:#80deea}
+
 #chat{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:14px 14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+  padding:11px 11px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
 #chat::-webkit-scrollbar{width:3px}
 #chat::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-.msg{display:flex;align-items:flex-end;gap:8px;max-width:84%;animation:fadeUp .2s ease-out}
+.msg{display:flex;align-items:flex-end;gap:7px;max-width:86%;animation:fadeUp .2s ease-out}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .msg.npc{align-self:flex-start}
 .msg.me{align-self:flex-end;flex-direction:row-reverse}
-.av{font-size:22px;flex-shrink:0}
-.bub{padding:11px 15px;border-radius:18px;font-size:16px;font-weight:700;line-height:1.5}
-.npc .bub{background:rgba(255,255,255,.11);color:#fff;border-bottom-left-radius:4px;border:1px solid rgba(255,255,255,.12)}
+.av{font-size:20px;flex-shrink:0}
+.bub{padding:9px 13px;border-radius:16px;font-size:15px;font-weight:700;line-height:1.5}
+.npc .bub{background:rgba(255,255,255,.11);color:#fff;border-bottom-left-radius:4px;
+  border:1px solid rgba(255,255,255,.12)}
 .me  .bub{background:linear-gradient(135deg,#7c4dff,#512da8);color:#fff;border-bottom-right-radius:4px}
-.fix .bub{background:rgba(255,160,50,.12);color:#ffcc88;border:1px solid rgba(255,160,50,.25);font-size:14px;border-radius:12px}
-.dots span{display:inline-block;width:8px;height:8px;background:rgba(255,255,255,.5);border-radius:50%;
-  margin:0 2px;animation:dot 1.2s ease-in-out infinite}
+.fix .bub{background:rgba(255,160,50,.12);color:#ffcc88;border:1px solid rgba(255,160,50,.25);
+  font-size:13px;border-radius:11px}
+/* Vietnamese hint bubble */
+.vn-hint .bub{background:rgba(0,188,212,.12);color:#80deea;border:1px solid rgba(0,188,212,.3);
+  font-size:13px;border-radius:11px}
+/* Gemini analysis bubble */
+.analysis .bub{background:rgba(76,175,80,.1);color:#a5d6a7;border:1px solid rgba(76,175,80,.25);
+  font-size:13px;border-radius:11px;font-style:italic}
+.dots span{display:inline-block;width:7px;height:7px;background:rgba(255,255,255,.5);
+  border-radius:50%;margin:0 2px;animation:dot 1.2s ease-in-out infinite}
 .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
 
 /* Items */
-#item-row{padding:10px 14px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
-#item-row p{font-size:13px;color:#b8aadd;font-weight:800;margin-bottom:8px}
-#item-grid{display:flex;flex-wrap:wrap;gap:8px}
-.item-btn{
-  background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);border-radius:14px;
-  padding:12px 16px;cursor:pointer;color:#fff;font-weight:800;font-size:15px;
-  font-family:var(--body);display:flex;align-items:center;gap:8px;
-  /* Big touch target */min-height:52px;transition:background .15s;
-}
+#item-row{padding:8px 11px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+#item-row p{font-size:12px;color:#b8aadd;font-weight:800;margin-bottom:6px}
+#item-grid{display:flex;flex-wrap:wrap;gap:6px}
+.item-btn{background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);border-radius:12px;
+  padding:9px 13px;cursor:pointer;color:#fff;font-weight:800;font-size:13px;
+  font-family:var(--body);display:flex;align-items:center;gap:6px;min-height:46px}
 .item-btn:active{background:rgba(245,197,24,.25);border-color:var(--gold)}
-.item-icon{font-size:24px}
+.item-icon{font-size:20px}
 
 /* Input */
-#inp-area{padding:10px 12px;background:rgba(0,0,0,.4);border-top:2px solid rgba(255,255,255,.08);flex-shrink:0}
-#hint{background:rgba(110,198,245,.12);border:1px solid rgba(110,198,245,.3);border-radius:10px;
-  padding:8px 13px;margin-bottom:8px;font-size:13px;color:#90d8ff;font-weight:700;display:none}
-#inp-row{display:flex;gap:8px}
-#txt{
-  flex:1;padding:13px 15px;border-radius:12px;border:2px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.09);color:#fff;font-size:16px;
-  font-family:var(--body);font-weight:700;outline:none;
-  min-height:50px;-webkit-appearance:none;
-}
+#inp-area{padding:7px 9px;background:rgba(0,0,0,.4);border-top:2px solid rgba(255,255,255,.08);flex-shrink:0}
+#hint{background:rgba(110,198,245,.12);border:1px solid rgba(110,198,245,.3);border-radius:9px;
+  padding:5px 11px;margin-bottom:6px;font-size:12px;color:#90d8ff;font-weight:700;display:none}
+#inp-row{display:flex;gap:6px}
+#txt{flex:1;padding:11px 12px;border-radius:11px;border:2px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.09);color:#fff;font-size:15px;font-family:var(--body);
+  font-weight:700;outline:none;min-height:46px;-webkit-appearance:none}
 #txt::placeholder{color:rgba(255,255,255,.35)}
 #txt:focus{border-color:var(--purple)}
-/* Mic + Send — lớn dễ tap */
-#btn-mic{
-  width:52px;height:52px;
-  background:linear-gradient(135deg,#e91e63,#880e4f);
-  border:none;border-radius:14px;font-size:22px;cursor:pointer;
-  box-shadow:0 4px 0 #560027;flex-shrink:0;
-}
-#btn-mic:active{transform:translateY(3px);box-shadow:0 1px 0 #560027}
+#btn-mic{width:46px;height:46px;background:linear-gradient(135deg,#e91e63,#880e4f);
+  border:none;border-radius:11px;font-size:20px;cursor:pointer;box-shadow:0 3px 0 #560027;flex-shrink:0}
+#btn-mic:active{transform:translateY(2px);box-shadow:0 1px 0 #560027}
 #btn-mic.on{background:linear-gradient(135deg,#ff1744,#f50057);
   animation:pulseMic .7s ease-in-out infinite alternate}
-@keyframes pulseMic{
-  from{box-shadow:0 4px 0 #560027}
-  to{box-shadow:0 4px 0 #560027,0 0 0 10px rgba(255,23,68,0)}}
-#btn-send{
-  padding:0 18px;height:52px;
-  background:linear-gradient(135deg,#7c4dff,#512da8);
-  border:none;border-radius:14px;color:#fff;font-family:var(--font);
-  font-size:16px;cursor:pointer;box-shadow:0 4px 0 #2a0080;flex-shrink:0;
-}
-#btn-send:active{transform:translateY(3px);box-shadow:0 1px 0 #2a0080}
-#chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
-.chip{
-  background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#e8e0ff;
-  font-size:14px;font-weight:800;padding:9px 16px;border-radius:20px;cursor:pointer;
-  font-family:var(--body);min-height:42px;
-}
-.chip:active{background:rgba(124,77,255,.3);border-color:var(--purple);color:#fff}
+@keyframes pulseMic{from{box-shadow:0 3px 0 #560027}to{box-shadow:0 3px 0 #560027,0 0 0 9px rgba(255,23,68,0)}}
+#btn-send{padding:0 14px;height:46px;background:linear-gradient(135deg,#7c4dff,#512da8);
+  border:none;border-radius:11px;color:#fff;font-family:var(--font);font-size:14px;
+  cursor:pointer;box-shadow:0 3px 0 #2a0080;flex-shrink:0}
+#btn-send:active{transform:translateY(2px);box-shadow:0 1px 0 #2a0080}
+#chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+.chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#e8e0ff;
+  font-size:13px;font-weight:800;padding:7px 13px;border-radius:18px;cursor:pointer;
+  font-family:var(--body);min-height:38px}
+.chip:active{background:rgba(124,77,255,.3);border-color:var(--purple)}
 
 /* ── MODALS ── */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;
   justify-content:center;z-index:100;backdrop-filter:blur(4px);
-  padding:16px;padding-bottom:calc(16px + var(--safe-bottom))}
+  padding:14px;padding-bottom:calc(14px + var(--safe-bottom))}
 .overlay.on{display:flex}
 .mbox{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
-  border-radius:24px;padding:26px;width:100%;max-width:420px;
-  max-height:85vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  box-shadow:0 20px 60px rgba(0,0,0,.6)}
-.mbox h2{font-family:var(--font);font-size:22px;color:var(--gold);margin-bottom:16px;text-align:center}
-.mclose{display:block;margin:16px auto 0;padding:12px 28px;background:rgba(255,255,255,.1);
-  border:1px solid rgba(255,255,255,.2);color:#ccc;font-size:15px;font-weight:800;
-  border-radius:12px;cursor:pointer;font-family:var(--body);min-height:48px}
-#rew-anim{font-size:60px;animation:pop .5s cubic-bezier(.175,.885,.32,1.275)}
+  border-radius:22px;padding:22px;width:100%;max-width:420px;
+  max-height:86vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.mbox h2{font-family:var(--font);font-size:20px;color:var(--gold);margin-bottom:13px;text-align:center}
+.mclose{display:block;margin:13px auto 0;padding:10px 24px;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);color:#ccc;font-size:13px;font-weight:800;
+  border-radius:11px;cursor:pointer;font-family:var(--body);min-height:44px}
+#rew-anim{font-size:56px;animation:pop .5s cubic-bezier(.175,.885,.32,1.275);text-align:center}
 @keyframes pop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1)}}
-#rew-title{font-family:var(--font);font-size:22px;color:var(--gold);margin:8px 0 6px}
-#rew-desc{color:#c8aaff;font-size:14px;font-weight:700;margin-bottom:16px}
-#rew-badges{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
-.rb{background:rgba(255,255,255,.09);border:2px solid #c8960c;border-radius:12px;
-  padding:10px 16px;color:var(--gold);font-size:14px;font-weight:800;text-align:center}
-#m-report .sec{background:rgba(255,255,255,.06);border-radius:12px;padding:13px;margin-bottom:10px}
-#m-report .sec h3{font-family:var(--font);font-size:15px;color:var(--gold);margin-bottom:7px}
+#rew-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:7px 0 5px;text-align:center}
+#rew-desc{color:#c8aaff;font-size:13px;font-weight:700;margin-bottom:13px;text-align:center}
+#rew-badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.rb{background:rgba(255,255,255,.09);border:2px solid #c8960c;border-radius:10px;
+  padding:8px 12px;color:var(--gold);font-size:12px;font-weight:800;text-align:center}
+
+/* Report */
+#m-report .sec{background:rgba(255,255,255,.06);border-radius:11px;padding:11px;margin-bottom:9px}
+#m-report .sec h3{font-family:var(--font);font-size:14px;color:var(--gold);margin-bottom:6px}
 #m-report .sec p{color:#d0c8ff;font-size:13px;font-weight:700;line-height:1.8}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .tag{background:rgba(124,77,255,.25);border:1px solid rgba(124,77,255,.4);color:#d0aaff;
-  font-size:12px;padding:4px 12px;border-radius:20px;font-weight:800}
-.unlock-em{font-size:52px;animation:bob 2s ease-in-out infinite}
-#ul-title{font-family:var(--font);font-size:22px;color:var(--gold);margin:10px 0 6px}
-#ul-desc{color:#c8aaff;font-size:14px;font-weight:700;margin-bottom:18px}
+  font-size:11px;padding:3px 9px;border-radius:16px;font-weight:800}
+/* Gemini analysis in report */
+.ai-analysis{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.3);
+  border-radius:10px;padding:10px;margin-top:8px;color:#a5d6a7;font-size:12px;
+  font-weight:700;line-height:1.7;white-space:pre-wrap}
+.ai-analysis-loading{color:#666;font-style:italic;font-size:12px}
+
+.unlock-em{font-size:48px;animation:bob 2s ease-in-out infinite;text-align:center}
+#ul-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:8px 0 5px;text-align:center}
+#ul-desc{color:#c8aaff;font-size:13px;font-weight:700;margin-bottom:14px;text-align:center}
+
+/* Music btn */
+#btn-music{position:fixed;bottom:calc(14px + var(--safe-bottom));right:14px;
+  width:42px;height:42px;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.2);
+  border-radius:50%;font-size:18px;cursor:pointer;z-index:50;display:flex;
+  align-items:center;justify-content:center}
+#btn-music.muted{opacity:.45}
 
 /* Status bars */
-#tts-bar{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(124,77,255,.9);color:#fff;font-weight:800;font-size:13px;
-  padding:8px 20px;border-radius:24px;z-index:200;display:none;font-family:var(--body)}
-#mic-toast{position:fixed;bottom:calc(90px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(233,30,99,.9);color:#fff;font-weight:800;font-size:14px;
-  padding:10px 24px;border-radius:28px;z-index:200;display:none;font-family:var(--body)}
-#toast{position:fixed;bottom:calc(20px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(0,0,0,.88);color:#fff;font-weight:800;font-size:14px;
-  padding:10px 24px;border-radius:28px;z-index:300;display:none;font-family:var(--body);
-  width:max-content;max-width:90vw;text-align:center}
+#tts-bar{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(124,77,255,.9);color:#fff;font-weight:800;font-size:12px;
+  padding:6px 16px;border-radius:20px;z-index:200;display:none;font-family:var(--body)}
+#mic-toast{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(233,30,99,.9);color:#fff;font-weight:800;font-size:12px;
+  padding:7px 18px;border-radius:24px;z-index:200;display:none;font-family:var(--body)}
+#gemini-bar{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(0,188,212,.85);color:#fff;font-weight:800;font-size:12px;
+  padding:6px 16px;border-radius:20px;z-index:200;display:none;font-family:var(--body)}
+#toast{position:fixed;bottom:calc(14px + var(--safe-bottom));left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.88);color:#fff;font-weight:800;font-size:13px;
+  padding:8px 20px;border-radius:24px;z-index:300;display:none;font-family:var(--body);
+  width:max-content;max-width:88vw;text-align:center}
 
-/* Audio unlock overlay */
+/* Audio unlock */
 #audio-unlock{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;
   display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 #audio-unlock div{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
-  border-radius:24px;padding:32px;text-align:center;width:min(320px,88%)}
-#audio-unlock .big{font-size:52px;margin-bottom:12px}
-#audio-unlock p{color:#c8b8ff;font-size:15px;font-weight:700;margin-bottom:20px;line-height:1.5}
+  border-radius:22px;padding:28px;text-align:center;width:min(300px,88%)}
+#audio-unlock .big{font-size:48px;margin-bottom:9px}
+#audio-unlock p{color:#c8b8ff;font-size:13px;font-weight:700;margin-bottom:16px;line-height:1.5}
 </style>
 </head>
 <body>
 
-<!-- Audio unlock (Android autoplay policy) -->
 <div id="audio-unlock">
   <div>
-    <div class="big">🔊</div>
+    <div class="big">🎵</div>
     <p>Tap to start<br>the adventure!</p>
-    <button class="btn btn-gold" style="font-size:18px" onclick="unlockAudio()">Let's Go! 🚀</button>
+    <button class="btn btn-gold" onclick="unlockAudio()">Let's Go! 🚀</button>
   </div>
 </div>
 
@@ -287,8 +256,7 @@ h1{font-family:var(--font);font-size:30px;color:var(--gold);
     <h1 translate="no">English Adventure</h1>
     <p class="sub">Nói tiếng Anh để khám phá Magic Town! ✨</p>
     <input id="inp-name" placeholder="What is your name?"
-      maxlength="18" autocomplete="off" autocorrect="off"
-      autocapitalize="words" spellcheck="false">
+      maxlength="18" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">
     <button class="btn btn-gold" onclick="startGame()">🚀 Start Adventure!</button>
   </div>
 </div>
@@ -301,7 +269,9 @@ h1{font-family:var(--font);font-size:30px;color:var(--gold);
       <span class="badge star" id="b-stars">⭐ 0</span>
       <span class="badge" id="b-coins">🪙 0</span>
     </div>
-    <button id="btn-report" onclick="showReport()">📊 Report</button>
+    <div class="hud-btns">
+      <button class="hud-btn" onclick="showReport()">📊 Report</button>
+    </div>
   </div>
   <div id="map-scene">
     <div class="npc-pin" id="pin-leo"  style="left:6%;top:36%"  onclick="openTalk('leo')">
@@ -315,15 +285,15 @@ h1{font-family:var(--font);font-size:30px;color:var(--gold);
     </div>
     <div class="npc-pin locked" id="pin-mia"  style="left:80%;top:16%" onclick="openTalk('mia')">
       <div class="npc-bubble"><span class="npc-face">👩‍⚕️</span><div class="npc-label" translate="no">Dr. Mia</div></div>
-      <div class="lock-tag" id="lt-mia">🔒 2⭐</div>
+      <div class="lock-tag" id="lt-mia">🔒 3⭐</div>
     </div>
     <div class="npc-pin locked" id="pin-nora" style="left:25%;top:58%" onclick="openTalk('nora')">
       <div class="npc-bubble"><span class="npc-face">🧙‍♀️</span><div class="npc-label" translate="no">Wizard Nora</div></div>
-      <div class="lock-tag" id="lt-nora">🔒 4⭐</div>
+      <div class="lock-tag" id="lt-nora">🔒 5⭐</div>
     </div>
     <div class="npc-pin locked" id="pin-max"  style="left:60%;top:56%" onclick="openTalk('max')">
       <div class="npc-bubble"><span class="npc-face">🐶</span><div class="npc-label" translate="no">Puppy Max</div></div>
-      <div class="lock-tag" id="lt-max">🔒 6⭐</div>
+      <div class="lock-tag" id="lt-max">🔒 7⭐</div>
     </div>
   </div>
 </div>
@@ -336,12 +306,17 @@ h1{font-family:var(--font);font-size:30px;color:var(--gold);
       <div class="t-info">
         <div id="t-name" translate="no">Guard Leo</div>
         <div id="t-role">Town Gate Guardian</div>
+        <div id="quest-bar"><div id="quest-fill" style="width:0%"></div></div>
       </div>
-      <button id="btn-back" onclick="goMap()">← Map</button>
+      <div class="head-btns">
+        <!-- 🇻🇳 Hint: Gemini dịch câu hiện tại sang tiếng Việt -->
+        <button class="head-btn vn" onclick="getVietnameseHint()" title="Gợi ý tiếng Việt">🇻🇳</button>
+        <button class="head-btn" onclick="goMap()">← Map</button>
+      </div>
     </div>
     <div id="chat"></div>
     <div id="item-row" style="display:none">
-      <p>👇 Choose the right item:</p>
+      <p>👇 Choose the right one:</p>
       <div id="item-grid"></div>
     </div>
     <div id="inp-area">
@@ -384,123 +359,537 @@ h1{font-family:var(--font);font-size:30px;color:var(--gold);
   </div>
 </div>
 
+<button id="btn-music" onclick="toggleMusic()" title="Music">🎵</button>
 <div id="tts-bar">🔊 Speaking…</div>
-<div id="mic-toast">🎤 Listening… speak now!</div>
+<div id="mic-toast">🎤 Listening…</div>
+<div id="gemini-bar">✨ Gemini thinking…</div>
 <div id="toast"></div>
 
 <script>
 // ══════════════════════════════════════════
-// 🔑 ĐIỀN KEY VÀO ĐÂY
+// 🔑 API KEYS — điền vào đây
 // ══════════════════════════════════════════
-const OPENAI_KEY     = 'sk-...';
-const ELEVENLABS_KEY = 'sk_...';
-const EL_VOICE_ID    = '21m00Tcm4TlvDq8ikWAM'; // Rachel — thân thiện, rõ ràng
+const GEMINI_KEY     = 'AIza...';          // Google AI Studio → makersuite.google.com
+const ELEVENLABS_KEY = 'sk_...';           // elevenlabs.io
+const EL_VOICE_ID    = '21m00Tcm4TlvDq8ikWAM'; // Rachel
+
+// Gemini model: flash = nhanh + miễn phí (1500 req/ngày)
+const GEMINI_MODEL = 'gemini-1.5-flash-latest';
+const GEMINI_URL   = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
+
+// ══════════════════════════════════════════
+// AUDIO ENGINE
+// ══════════════════════════════════════════
+let AC = null;
+function getAC(){
+  if(!AC) AC=new(window.AudioContext||window.webkitAudioContext)();
+  if(AC.state==='suspended') AC.resume();
+  return AC;
+}
+function sfx(type){
+  try{
+    const ac=getAC(), now=ac.currentTime;
+    const osc=ac.createOscillator(), gain=ac.createGain();
+    osc.connect(gain); gain.connect(ac.destination);
+    if(type==='correct'){
+      osc.type='sine';
+      osc.frequency.setValueAtTime(523,now);
+      osc.frequency.setValueAtTime(659,now+.12);
+      osc.frequency.setValueAtTime(784,now+.24);
+      gain.gain.setValueAtTime(.25,now);
+      gain.gain.exponentialRampToValueAtTime(.001,now+.6);
+      osc.start(now);osc.stop(now+.6);
+    }else if(type==='wrong'){
+      osc.type='sawtooth';
+      osc.frequency.setValueAtTime(180,now);
+      osc.frequency.linearRampToValueAtTime(120,now+.3);
+      gain.gain.setValueAtTime(.15,now);
+      gain.gain.exponentialRampToValueAtTime(.001,now+.35);
+      osc.start(now);osc.stop(now+.35);
+    }else if(type==='send'){
+      osc.type='sine';
+      osc.frequency.setValueAtTime(880,now);
+      osc.frequency.exponentialRampToValueAtTime(440,now+.1);
+      gain.gain.setValueAtTime(.12,now);
+      gain.gain.exponentialRampToValueAtTime(.001,now+.15);
+      osc.start(now);osc.stop(now+.15);
+    }else if(type==='reward'){
+      [523,659,784,1047].forEach((f,i)=>{
+        const o=ac.createOscillator(),g=ac.createGain();
+        o.connect(g);g.connect(ac.destination);
+        o.type='triangle';o.frequency.value=f;
+        const t=now+i*.13;
+        g.gain.setValueAtTime(.2,t);
+        g.gain.exponentialRampToValueAtTime(.001,t+.35);
+        o.start(t);o.stop(t+.35);
+      });
+    }else if(type==='unlock'){
+      [784,988,1175,1319,1568].forEach((f,i)=>{
+        const o=ac.createOscillator(),g=ac.createGain();
+        o.connect(g);g.connect(ac.destination);
+        o.type='sine';o.frequency.value=f;
+        const t=now+i*.1;
+        g.gain.setValueAtTime(.18,t);
+        g.gain.exponentialRampToValueAtTime(.001,t+.3);
+        o.start(t);o.stop(t+.3);
+      });
+    }else if(type==='tap'){
+      osc.type='sine';
+      osc.frequency.setValueAtTime(660,now);
+      gain.gain.setValueAtTime(.08,now);
+      gain.gain.exponentialRampToValueAtTime(.001,now+.08);
+      osc.start(now);osc.stop(now+.08);
+    }else if(type==='vn'){
+      // Soft teal chime for Vietnamese hint
+      osc.type='sine';
+      osc.frequency.setValueAtTime(440,now);
+      osc.frequency.setValueAtTime(550,now+.1);
+      gain.gain.setValueAtTime(.15,now);
+      gain.gain.exponentialRampToValueAtTime(.001,now+.4);
+      osc.start(now);osc.stop(now+.4);
+    }
+  }catch(e){}
+}
+
+let musicOn=true, musicNodes=[];
+function startMusic(){
+  if(!musicOn)return;
+  try{
+    const ac=getAC(); stopMusic();
+    const melody=[523,659,784,659,880,784,659,523,587,698,880,698];
+    const dur=0.45; let t=ac.currentTime+0.1;
+    function loop(){
+      melody.forEach((freq,i)=>{
+        const osc=ac.createOscillator(),gain=ac.createGain();
+        const delay=ac.createDelay(0.5),fb=ac.createGain();
+        delay.delayTime.value=0.25;fb.gain.value=0.25;
+        delay.connect(fb);fb.connect(delay);
+        osc.connect(gain);gain.connect(delay);gain.connect(ac.destination);delay.connect(ac.destination);
+        osc.type='triangle';osc.frequency.value=freq;
+        const s=t+i*dur;
+        gain.gain.setValueAtTime(0,s);
+        gain.gain.linearRampToValueAtTime(0.06,s+.05);
+        gain.gain.exponentialRampToValueAtTime(0.001,s+dur*.9);
+        osc.start(s);osc.stop(s+dur);
+        musicNodes.push(osc);
+      });
+      [261,329,392].forEach(freq=>{
+        const osc=ac.createOscillator(),gain=ac.createGain();
+        osc.connect(gain);gain.connect(ac.destination);
+        osc.type='sine';osc.frequency.value=freq;
+        gain.gain.setValueAtTime(0.02,t);
+        gain.gain.linearRampToValueAtTime(0.035,t+1);
+        gain.gain.linearRampToValueAtTime(0.02,t+melody.length*dur-1);
+        gain.gain.linearRampToValueAtTime(0,t+melody.length*dur);
+        osc.start(t);osc.stop(t+melody.length*dur);
+        musicNodes.push(osc);
+      });
+      const wait=(t+melody.length*dur-ac.currentTime)*1000-100;
+      if(musicOn) setTimeout(()=>{if(musicOn){t=ac.currentTime+.05;loop()}},Math.max(wait,100));
+    }
+    loop();
+  }catch(e){}
+}
+function stopMusic(){musicNodes.forEach(n=>{try{n.stop()}catch(e){}});musicNodes=[]}
+function toggleMusic(){
+  musicOn=!musicOn;
+  document.getElementById('btn-music').textContent=musicOn?'🎵':'🔇';
+  document.getElementById('btn-music').classList.toggle('muted',!musicOn);
+  if(musicOn)startMusic();else stopMusic();
+}
 
 // ══════════════════════════════════════════
 // NPC DATA
 // ══════════════════════════════════════════
 const NPCS = {
-  leo:  { name:'Guard Leo',    face:'💂',  role:'Town Gate Guardian',
-    words:['hello','name','key','open','find'],
-    quest:{id:'q1',stars:1,coins:5,item:{icon:'🏰',label:'Gate Badge'}},
+  leo:{
+    name:'Guard Leo',face:'💂',role:'Town Gate Guardian',
+    words:['hello','name','key','open','find','lock','gate','red','blue','town'],
+    quest:{id:'q1',stars:1,coins:10,item:{icon:'🏰',label:'Gate Badge'}},
     script:[
-      {say:"Hello, traveler! What is your name?",      key:'name',  chips:["My name is Ben.","My name is Sam."],    hint:"Say: My name is [your name]"},
-      {say:"Nice to meet you! Can you help me?",       key:'yes',   chips:["Yes, I can!","Sure!"],                  hint:"Say: Yes, I can!"},
-      {say:"I lost my red key. Find it for me!",       key:null,    chips:[],  hint:"Pick the right item!", items:true},
-      {say:"You found it! Say: I found the red key.",  key:'found', chips:["I found the red key!"],                 hint:"Say: I found the red key!"},
-      {say:"Great job! You earned a star! ⭐",          key:null,    chips:["Thank you!"], hint:"", done:true},
+      {say:"Hello, traveler! Welcome to Magic Town! What is your name?",
+        key:'name',chips:["My name is Ben.","My name is Lily.","My name is Tom.","My name is Mai."],hint:"Say: My name is [your name]"},
+      {say:"Nice to meet you! Do you like Magic Town?",
+        key:'like',chips:["Yes, I like it!","I like Magic Town!","I love it!","Yes, it is nice!"],hint:"Say: Yes, I like it!"},
+      {say:"I am a guard. I protect the gate. What is my job?",
+        key:'guard',chips:["You are a guard!","You protect the gate!","Guard!","Your job is guard!"],hint:"Say: You are a guard!"},
+      {say:"Oh no! I lost my red key! Can you help me find it?",
+        key:'yes',chips:["Yes, I can help!","Sure!","Of course!","I will help you!"],hint:"Say: Yes, I can help!"},
+      {say:"The key is near a tree. Look carefully! Find the red key!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"You found the red key! Say: I found the red key near the tree.",
+        key:'found',chips:["I found the red key!","I found the red key near the tree!","I found it!","Here is the red key!"],hint:"Say: I found the red key!"},
+      {say:"Wonderful! Now say: I give you the key.",
+        key:'give',chips:["I give you the key!","Here is the key!","Take the key!","I give the key to you!"],hint:"Say: I give you the key!"},
+      {say:"Thank you! The gate is open now! What color was the key?",
+        key:'red',chips:["It was red!","The key is red!","Red!","The red key!"],hint:"Say: It was red!"},
+      {say:"Correct! You are a great helper! You earned a star! ⭐",
+        key:null,chips:["Thank you!","Yay!","I am happy!","Goodbye, Leo!"],hint:"",done:true},
     ],
-    items:[{icon:'🗝️',label:'Red Key',ok:true},{icon:'🔑',label:'Blue Key',ok:false},{icon:'🍎',label:'Apple',ok:false}]
+    items:[{icon:'🗝️',label:'Red Key',ok:true},{icon:'🔑',label:'Blue Key',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false}]
   },
-  tom:  { name:'Farmer Tom',   face:'👨‍🌾', role:'Happy Farmer',
-    words:['like','apple','water','tree','give'],
-    quest:{id:'q2',stars:1,coins:8,item:{icon:'🍎',label:'Magic Apple'}},
+  tom:{
+    name:'Farmer Tom',face:'👨‍🌾',role:'Happy Farmer',
+    words:['apple','water','tree','give','farm','cow','dog','hungry','big','small'],
+    quest:{id:'q2',stars:1,coins:12,item:{icon:'🍎',label:'Magic Apple'}},
     script:[
-      {say:"Hello! Do you like apples?",               key:'like',  chips:["Yes, I like apples!"],                 hint:"Say: Yes, I like apples!"},
-      {say:"My tree needs water. Can you help?",       key:'yes',   chips:["Yes, I can help!"],                    hint:"Say: Yes, I can help!"},
-      {say:"Find the water for me, please!",           key:null,    chips:[],  hint:"Pick the right item!", items:true},
-      {say:"Say: I give you the water.",               key:'give',  chips:["I give you the water!"],               hint:"Say: I give you the water!"},
-      {say:"Thank you! Here is a magic apple! 🍎⭐",    key:null,    chips:["Thank you!"], hint:"", done:true},
+      {say:"Hello! Welcome to my farm! Do you like animals?",
+        key:'like',chips:["Yes, I like animals!","I love animals!","Yes!","I like cows and dogs!"],hint:"Say: Yes, I like animals!"},
+      {say:"I have a dog and a cow. What animal do you like?",
+        key:'like',chips:["I like dogs!","I like cows!","I like both!","I like cats too!"],hint:"Say: I like dogs! or I like cows!"},
+      {say:"My apple tree is thirsty. It needs water. Do you see the water?",
+        key:'yes',chips:["Yes, I see it!","Yes!","I see the water!","I can find it!"],hint:"Say: Yes, I see the water!"},
+      {say:"Can you bring the water to my tree?",
+        key:'yes',chips:["Yes, I can!","Sure!","I will bring it!","Of course!"],hint:"Say: Yes, I can!"},
+      {say:"Great! Find the water bucket!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"Perfect! Now say: I water the tree.",
+        key:'water',chips:["I water the tree!","I give water to the tree!","Here is water!","I water it!"],hint:"Say: I water the tree!"},
+      {say:"The tree looks happy! Is the apple big or small?",
+        key:'big',chips:["The apple is big!","It is big!","Big apple!","Very big!"],hint:"Say: The apple is big!"},
+      {say:"Say: Thank you, tree!",
+        key:'thank',chips:["Thank you, tree!","Thank you!","You are welcome, tree!","Thanks, tree!"],hint:"Say: Thank you, tree!"},
+      {say:"Haha! You made the tree laugh! Here is a magic apple for you! 🍎⭐",
+        key:null,chips:["Thank you!","Wow!","I love apples!","Thank you, Farmer Tom!"],hint:"",done:true},
     ],
-    items:[{icon:'💧',label:'Water',ok:true},{icon:'🍞',label:'Bread',ok:false},{icon:'🌸',label:'Flower',ok:false}]
+    items:[{icon:'💧',label:'Water Bucket',ok:true},{icon:'🍞',label:'Bread',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🥕',label:'Carrot',ok:false}]
   },
-  lucy: { name:'Chef Lucy',    face:'👩‍🍳', role:'Magic Kitchen Chef',
-    words:['hungry','want','egg','soup','cook'],
-    quest:{id:'q3',stars:1,coins:6,item:{icon:'🍲',label:'Magic Soup'}},
+  lucy:{
+    name:'Chef Lucy',face:'👩‍🍳',role:'Magic Kitchen Chef',
+    words:['hungry','egg','soup','bread','milk','cook','eat','hot','cold','delicious'],
+    quest:{id:'q3',stars:1,coins:12,item:{icon:'🍲',label:'Magic Soup'}},
     script:[
-      {say:"Welcome! Are you hungry?",                 key:'yes',   chips:["Yes, I am hungry!"],                   hint:"Say: Yes, I am hungry!"},
-      {say:"What do you want to eat?",                 key:'want',  chips:["I want soup!"],                        hint:"Say: I want soup!"},
-      {say:"I need one egg. Can you find it?",         key:null,    chips:[],  hint:"Pick the right item!", items:true},
-      {say:"Say: Here is the egg, Chef Lucy!",         key:'egg',   chips:["Here is the egg, Chef Lucy!"],         hint:"Say: Here is the egg!"},
-      {say:"Amazing! Magic soup is ready! 🍲⭐",        key:null,    chips:["Thank you!","Yummy!"], hint:"", done:true},
+      {say:"Welcome to my kitchen! Are you hungry?",
+        key:'yes',chips:["Yes, I am hungry!","Yes!","Very hungry!","I want to eat!"],hint:"Say: Yes, I am hungry!"},
+      {say:"I am making magic soup! Do you like soup?",
+        key:'like',chips:["Yes, I like soup!","I love soup!","Yes!","Soup is delicious!"],hint:"Say: Yes, I like soup!"},
+      {say:"Is the soup hot or cold?",
+        key:'hot',chips:["It is hot!","The soup is hot!","Hot!","Very hot soup!"],hint:"Say: It is hot!"},
+      {say:"I need an egg and some milk. Find the egg first!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"The egg! Now find the milk!",
+        key:null,chips:[],hint:"Pick the right item!",items:true,
+        secondItems:[{icon:'🥛',label:'Milk',ok:true},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'🥚',label:'Egg',ok:false}]},
+      {say:"Say: I found the egg and the milk!",
+        key:'found',chips:["I found the egg and the milk!","I found them!","Here they are!","Found it!"],hint:"Say: I found the egg and the milk!"},
+      {say:"Now I cook! Say: The soup is ready!",
+        key:'ready',chips:["The soup is ready!","It is ready!","Ready!","The soup looks ready!"],hint:"Say: The soup is ready!"},
+      {say:"Taste it! Is it delicious?",
+        key:'delicious',chips:["Yes, it is delicious!","Very delicious!","Yummy!","So good!"],hint:"Say: Yes, it is delicious!"},
+      {say:"You are a great helper! Magic soup is yours! 🍲⭐",
+        key:null,chips:["Thank you!","Yummy!","Thank you, Chef Lucy!","I love cooking!"],hint:"",done:true},
     ],
-    items:[{icon:'🥚',label:'Egg',ok:true},{icon:'🥛',label:'Milk',ok:false},{icon:'🗝️',label:'Key',ok:false}]
+    items:[{icon:'🥚',label:'Egg',ok:true},{icon:'🥛',label:'Milk',ok:false},{icon:'🍞',label:'Bread',ok:false},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false}]
   },
-  mia:  { name:'Doctor Mia',   face:'👩‍⚕️', role:'Town Doctor', unlock:2,
-    words:['feel','good','hurt','help','better'],
-    quest:{id:'q4',stars:1,coins:10,item:{icon:'💊',label:'Magic Medicine'}},
+  mia:{
+    name:'Doctor Mia',face:'👩‍⚕️',role:'Town Doctor',unlock:3,
+    words:['feel','good','hurt','help','better','sick','hand','leg','head','medicine'],
+    quest:{id:'q4',stars:2,coins:15,item:{icon:'💊',label:'Magic Medicine'}},
     script:[
-      {say:"Hello! How do you feel today?",            key:'good',  chips:["I feel good!"],                        hint:"Say: I feel good!"},
-      {say:"A bird has a hurt leg! Can you help?",     key:'help',  chips:["Yes, I can help!"],                    hint:"Say: I can help!"},
-      {say:"Find a bandage for the bird!",             key:null,    chips:[],  hint:"Pick the right item!", items:true},
-      {say:"Say: The bird feels better now!",          key:'better',chips:["The bird feels better now!"],          hint:"Say: The bird feels better!"},
-      {say:"Well done! You are so kind! 🐦⭐",          key:null,    chips:["Thank you!"], hint:"", done:true},
+      {say:"Hello! I am Doctor Mia. How do you feel today?",
+        key:'good',chips:["I feel good!","I feel great!","I am fine!","I feel happy!"],hint:"Say: I feel good!"},
+      {say:"Good! Show me your hand!",
+        key:'hand',chips:["This is my hand!","Here is my hand!","My hand!","I show my hand!"],hint:"Say: This is my hand!"},
+      {say:"Now show me your head!",
+        key:'head',chips:["This is my head!","Here is my head!","My head!","I touch my head!"],hint:"Say: This is my head!"},
+      {say:"A little bird has a hurt leg. Can you help?",
+        key:'help',chips:["Yes, I can help!","I want to help!","Sure!","I will help the bird!"],hint:"Say: Yes, I can help!"},
+      {say:"Find a bandage for the bird!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"Now find the medicine for the bird!",
+        key:null,chips:[],hint:"Pick the right item!",items:true,
+        secondItems:[{icon:'💊',label:'Medicine',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'💧',label:'Water',ok:false}]},
+      {say:"You saved the bird! Say: The bird feels better now!",
+        key:'better',chips:["The bird feels better!","It feels better now!","Better now!","The bird is better!"],hint:"Say: The bird feels better now!"},
+      {say:"Does the bird feel happy or sad now?",
+        key:'happy',chips:["Happy!","It feels happy!","The bird is happy!","Very happy!"],hint:"Say: The bird is happy!"},
+      {say:"Say: I help sick animals!",
+        key:'help',chips:["I help sick animals!","I like helping!","I am kind!","I help animals!"],hint:"Say: I help sick animals!"},
+      {say:"Wonderful helper! You earned two stars! ⭐⭐",
+        key:null,chips:["Thank you!","I love animals!","Goodbye Dr. Mia!","See you!"],hint:"",done:true},
     ],
-    items:[{icon:'🩹',label:'Bandage',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🗝️',label:'Key',ok:false}]
+    items:[{icon:'🩹',label:'Bandage',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🗝️',label:'Key',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'💧',label:'Water',ok:false}]
   },
-  nora: { name:'Wizard Nora',  face:'🧙‍♀️', role:'Forest Wizard', unlock:4,
-    words:['explore','flower','river','magic','find'],
-    quest:{id:'q5',stars:2,coins:15,item:{icon:'🪄',label:'Magic Wand'}},
+  nora:{
+    name:'Wizard Nora',face:'🧙‍♀️',role:'Forest Wizard',unlock:5,
+    words:['flower','river','bridge','stone','magic','spell','forest','light','dark','rainbow'],
+    quest:{id:'q5',stars:2,coins:18,item:{icon:'🪄',label:'Magic Wand'}},
     script:[
-      {say:"Hello explorer! Why are you here?",        key:'explore',chips:["I want to explore!"],                 hint:"Say: I want to explore!"},
-      {say:"I lost my magic flower! Can you find it?", key:'help',   chips:["Yes, I can help!"],                   hint:"Say: I can help!"},
-      {say:"Look near the river! Find the flower!",    key:null,     chips:[],  hint:"Pick the right item!", items:true},
-      {say:"Say: I found the magic flower!",           key:'flower', chips:["I found the magic flower!"],          hint:"Say: I found the magic flower!"},
-      {say:"Incredible! Take my magic wand! 🪄⭐⭐",    key:null,     chips:["Thank you!","Wow!"], hint:"", done:true},
+      {say:"Hello, brave explorer! Are you brave?",
+        key:'brave',chips:["Yes, I am brave!","I am very brave!","Yes!","I am a brave explorer!"],hint:"Say: Yes, I am brave!"},
+      {say:"What do you see in the Magic Forest?",
+        key:'see',chips:["I see a river!","I see a bridge!","I see trees!","I see flowers!"],hint:"Say: I see a river!"},
+      {say:"I am Wizard Nora. Do you like magic?",
+        key:'like',chips:["Yes, I like magic!","I love magic!","Magic is cool!","Yes, very much!"],hint:"Say: Yes, I like magic!"},
+      {say:"I need help! My magic flower disappeared! Can you find it?",
+        key:'yes',chips:["Yes, I can find it!","I will help!","Sure!","I will find the flower!"],hint:"Say: Yes, I can find it!"},
+      {say:"The flower is near the river. Look carefully!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"The magic flower! Now find the magic stone!",
+        key:null,chips:[],hint:"Pick the right item!",items:true,
+        secondItems:[{icon:'🪨',label:'Magic Stone',ok:true},{icon:'💧',label:'Water',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🍄',label:'Mushroom',ok:false}]},
+      {say:"Now say the magic words: Let there be light!",
+        key:'light',chips:["Let there be light!","Light!","Magic light!","Let there be light!"],hint:"Say: Let there be light!"},
+      {say:"A rainbow appeared! What colors do you see?",
+        key:'color',chips:["I see red and blue!","Many colors!","Rainbow colors!","Red, yellow, blue!"],hint:"Say: I see many colors!"},
+      {say:"Say: The rainbow is beautiful!",
+        key:'beautiful',chips:["The rainbow is beautiful!","So beautiful!","Very beautiful!","It is beautiful!"],hint:"Say: The rainbow is beautiful!"},
+      {say:"You are a true magic explorer! Take my wand! 🪄⭐⭐",
+        key:null,chips:["Thank you!","Wow!","I love magic!","Thank you, Wizard Nora!"],hint:"",done:true},
     ],
-    items:[{icon:'🌸',label:'Magic Flower',ok:true},{icon:'🪨',label:'Stone',ok:false},{icon:'💧',label:'Water',ok:false}]
+    items:[{icon:'🌸',label:'Magic Flower',ok:true},{icon:'🪨',label:'Stone',ok:false},{icon:'💧',label:'Water',ok:false},{icon:'🍄',label:'Mushroom',ok:false},{icon:'🌙',label:'Moon',ok:false}]
   },
-  max:  { name:'Puppy Max',    face:'🐶',  role:'Lost Puppy', unlock:6,
-    words:['lost','help','crown','home','find'],
+  max:{
+    name:'Puppy Max',face:'🐶',role:'Lost Puppy',unlock:7,
+    words:['lost','help','crown','home','door','dark','light','find','walk','friend'],
     quest:{id:'q6',stars:2,coins:20,item:{icon:'👑',label:'Hero Crown'}},
     script:[
-      {say:"Woof! I am Max. I am lost! Help me!",      key:'help',  chips:["I will help you!"],                   hint:"Say: I will help you!"},
-      {say:"I need the golden crown. Find it!",        key:null,    chips:[],  hint:"Pick the right item!", items:true},
-      {say:"Say: Here is the crown, Max!",             key:'crown', chips:["Here is the crown, Max!"],             hint:"Say: Here is the crown!"},
-      {say:"WOOF! I am home! You are the best! 👑⭐⭐",  key:null,    chips:["You're welcome!"], hint:"", done:true},
+      {say:"Woof woof! I am Max! I am lost! Are you my friend?",
+        key:'friend',chips:["Yes, I am your friend!","Yes!","I am your friend, Max!","Hello Max!"],hint:"Say: Yes, I am your friend!"},
+      {say:"I live in the castle. Is the castle big?",
+        key:'big',chips:["Yes, it is big!","The castle is big!","Very big!","Yes, very big!"],hint:"Say: Yes, it is big!"},
+      {say:"I am scared of the dark! Is it dark here?",
+        key:'dark',chips:["It is dark!","Very dark!","A little dark!","Yes, dark here!"],hint:"Say: It is dark!"},
+      {say:"Can you walk with me to the castle?",
+        key:'yes',chips:["Yes, let's walk!","Let's go!","I walk with you!","Sure, let's go!"],hint:"Say: Yes, let's walk!"},
+      {say:"I need the golden crown to open the door. Find it!",
+        key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"Now find the castle key too!",
+        key:null,chips:[],hint:"Pick the right item!",items:true,
+        secondItems:[{icon:'🗝️',label:'Castle Key',ok:true},{icon:'🔑',label:'Small Key',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🕯️',label:'Candle',ok:false}]},
+      {say:"Say: Open the door, please!",
+        key:'open',chips:["Open the door, please!","Please open it!","Open it!","Open the door!"],hint:"Say: Open the door, please!"},
+      {say:"Say: We are home, Max!",
+        key:'home',chips:["We are home, Max!","We are home!","You are home!","Home at last!"],hint:"Say: We are home, Max!"},
+      {say:"Do you want to play with me?",
+        key:'yes',chips:["Yes, let's play!","Yes!","I want to play!","Let's play!"],hint:"Say: Yes, let's play!"},
+      {say:"You are the BEST explorer ever! Here is the Hero Crown! 👑⭐⭐",
+        key:null,chips:["Thank you!","Yay!","I love you, Max!","You're welcome!"],hint:"",done:true},
     ],
-    items:[{icon:'👑',label:'Crown',ok:true},{icon:'🕯️',label:'Candle',ok:false},{icon:'🚪',label:'Door',ok:false}]
+    items:[{icon:'👑',label:'Golden Crown',ok:true},{icon:'🕯️',label:'Candle',ok:false},{icon:'🚪',label:'Small Door',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🗝️',label:'Old Key',ok:false}]
   }
 };
+
+const UNLOCK_REQ={mia:3,nora:5,max:7};
 
 // ══════════════════════════════════════════
 // STATE
 // ══════════════════════════════════════════
-let G={name:'Explorer',stars:0,coins:0,done:[],words:[],mistakes:0,inv:[],start:Date.now()};
-let cur=null,step=0,micOn=false,recog=null,aiHistory=[];
-function load(){try{const s=localStorage.getItem('eng_rpg3');if(s)G={...G,...JSON.parse(s)}}catch(e){}}
-function save(){try{localStorage.setItem('eng_rpg3',JSON.stringify(G))}catch(e){}}
+let G={name:'Explorer',stars:0,coins:0,done:[],words:[],mistakes:0,inv:[],
+       mistakeLog:[],  // {npc, step, wrong, correct} for Gemini analysis
+       start:Date.now()};
+let cur=null,step=0,micOn=false,recog=null;
+let awaitingSecondItems=false;
+let lastNPCSay='';   // for Vietnamese hint
+
+function load(){try{const s=localStorage.getItem('eng_rpg5');if(s)G={...G,...JSON.parse(s)}}catch(e){}}
+function save(){try{localStorage.setItem('eng_rpg5',JSON.stringify(G))}catch(e){}}
 
 // ══════════════════════════════════════════
-// AUDIO UNLOCK (Android autoplay fix)
+// GEMINI API  — 3 tính năng
 // ══════════════════════════════════════════
-let audioCtx=null;
-function unlockAudio(){
-  // Create AudioContext on user gesture — required by Android Chrome
-  try{ audioCtx=new(window.AudioContext||window.webkitAudioContext)(); }catch(e){}
-  document.getElementById('audio-unlock').style.display='none';
-  show('s-intro');
+
+/* ── 1. AI Dialogue (thay mock khi có key) ── */
+async function geminiChat(npc, userMsg){
+  if(!GEMINI_KEY||GEMINI_KEY==='AIza...') return null;
+  const sys=`You are ${npc.name}, a friendly NPC in a children's English adventure RPG.
+The child is 6-10 years old and Vietnamese. STRICT RULES:
+- Max 12 words per sentence. Very simple English only.
+- One question at a time. Be warm, fun and encouraging.
+- Gently correct grammar mistakes (praise first, then model correct form).
+- Quest step: ${step} of ${npc.script.length}.
+- Signal ##QUEST_DONE## at end of quest completion message.
+- Signal ##SHOW_ITEMS## when child needs to find/pick an item.
+- Stay in the fantasy game world. Never discuss real world topics.`;
+  const prompt=`${sys}\n\nConversation so far:\nNPC last said: "${lastNPCSay}"\nChild says: "${userMsg}"\n\nRespond as ${npc.name}:`;
+  showGeminiBar();
+  try{
+    const res=await fetch(GEMINI_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
+        generationConfig:{maxOutputTokens:120,temperature:0.75}})
+    });
+    if(!res.ok)throw new Error(res.status);
+    const d=await res.json();
+    const reply=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim();
+    hideGeminiBar();
+    return{
+      reply:reply.replace(/##QUEST_DONE##|##SHOW_ITEMS##/g,'').trim(),
+      done:reply.includes('##QUEST_DONE##'),
+      showItems:reply.includes('##SHOW_ITEMS##')
+    };
+  }catch(e){hideGeminiBar();return null;}
+}
+
+/* ── 2. Vietnamese Hint ── */
+async function getVietnameseHint(){
+  sfx('vn');
+  if(!lastNPCSay){toast('Chưa có câu nào để dịch!');return}
+  if(!GEMINI_KEY||GEMINI_KEY==='AIza...'){
+    addVNHint('⚠️ Cần điền Gemini API key để dùng gợi ý tiếng Việt.');return;
+  }
+  const s=NPCS[cur]?.script[step];
+  const hintText = s?.hint || '';
+  const prompt=`Translate this English sentence to simple Vietnamese for a 6-10 year old child.
+Also explain what the child should say in response, in Vietnamese.
+Keep it short (max 2-3 sentences total).
+
+English sentence: "${lastNPCSay}"
+Expected response hint: "${hintText}"
+
+Reply in Vietnamese only, friendly tone:`;
+  showGeminiBar('🇻🇳 Đang dịch…');
+  try{
+    const res=await fetch(GEMINI_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
+        generationConfig:{maxOutputTokens:100,temperature:0.3}})
+    });
+    if(!res.ok)throw new Error(res.status);
+    const d=await res.json();
+    const vn=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim();
+    hideGeminiBar();
+    addVNHint('🇻🇳 '+vn);
+  }catch(e){
+    hideGeminiBar();
+    addVNHint('⚠️ Không thể dịch lúc này. Thử lại sau!');
+  }
+}
+
+/* ── 3. End-of-session Gemini Analysis ── */
+async function geminiAnalysis(){
+  if(!GEMINI_KEY||GEMINI_KEY==='AIza...'){
+    return '<span class="ai-analysis-loading">Cần Gemini API key để phân tích.</span>';
+  }
+  if(G.done.length===0 && G.mistakes===0){
+    return '<span class="ai-analysis-loading">Chơi ít nhất 1 quest để xem phân tích!</span>';
+  }
+  const mistakeSummary = G.mistakeLog.length > 0
+    ? G.mistakeLog.slice(-8).map(m=>`- NPC: ${m.npc}, bước ${m.step}: trẻ nói "${m.wrong}" thay vì "${m.correct}"`).join('\n')
+    : 'Không có lỗi nào!';
+  const prompt=`Bạn là giáo viên tiếng Anh. Hãy phân tích kết quả học của trẻ 6-10 tuổi.
+
+Thông tin buổi học:
+- Tên trẻ: ${G.name}
+- Quests hoàn thành: ${G.done.length}/6
+- Từ vựng đã dùng: ${G.words.join(', ')||'chưa có'}
+- Tổng số lỗi: ${G.mistakes}
+- Chi tiết lỗi:\n${mistakeSummary}
+
+Viết nhận xét ngắn (3-4 câu) bằng tiếng Việt:
+1. Điểm mạnh của trẻ hôm nay
+2. Điểm cần luyện thêm
+3. Gợi ý cho buổi học tiếp theo
+
+Giọng văn nhẹ nhàng, động viên, dành cho phụ huynh đọc.`;
+  showGeminiBar('✨ Đang phân tích…');
+  try{
+    const res=await fetch(GEMINI_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
+        generationConfig:{maxOutputTokens:200,temperature:0.5}})
+    });
+    if(!res.ok)throw new Error(res.status);
+    const d=await res.json();
+    hideGeminiBar();
+    return (d.candidates?.[0]?.content?.parts?.[0]?.text||'Không thể phân tích.').trim();
+  }catch(e){
+    hideGeminiBar();
+    return 'Không thể kết nối Gemini lúc này.';
+  }
+}
+
+function showGeminiBar(msg='✨ Gemini thinking…'){
+  document.getElementById('gemini-bar').textContent=msg;
+  document.getElementById('gemini-bar').style.display='block';
+}
+function hideGeminiBar(){document.getElementById('gemini-bar').style.display='none'}
+
+// ══════════════════════════════════════════
+// ELEVENLABS TTS
+// ══════════════════════════════════════════
+let curAudio = null;
+// Khi ElevenLabs hết quota (429) → tự chuyển sang browser TTS cho cả session
+let elFallback = false;
+
+async function speak(text){
+  stopTTS();
+  const noKey = !ELEVENLABS_KEY || ELEVENLABS_KEY === 'sk_...';
+  if(noKey || elFallback){ browserSpeak(text); return; }
+
+  document.getElementById('tts-bar').style.display = 'block';
+  try{
+    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${EL_VOICE_ID}`,{
+      method: 'POST',
+      headers: {'xi-api-key':ELEVENLABS_KEY,'Content-Type':'application/json','Accept':'audio/mpeg'},
+      body: JSON.stringify({text, model_id:'eleven_turbo_v2',
+        voice_settings:{stability:0.5,similarity_boost:0.75,style:0.3,use_speaker_boost:true}})
+    });
+
+    // 429 = hết quota, 401 = sai key — cả 2 đều fallback vĩnh viễn trong session
+    if(res.status === 429){
+      elFallback = true;
+      document.getElementById('tts-bar').style.display = 'none';
+      toast('🔊 ElevenLabs hết quota — chuyển sang giọng tự nhiên');
+      browserSpeak(text); return;
+    }
+    if(res.status === 401){
+      elFallback = true;
+      document.getElementById('tts-bar').style.display = 'none';
+      toast('🔑 ElevenLabs key không hợp lệ — chuyển sang giọng tự nhiên');
+      browserSpeak(text); return;
+    }
+    if(!res.ok) throw new Error(res.status);
+
+    const blob = await res.blob();
+    const url  = URL.createObjectURL(blob);
+    curAudio   = new Audio(url);
+    getAC();
+    curAudio.onended = ()=>{ document.getElementById('tts-bar').style.display='none'; URL.revokeObjectURL(url); };
+    curAudio.onerror = ()=>{ document.getElementById('tts-bar').style.display='none'; };
+    curAudio.play().catch(()=>{ document.getElementById('tts-bar').style.display='none'; browserSpeak(text); });
+
+  }catch(e){
+    document.getElementById('tts-bar').style.display = 'none';
+    browserSpeak(text);
+  }
+}
+
+function stopTTS(){
+  if(curAudio){ curAudio.pause(); curAudio = null; }
+  document.getElementById('tts-bar').style.display = 'none';
+  window.speechSynthesis?.cancel();
+}
+
+function browserSpeak(text){
+  const s = window.speechSynthesis; if(!s) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang  = 'en-US'; u.rate = 0.88; u.pitch = 1.1;
+  // Ưu tiên giọng Google US > Samantha (iOS) > bất kỳ giọng en nào
+  const v = s.getVoices();
+  const p = v.find(x => x.lang === 'en-US' && x.name.includes('Google US English'))
+         || v.find(x => x.lang.startsWith('en') && x.name.includes('Google'))
+         || v.find(x => x.lang.startsWith('en') && x.name.includes('Samantha'))
+         || v.find(x => x.lang.startsWith('en') && !x.localService === false) // online voices first
+         || v.find(x => x.lang.startsWith('en'));
+  if(p) u.voice = p;
+  // Hiện indicator nhỏ khi dùng browser TTS
+  const bar = document.getElementById('tts-bar');
+  bar.textContent = '🔊 Speaking…'; bar.style.display = 'block';
+  u.onend = u.onerror = ()=>{ bar.style.display='none'; bar.textContent='🔊 Speaking…'; };
+  s.speak(u);
 }
 
 // ══════════════════════════════════════════
 // SCREENS
 // ══════════════════════════════════════════
 function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
-function startGame(){
-  const n=document.getElementById('inp-name').value.trim();
-  G.name=n||'Explorer'; save(); updateHUD(); refreshMap(); show('s-map');
-}
-function goMap(){stopAudio();stopMic();show('s-map');cur=null}
+function unlockAudio(){getAC();document.getElementById('audio-unlock').style.display='none';show('s-intro');setTimeout(startMusic,300)}
+function startGame(){sfx('tap');const n=document.getElementById('inp-name').value.trim();G.name=n||'Explorer';save();updateHUD();refreshMap();show('s-map')}
+function goMap(){stopTTS();stopMic();show('s-map');cur=null;sfx('tap')}
 
 // ══════════════════════════════════════════
 // HUD + MAP
@@ -515,134 +904,80 @@ function refreshMap(){
     const dot=document.getElementById('dot-'+id);
     if(dot&&G.done.includes(NPCS[id].quest.id)){dot.textContent='✅';dot.classList.add('done-dot')}
   });
-  Object.entries({mia:2,nora:4,max:6}).forEach(([id,req])=>{
+  Object.entries(UNLOCK_REQ).forEach(([id,req])=>{
     if(G.stars>=req){
       const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
-      if(pin)pin.classList.remove('locked');
-      if(lt)lt.style.display='none';
+      if(pin)pin.classList.remove('locked');if(lt)lt.style.display='none';
     }
   });
 }
-
-// ══════════════════════════════════════════
-// ELEVENLABS TTS
-// ══════════════════════════════════════════
-let curAudio=null;
-async function speak(text){
-  stopAudio();
-  if(!ELEVENLABS_KEY||ELEVENLABS_KEY==='sk_...'){browserSpeak(text);return}
-  document.getElementById('tts-bar').style.display='block';
-  try{
-    const res=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${EL_VOICE_ID}`,{
-      method:'POST',
-      headers:{'xi-api-key':ELEVENLABS_KEY,'Content-Type':'application/json','Accept':'audio/mpeg'},
-      body:JSON.stringify({text,model_id:'eleven_turbo_v2',
-        voice_settings:{stability:0.5,similarity_boost:0.75,style:0.3,use_speaker_boost:true}})
-    });
-    if(!res.ok)throw new Error('EL '+res.status);
-    const blob=await res.blob();
-    const url=URL.createObjectURL(blob);
-    curAudio=new Audio(url);
-    // Resume AudioContext if suspended (Android)
-    if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
-    curAudio.onended=()=>{document.getElementById('tts-bar').style.display='none';URL.revokeObjectURL(url)};
-    curAudio.onerror=()=>document.getElementById('tts-bar').style.display='none';
-    await curAudio.play();
-  }catch(e){
-    document.getElementById('tts-bar').style.display='none';
-    console.warn('ElevenLabs:',e.message);
-    browserSpeak(text);
-  }
-}
-function stopAudio(){
-  if(curAudio){curAudio.pause();curAudio=null}
-  document.getElementById('tts-bar').style.display='none';
-  window.speechSynthesis?.cancel();
-}
-function browserSpeak(text){
-  const s=window.speechSynthesis;if(!s)return;
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='en-US';u.rate=0.88;u.pitch=1.1;
-  const v=s.getVoices();
-  const p=v.find(x=>x.lang.startsWith('en')&&(x.name.includes('Google')||x.name.includes('Samantha')))||v.find(x=>x.lang.startsWith('en'));
-  if(p)u.voice=p;
-  s.speak(u);
-}
-
-// ══════════════════════════════════════════
-// OPENAI
-// ══════════════════════════════════════════
-const SYS=(npc,s,t)=>`You are ${npc.name}, a friendly NPC in a children's English RPG.
-Child is 6-10 years old, Vietnamese. RULES: max 10 words per sentence. Simple English only.
-One question at a time. Be warm and encouraging. Quest step ${s}/${t}.
-If quest is done say QUEST_DONE. If child needs to pick item say SHOW_ITEMS. Stay in fantasy world.`;
-
-async function askAI(npc,msg){
-  if(!OPENAI_KEY||OPENAI_KEY==='sk-...')return{reply:null,done:false,showItems:false};
-  try{
-    const r=await fetch('https://api.openai.com/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+OPENAI_KEY},
-      body:JSON.stringify({model:'gpt-4o-mini',max_tokens:100,temperature:0.7,
-        messages:[{role:'system',content:SYS(npc,step,npc.script.length)},...aiHistory,{role:'user',content:msg}]})
-    });
-    if(!r.ok)throw new Error(r.status);
-    const d=await r.json();
-    const reply=d.choices?.[0]?.message?.content?.trim()||'';
-    aiHistory.push({role:'user',content:msg},{role:'assistant',content:reply});
-    const done=reply.includes('QUEST_DONE'),showItems=reply.includes('SHOW_ITEMS');
-    return{reply:reply.replace(/QUEST_DONE|SHOW_ITEMS/g,'').trim(),done,showItems};
-  }catch(e){console.warn('OpenAI:',e.message);return{reply:null,done:false,showItems:false}}
+function updateProgress(){
+  if(!cur)return;
+  const pct=Math.round((step/NPCS[cur].script.length)*100);
+  document.getElementById('quest-fill').style.width=pct+'%';
 }
 
 // ══════════════════════════════════════════
 // DIALOGUE
 // ══════════════════════════════════════════
 function openTalk(id){
+  sfx('tap');
   const npc=NPCS[id];if(!npc)return;
-  if(npc.unlock&&G.stars<npc.unlock){toast(`🔒 Need ${npc.unlock} ⭐ first!`);return}
-  cur=id;step=0;aiHistory=[];
+  if(npc.unlock&&G.stars<npc.unlock){toast(`🔒 Need ${npc.unlock} ⭐ first!`);sfx('wrong');return}
+  cur=id;step=0;awaitingSecondItems=false;lastNPCSay='';
   document.getElementById('t-face').textContent=npc.face;
   document.getElementById('t-name').textContent=npc.name;
   document.getElementById('t-role').textContent=npc.role;
+  document.getElementById('quest-fill').style.width='0%';
   clearChat();hideItems();setChips([]);setHint('');
   document.getElementById('txt').value='';
   show('s-talk');
   if(G.done.includes(npc.quest.id)){
-    const lines=["You already helped me! Thank you! 😊","Hi again, friend! You are great! ⭐","Welcome back, brave explorer! 🎉"];
+    const lines=["You already helped me! Thank you! 😊","Hi again, friend! You are great! ⭐","Welcome back, brave explorer! 🎉","Hello hello! Good to see you again!"];
     const m=lines[~~(Math.random()*lines.length)];
-    setTimeout(()=>{addNPC(m);speak(m)},400);
-    return;
+    setTimeout(()=>{addNPC(m);speak(m);lastNPCSay=m},400);return;
   }
-  setTimeout(runStep,400);
+  setTimeout(runStep,450);
 }
+
 function runStep(){
-  const npc=NPCS[cur];if(!npc||step>=npc.script.length)return;
+  const npc=NPCS[cur];
+  if(!npc||step>=npc.script.length)return;
   const s=npc.script[step];
-  addNPC(s.say);speak(s.say);setChips(s.chips||[]);setHint(s.hint||'');
+  updateProgress();
+  lastNPCSay=s.say;
+  addNPC(s.say);speak(s.say);
+  setChips(s.chips||[]);setHint(s.hint||'');
+  awaitingSecondItems=false;
   if(s.items)showItems(npc.items);else hideItems();
 }
+
 function send(){
   const v=document.getElementById('txt').value.trim();
   if(!v||!cur)return;
+  sfx('send');
   document.getElementById('txt').value='';
   addMe(v);setChips([]);
   processInput(v);
 }
+
 async function processInput(text){
   showTyping();
-  const ai=await askAI(NPCS[cur],text);
+  const ai=await geminiChat(NPCS[cur],text);
   removeTyping();
-  if(ai.reply){
+  if(ai&&ai.reply){
+    lastNPCSay=ai.reply;
     addNPC(ai.reply);speak(ai.reply);
     if(ai.done){setTimeout(completeQuest,1200);return}
     if(ai.showItems){showItems(NPCS[cur].items);return}
-    step++;if(step>=NPCS[cur].script.length)completeQuest();
+    step++;updateProgress();
+    if(step>=NPCS[cur].script.length)completeQuest();
     save();
   }else{
     handleMock(text);
   }
 }
+
 function handleMock(text){
   const npc=NPCS[cur],s=npc.script[step];if(!s)return;
   const low=text.toLowerCase();
@@ -650,16 +985,27 @@ function handleMock(text){
     const ok=low.includes(s.key)||(s.chips||[]).some(c=>low.includes(c.toLowerCase().split(' ')[0]));
     if(!ok){
       G.mistakes++;
-      const f=[`Almost! Try: "${s.chips[0]}" 😊`,`Good try! Say: "${s.chips[0]}"`,`You can do it! 💪`][~~(Math.random()*3)];
+      // Log mistake for Gemini analysis
+      G.mistakeLog.push({npc:npc.name,step,wrong:text,correct:s.chips[0]});
+      const corrections=[
+        `Almost! Try saying: "${s.chips[0]}" 😊`,
+        `Good try! Can you say: "${s.chips[0]}"?`,
+        `Nice effort! Try: "${s.chips[0]}" 💪`,
+        `You can do it! Say: "${s.chips[0]}"`,
+      ];
+      const f=corrections[~~(Math.random()*corrections.length)];
+      sfx('wrong');
       setTimeout(()=>{addFix(f);speak(f)},300);return;
     }
     if(!G.words.includes(s.key))G.words.push(s.key);
+    sfx('correct');
   }
   npc.words.forEach(w=>{if(!G.words.includes(w))G.words.push(w)});
-  step++;
+  step++;updateProgress();
   if(step>=npc.script.length){completeQuest();return}
   const ns=npc.script[step];if(ns.done){completeQuest();return}
-  showTyping();setTimeout(()=>{removeTyping();runStep()},800);
+  showTyping();
+  setTimeout(()=>{removeTyping();runStep()},900);
   save();
 }
 
@@ -675,18 +1021,34 @@ function showItems(items){
 }
 function hideItems(){document.getElementById('item-row').style.display='none'}
 function pickItem(it){
+  sfx('tap');
+  const npc=NPCS[cur],s=npc.script[step];
   addMe(`${it.icon} ${it.label}`);hideItems();
   if(it.ok){
-    step++;showTyping();setTimeout(()=>{removeTyping();runStep()},800);
+    sfx('correct');
+    if(!awaitingSecondItems&&s.secondItems){
+      awaitingSecondItems=true;
+      showTyping();
+      setTimeout(()=>{removeTyping();const msg=`${it.icon} Nice! Now find the next one!`;lastNPCSay=msg;addNPC(msg);speak(msg);setHint("Pick the right item!");showItems(s.secondItems)},700);
+    }else{
+      awaitingSecondItems=false;step++;updateProgress();
+      showTyping();setTimeout(()=>{removeTyping();runStep()},900);
+    }
   }else{
-    const w=["That is not it! Try again! 😊","Hmm, look again! 👀","Not that one!"][~~(Math.random()*3)];
-    setTimeout(()=>{addNPC(w);speak(w);showItems(NPCS[cur].items)},500);
+    sfx('wrong');
+    G.mistakes++;
+    const w=["That is not it! Try again! 😊","Hmm, look carefully! 👀","Not that one! Keep looking!","Almost! Try another one!"][~~(Math.random()*4)];
+    setTimeout(()=>{
+      lastNPCSay=w;addNPC(w);speak(w);
+      if(awaitingSecondItems&&s.secondItems)showItems(s.secondItems);
+      else showItems(npc.items);
+    },500);
   }
 }
 
-// Complete quest
 function completeQuest(){
   const npc=NPCS[cur],q=npc.quest;
+  sfx('reward');
   if(!G.done.includes(q.id))G.done.push(q.id);
   G.stars+=q.stars;G.coins+=q.coins;
   if(q.item&&!G.inv.some(i=>i.label===q.item.label))G.inv.push(q.item);
@@ -697,29 +1059,29 @@ function completeQuest(){
   document.getElementById('rew-badges').innerHTML=
     `<div class="rb">⭐ +${q.stars}</div><div class="rb">🪙 +${q.coins}</div>`+
     (q.item?`<div class="rb">${q.item.icon} ${q.item.label}</div>`:'');
-  openModal('m-reward');
-  speak(`Quest complete! You earned ${q.stars} star!`);
+  openModal('m-reward');speak(`Quest complete! You earned ${q.stars} star!`);
   refreshMap();
 }
 function checkUnlocks(){
-  Object.entries({mia:2,nora:4,max:6}).forEach(([id,req])=>{
+  Object.entries(UNLOCK_REQ).forEach(([id,req])=>{
     const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
     if(G.stars>=req&&pin&&pin.classList.contains('locked')){
-      pin.classList.remove('locked');if(lt)lt.style.display='none';
-      const n={mia:'🏥 Clinic — Dr. Mia is waiting!',nora:'🌲 Magic Forest — Wizard Nora!',max:'🏯 Castle — Puppy Max needs help!'};
+      pin.classList.remove('locked');if(lt)lt.style.display='none';sfx('unlock');
+      const n={mia:'🏥 Clinic open! Meet Dr. Mia!',nora:'🌲 Magic Forest! Find Wizard Nora!',max:'🏯 Castle! Help Puppy Max!'};
       document.getElementById('ul-title').textContent='New Area Unlocked!';
       document.getElementById('ul-desc').textContent=n[id]||id;
-      setTimeout(()=>openModal('m-unlock'),1600);
+      setTimeout(()=>openModal('m-unlock'),1800);
     }
   });
 }
 
 // ══════════════════════════════════════════
-// CHAT LOG
+// CHAT HELPERS
 // ══════════════════════════════════════════
 function addNPC(t){removeTyping();add('npc',`<span class="av">${NPCS[cur]?.face||'🤖'}</span><div class="bub">${t}</div>`)}
 function addMe(t){add('me',`<span class="av">🧒</span><div class="bub">${t}</div>`)}
 function addFix(t){add('fix',`<div class="bub">💡 ${t}</div>`)}
+function addVNHint(t){sfx('vn');add('vn-hint',`<div class="bub">${t}</div>`)}
 function add(cls,html){
   const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;
   const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;
@@ -735,18 +1097,19 @@ function removeTyping(){document.querySelectorAll('.typing-msg').forEach(e=>e.re
 function setChips(arr){
   const c=document.getElementById('chips');c.innerHTML='';
   arr.forEach(t=>{const b=document.createElement('button');b.className='chip';b.textContent=t;
-    b.onclick=()=>{document.getElementById('txt').value=t;send()};c.appendChild(b)});
+    b.onclick=()=>{sfx('tap');document.getElementById('txt').value=t;send()};c.appendChild(b)});
 }
 function setHint(t){const h=document.getElementById('hint');h.textContent=t?'💡 '+t:'';h.style.display=t?'':'none'}
 
 // ══════════════════════════════════════════
-// MICROPHONE — Web Speech API
+// MIC
 // ══════════════════════════════════════════
 function toggleMic(){
+  sfx('tap');
   if(micOn){stopMic();return}
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){toast('Microphone not supported on this browser');return}
-  stopAudio();
+  if(!SR){toast('Microphone not supported');return}
+  stopTTS();
   recog=new SR();recog.lang='en-US';recog.interimResults=false;recog.maxAlternatives=1;
   micOn=true;
   document.getElementById('btn-mic').classList.add('on');
@@ -766,25 +1129,35 @@ function stopMic(){
 // MODALS / TOAST
 // ══════════════════════════════════════════
 function openModal(id){document.getElementById(id).classList.add('on')}
-function closeModal(id){document.getElementById(id).classList.remove('on')}
+function closeModal(id){sfx('tap');document.getElementById(id).classList.remove('on')}
 function toast(msg){
   const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
   clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2500);
 }
 
 // ══════════════════════════════════════════
-// REPORT
+// REPORT (với Gemini analysis)
 // ══════════════════════════════════════════
-function showReport(){
+async function showReport(){
+  sfx('tap');
   const mins=Math.floor((Date.now()-G.start)/60000);
   const words=G.words.length?G.words.map(w=>`<span class="tag">${w}</span>`).join(''):'<span style="color:#888">none yet</span>';
   const inv=G.inv.length?G.inv.map(i=>`<span class="tag">${i.icon} ${i.label}</span>`).join(''):'<span style="color:#888">none yet</span>';
+
   document.getElementById('report-body').innerHTML=`
     <div class="sec"><h3>👦 Player</h3><p>Name: <b>${G.name}</b><br>Session: ~${mins} min</p></div>
     <div class="sec"><h3>⭐ Progress</h3><p>Stars: <b>${G.stars}</b> &nbsp; Coins: <b>${G.coins}</b><br>Quests: <b>${G.done.length}/6</b> &nbsp; Mistakes: <b>${G.mistakes}</b></p></div>
     <div class="sec"><h3>📚 Words practiced</h3><div class="tags">${words}</div></div>
-    <div class="sec"><h3>🎒 Items collected</h3><div class="tags">${inv}</div></div>`;
+    <div class="sec"><h3>🎒 Items collected</h3><div class="tags">${inv}</div></div>
+    <div class="sec"><h3>✨ Gemini Analysis</h3>
+      <div class="ai-analysis" id="ai-analysis-text"><span class="ai-analysis-loading">⏳ Đang phân tích…</span></div>
+    </div>`;
   openModal('m-report');
+
+  // Gọi Gemini phân tích sau khi modal mở
+  const analysis = await geminiAnalysis();
+  const el=document.getElementById('ai-analysis-text');
+  if(el) el.textContent=analysis;
 }
 
 // ══════════════════════════════════════════
