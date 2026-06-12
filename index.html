@@ -1123,7 +1123,7 @@ function openTalk(id){
   sfx('tap');
   var npc=NPCS[id]; if(!npc) return;
   if(npc.unlock&&G.stars<npc.unlock){toast('🔒 Need '+npc.unlock+' ⭐ first!');sfx('wrong');return;}
-  cur=id; step=0; awaitSecond=false; lastSay='';
+  cur=id; step=0; awaitSecond=false; lastSay=''; wrongStreak=0;
   // Set both portrait header and landscape left panel
   document.getElementById('t-face').textContent=npc.face;
   document.getElementById('t-name').textContent=npc.name;
@@ -1164,7 +1164,7 @@ function addRAM(text){
     +'<button class="ram-btn" onclick="speak(\''+text.replace(/'/g,"\\'")+'\')">'
     +'🔊 Hear it</button>';
   document.getElementById('chat').appendChild(div);
-  document.getElementById('chat').scrollTop=99999;
+  scrollChat();
 }
 
 function toggleNoSay(){
@@ -1180,9 +1180,11 @@ function send(){
   processInput(v);
 }
 
+// Track consecutive wrong answers per step
+var wrongStreak = 0;
+
 function processInput(text){
   var npc=NPCS[cur], s=npc.script[step]; if(!s) return;
-  // If step needs keyword, judge first
   if(s.key){
     showTyping();
     gemJudge(npc, s.key, text, function(result){
@@ -1191,21 +1193,58 @@ function processInput(text){
         G.mistakes++;
         G.mistakeLog.push({npc:npc.name,step:step,wrong:text,correct:s.chips[0]||s.key});
         sfx('wrong');
-        var msg=result.correction||'Try again! Say: "'+s.chips[0]+'" 😊';
-        setTimeout(function(){addFix(msg);speak(msg);},200);
+        wrongStreak++;
+        var correctExample = s.chips[0] || s.key;
+        var msg = result.correction || 'Try again! Say: "'+correctExample+'" 😊';
+
+        if(wrongStreak >= 2){
+          // Show correction + RAM button to hear and repeat the example
+          setTimeout(function(){
+            addFix(msg);
+            // Show the model sentence to repeat after
+            addRAMCorrection(correctExample);
+            speak(correctExample); // auto-play the correct sentence
+          }, 200);
+        } else {
+          setTimeout(function(){addFix(msg);speak(msg);}, 200);
+        }
         return;
       }
       sfx('correct');
+      wrongStreak = 0; // reset on success
       if(s.key&&G.words.indexOf(s.key)<0) G.words.push(s.key);
       npc.words.forEach(function(w){if(G.words.indexOf(w)<0)G.words.push(w);});
       advanceStep(text);
     });
   } else {
+    wrongStreak = 0;
     advanceStep(text);
   }
 }
 
+// Special RAM correction bubble: shows model + hear button + "just tap" hint
+function addRAMCorrection(text){
+  var div=document.createElement('div'); div.className='ram-row';
+  div.style.cssText='border-color:rgba(255,152,0,.5);background:rgba(255,152,0,.1)';
+  var inner=document.createElement('div'); inner.style.cssText='flex:1';
+  inner.innerHTML=
+    '<div style="color:#ffcc80;font-size:12px;font-weight:800;margin-bottom:4px">💡 Listen carefully:</div>'
+    +'<div class="ram-txt" style="color:#ffe0b2"><b>'+text+'</b></div>'
+    +'<div style="color:#b8aadd;font-size:11px;margin-top:4px">Or tap a suggestion below 👇</div>';
+  var btn=document.createElement('button');
+  btn.className='ram-btn';
+  btn.style.cssText='background:rgba(255,152,0,.3);border-color:rgba(255,152,0,.6);color:#ffcc80';
+  btn.textContent='🔊 Hear';
+  btn.onclick=function(){ speak(text); };
+  div.appendChild(inner); div.appendChild(btn);
+  document.getElementById('chat').appendChild(div);
+  scrollChat();
+  var s=NPCS[cur]&&NPCS[cur].script[step];
+  if(s&&s.chips&&s.chips.length) setChips(s.chips);
+}
+
 function advanceStep(userText){
+  wrongStreak = 0;
   var npc=NPCS[cur]; step++; updateProgress();
   saveG();
   if(step>=npc.script.length){completeQuest();return;}
@@ -1535,14 +1574,24 @@ function addMe(t){  addMsg('me','<span class="av">🧒</span><div class="bub">'+
 function addFix(t){ addMsg('fix','<div class="bub">💡 '+t+'</div>'); }
 function addMsg(cls,html){
   var d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=html;
-  var c=document.getElementById('chat'); c.appendChild(d); c.scrollTop=c.scrollHeight;
+  var c=document.getElementById('chat'); c.appendChild(d);
+  scrollChat();
+}
+function scrollChat(){
+  var c=document.getElementById('chat'); if(!c) return;
+  // Force scroll on Samsung Android (requestAnimationFrame needed)
+  requestAnimationFrame(function(){
+    c.scrollTop=c.scrollHeight + 9999;
+    // Double-tap for Samsung Internet quirk
+    setTimeout(function(){ c.scrollTop=c.scrollHeight + 9999; }, 80);
+  });
 }
 function clearChat(){ document.getElementById('chat').innerHTML=''; }
 function showTyping(){
   removeTyping();
   var d=document.createElement('div'); d.className='msg npc typing-msg';
   d.innerHTML='<span class="av">'+(NPCS[cur]&&NPCS[cur].face||'🤖')+'</span><div class="bub"><div class="dots"><span></span><span></span><span></span></div></div>';
-  var c=document.getElementById('chat'); c.appendChild(d); c.scrollTop=c.scrollHeight;
+  var c=document.getElementById('chat'); c.appendChild(d); scrollChat();
 }
 function removeTyping(){ document.querySelectorAll('.typing-msg').forEach(function(e){e.remove();}); }
 function setChips(arr){
@@ -1648,6 +1697,13 @@ function showReport(){
 // ═══════════════════════════
 loadG();
 document.getElementById('inp-name').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();startGame();}});
+// Samsung keyboard resize fix: re-scroll chat when virtual keyboard opens/closes
+window.addEventListener('resize', function(){ scrollChat(); });
+// Also handle visualViewport for modern Android
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize', function(){ scrollChat(); });
+  window.visualViewport.addEventListener('scroll', function(){ scrollChat(); });
+}
 document.getElementById('hud-pet').onclick=openPetModal;
 document.getElementById('m-sticker').querySelector('.sgrid')||document.getElementById('m-sticker').addEventListener('click',function(){});
 // override sticker open button
