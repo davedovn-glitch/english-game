@@ -2,255 +2,370 @@
 <html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="google" content="notranslate">
 <title translate="no">English Adventure</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
+/* ── RESET & VARS ─────────────────────────── */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --gold:#f5c518;--card:#fffbe8;--purple:#7c4dff;--pink:#ff4081;--dark:#1a1a2e;
-  --green:#4caf50;--teal:#00bcd4;
-  --font:'Fredoka One',cursive;--body:'Nunito',sans-serif;
-  --safe-bottom:env(safe-area-inset-bottom,0px);--safe-top:env(safe-area-inset-top,0px);
+  --gold:#f5c518;--purple:#7c4dff;--pink:#ff4081;--teal:#00bcd4;--green:#4caf50;
+  --card:#fffbe8;--dark:#1a1a2e;--font:'Fredoka One',cursive;--body:'Nunito',sans-serif;
+  --sb:env(safe-area-inset-bottom,0px);--st:env(safe-area-inset-top,0px);
 }
 html,body{width:100%;height:100%;overflow:hidden;font-family:var(--body);background:var(--dark);
   -webkit-user-select:none;user-select:none;touch-action:manipulation}
-input,textarea{-webkit-user-select:text;user-select:text}
-.screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
-.screen.on{display:flex}
+input{-webkit-user-select:text;user-select:text}
+.screen{position:fixed;inset:0;display:none}
+.screen.on{display:flex;flex-direction:column}
 
-/* ── INTRO ── */
-#s-intro{background:linear-gradient(160deg,#0d1b4b,#1a0a3e,#0d2b1e)}
+/* ── INTRO ───────────────────────────────── */
+#s-intro{background:linear-gradient(160deg,#0d1b4b,#1a0a3e,#0d2b1e);
+  align-items:center;justify-content:center}
 .stars{position:absolute;inset:0;background-image:
   radial-gradient(1px 1px at 15% 25%,#fff 0%,transparent 100%),
   radial-gradient(2px 2px at 40% 10%,#ffd700 0%,transparent 100%),
   radial-gradient(1px 1px at 65% 40%,#fff 0%,transparent 100%),
   radial-gradient(2px 2px at 80% 15%,#b388ff 0%,transparent 100%),
   radial-gradient(1px 1px at 25% 70%,#fff 0%,transparent 100%),
-  radial-gradient(1px 1px at 55% 85%,#ffd700 0%,transparent 100%),
-  radial-gradient(2px 2px at 90% 50%,#fff 0%,transparent 100%);
-  animation:twinkle 3s ease-in-out infinite alternate}
+  radial-gradient(2px 2px at 90% 50%,#ffd700 0%,transparent 100%);
+  animation:twinkle 3s ease-in-out infinite alternate;pointer-events:none}
 @keyframes twinkle{from{opacity:.5}to{opacity:1}}
-.intro-box{position:relative;text-align:center;padding:28px 26px;
-  padding-bottom:calc(28px + var(--safe-bottom));
-  background:rgba(255,255,255,.07);border:3px solid var(--gold);border-radius:28px;
-  width:min(400px,92%);box-shadow:0 0 60px rgba(245,197,24,.3)}
-.logo{font-size:56px;animation:bob 2.5s ease-in-out infinite}
+.ibox{position:relative;text-align:center;padding:28px 26px;
+  background:rgba(255,255,255,.07);border:3px solid var(--gold);border-radius:26px;
+  width:min(380px,92%);box-shadow:0 0 60px rgba(245,197,24,.3)}
+.logo{font-size:54px;animation:bob 2.5s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-h1{font-family:var(--font);font-size:27px;color:var(--gold);margin:6px 0 3px}
-.sub{color:#c8b8ff;font-size:13px;margin-bottom:18px;line-height:1.5}
-#inp-name{width:100%;padding:12px 15px;border-radius:13px;border:2px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.1);color:#fff;font-size:17px;font-family:var(--body);
-  font-weight:600;outline:none;-webkit-appearance:none}
-#inp-name::placeholder{color:rgba(255,255,255,.4)}
-#inp-name:focus{border-color:var(--gold)}
-.btn{display:block;width:100%;margin-top:10px;padding:13px;border:none;border-radius:13px;
-  cursor:pointer;font-family:var(--font);font-size:18px;min-height:50px;
-  transition:transform .12s,box-shadow .12s}
-.btn-gold{background:linear-gradient(135deg,#f5c518,#c8960c);color:#3a2000;box-shadow:0 5px 0 #7a5000}
+.ibox h1{font-family:var(--font);font-size:26px;color:var(--gold);margin:6px 0 3px}
+.ibox p{color:#c8b8ff;font-size:13px;margin-bottom:16px;line-height:1.5}
+.inp{width:100%;padding:12px 14px;border-radius:12px;border:2px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1);color:#fff;font-size:16px;font-family:var(--body);
+  font-weight:700;outline:none;-webkit-appearance:none;margin-bottom:8px}
+.inp:focus{border-color:var(--gold)}
+.inp::placeholder{color:rgba(255,255,255,.4)}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:12px;cursor:pointer;
+  font-family:var(--font);font-size:18px;min-height:48px;transition:transform .12s,box-shadow .12s}
+.btn-gold{background:linear-gradient(135deg,#f5c518,#c8960c);color:#3a2000;box-shadow:0 5px 0 #7a5000;margin-top:6px}
 .btn-gold:active{transform:translateY(3px);box-shadow:0 2px 0 #7a5000}
 
-/* ── MAP ── */
-#s-map{background:linear-gradient(180deg,#6ec6f5 0%,#a8e063 65%,#5cb85c 100%)}
-#hud{position:absolute;top:0;left:0;right:0;
-  padding:calc(7px + var(--safe-top)) 12px 7px;
-  display:flex;align-items:center;justify-content:space-between;
-  background:rgba(0,0,0,.45);backdrop-filter:blur(6px);z-index:10;gap:6px}
+/* ── HUD ─────────────────────────────────── */
+#hud{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+  padding:calc(6px + var(--st)) 12px 6px;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(8px);z-index:20;gap:6px}
 #hud-name{font-family:var(--font);color:var(--gold);font-size:13px;white-space:nowrap}
-.hud-badges{display:flex;gap:5px}
-.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;
-  font-size:12px;font-weight:800;padding:4px 9px;border-radius:16px;white-space:nowrap}
-.badge.star{color:var(--gold)}
-.hud-btns{display:flex;gap:5px}
-.hud-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
-  font-size:12px;font-weight:800;padding:5px 9px;border-radius:9px;cursor:pointer;
-  font-family:var(--body);min-height:34px}
-.hud-btn:active{background:rgba(255,255,255,.25)}
-#map-scene{position:relative;width:100%;height:100%;overflow:hidden}
-#map-scene::before{content:"☁️   ☁️   ☁️";position:absolute;top:7%;left:4%;
-  font-size:22px;opacity:.7;pointer-events:none;letter-spacing:22px}
-.npc-pin{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:4px}
-.npc-pin:active .npc-bubble{transform:scale(0.93)}
-.npc-bubble{background:var(--card);border:3px solid #e0c060;border-radius:17px;padding:8px 10px;
-  text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .12s;
-  position:relative;min-width:62px}
-.npc-face{font-size:32px;line-height:1;display:block}
-.npc-label{font-family:var(--font);font-size:10px;color:#5a3000;margin-top:2px;white-space:nowrap}
-.q-dot{position:absolute;top:-8px;right:-8px;background:var(--pink);color:#fff;font-size:10px;
-  font-weight:800;width:19px;height:19px;border-radius:50%;display:flex;align-items:center;
-  justify-content:center;border:2px solid #fff;animation:bob 1s ease-in-out infinite}
+.hbadges{display:flex;gap:5px;align-items:center}
+.hb{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:12px;font-weight:800;padding:3px 8px;border-radius:14px;white-space:nowrap}
+.hb.star{color:var(--gold)}
+/* Pet in HUD */
+#hud-pet{display:flex;align-items:center;gap:5px;cursor:pointer}
+#pip-face{font-size:22px;transition:transform .2s}
+#pip-face:hover{transform:scale(1.2)}
+#pip-hunger{width:40px;height:6px;background:rgba(255,255,255,.15);border-radius:3px;overflow:hidden}
+#pip-hunger-bar{height:100%;background:linear-gradient(90deg,#4caf50,#8bc34a);
+  border-radius:3px;transition:width .5s}
+.hbtns{display:flex;gap:5px}
+.hbtn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
+  font-size:12px;font-weight:800;padding:5px 9px;border-radius:8px;cursor:pointer;
+  font-family:var(--body);min-height:32px}
+.hbtn:active{background:rgba(255,255,255,.25)}
+/* Streak badge */
+#streak-badge{background:linear-gradient(135deg,#ff9800,#f44336);color:#fff;
+  font-size:11px;font-weight:800;padding:3px 8px;border-radius:14px;white-space:nowrap}
+
+/* ── MAP SCREEN ──────────────────────────── */
+#s-map{background:linear-gradient(180deg,#6ec6f5 0%,#a8e063 60%,#5cb85c 100%)}
+#map-scene{position:relative;flex:1;overflow:hidden}
+#map-scene::before{content:"☁️   ☁️   ☁️";position:absolute;top:6%;left:4%;
+  font-size:20px;opacity:.7;pointer-events:none;letter-spacing:20px}
+.npin{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer;padding:3px}
+.npin:active .nbub{transform:scale(.93)}
+.nbub{background:var(--card);border:3px solid #e0c060;border-radius:16px;padding:7px 9px;
+  text-align:center;box-shadow:0 5px 16px rgba(0,0,0,.25);transition:transform .12s;
+  position:relative;min-width:58px}
+.nface{font-size:30px;line-height:1;display:block}
+.nlabel{font-family:var(--font);font-size:10px;color:#5a3000;margin-top:1px;white-space:nowrap}
+.qdot{position:absolute;top:-7px;right:-7px;background:var(--pink);color:#fff;font-size:9px;
+  font-weight:800;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;border:2px solid #fff;animation:bob .9s ease-in-out infinite}
 .done-dot{background:#4caf50}
-.npc-pin.locked .npc-bubble{filter:grayscale(.8);opacity:.5}
-.lock-tag{font-size:10px;font-weight:800;color:#444;margin-top:3px;
-  background:rgba(255,255,255,.7);padding:2px 6px;border-radius:9px}
+.npin.locked .nbub{filter:grayscale(.8);opacity:.5}
+.ltag{font-size:10px;font-weight:800;color:#444;margin-top:2px;
+  background:rgba(255,255,255,.7);padding:2px 6px;border-radius:8px}
 
-/* ── DIALOGUE ── */
-#s-talk{background:linear-gradient(160deg,#0d0628,#1a0840,#0d1a30)}
-.talk-wrap{display:flex;flex-direction:column;height:100%;width:100%;max-width:560px;margin:0 auto;
-  padding-bottom:var(--safe-bottom)}
-.talk-head{display:flex;align-items:center;gap:10px;padding:9px 13px;
-  padding-top:calc(9px + var(--safe-top));
+/* ── TALK SCREEN — PORTRAIT ─────────────── */
+#s-talk{flex-direction:column}
+.talk-port{display:flex;flex-direction:column;height:100%;background:linear-gradient(160deg,#0d0628,#1a0840,#0d1a30)}
+
+/* ── TALK SCREEN — LANDSCAPE TABLET ─────── */
+@media (min-width:700px) and (orientation:landscape){
+  .talk-port{flex-direction:row}
+  /* Left panel: NPC scene */
+  #talk-left{display:flex!important;flex-direction:column;align-items:center;justify-content:center;
+    width:42%;flex-shrink:0;background:linear-gradient(160deg,#0a1628,#0d2040);
+    border-right:2px solid rgba(255,255,255,.08);padding:16px}
+  #ls-face{font-size:80px;filter:drop-shadow(0 8px 20px rgba(0,0,0,.5));margin-bottom:10px}
+  #ls-name{font-family:var(--font);font-size:20px;color:var(--gold);margin-bottom:4px;text-align:center}
+  #ls-role{font-size:12px;color:#b8aadd;font-weight:600;margin-bottom:14px;text-align:center}
+  /* Quest progress */
+  #ls-qbar{width:80%;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:8px}
+  #ls-qfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--pink));border-radius:3px;transition:width .4s}
+  #ls-qlabel{font-size:11px;color:#b8aadd;font-weight:700;margin-bottom:16px}
+  /* Item scene in landscape */
+  #ls-items{width:100%;display:flex;flex-wrap:wrap;gap:7px;justify-content:center}
+  .ls-item-btn{background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);
+    border-radius:12px;padding:8px 12px;cursor:pointer;color:#fff;font-weight:800;font-size:13px;
+    font-family:var(--body);display:flex;align-items:center;gap:6px;min-height:44px;
+    transition:background .12s}
+  .ls-item-btn:active{background:rgba(245,197,24,.25);border-color:var(--gold)}
+  /* Right panel: chat */
+  #talk-right{flex:1;display:flex;flex-direction:column;overflow:hidden}
+  /* Hide portrait item-row in landscape */
+  #item-row{display:none!important}
+  /* Wider chat */
+  #chat{max-width:none}
+}
+
+/* Portrait: hide left panel */
+#talk-left{display:none}
+
+/* Talk header */
+.thead{display:flex;align-items:center;gap:9px;padding:8px 12px;
+  padding-top:calc(8px + var(--st));
   background:rgba(255,255,255,.06);border-bottom:2px solid rgba(255,255,255,.08);flex-shrink:0}
-#t-face{font-size:42px;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
-.t-info{flex:1;min-width:0}
-#t-name{font-family:var(--font);font-size:18px;color:var(--gold)}
+#t-face{font-size:40px;filter:drop-shadow(0 3px 7px rgba(0,0,0,.4))}
+.tinfo{flex:1;min-width:0}
+#t-name{font-family:var(--font);font-size:17px;color:var(--gold)}
 #t-role{font-size:11px;color:#b8aadd;font-weight:600}
-#quest-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:3px;overflow:hidden}
-#quest-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--pink));border-radius:2px;
-  transition:width .4s ease}
-.head-btns{display:flex;gap:6px;flex-shrink:0}
-.head-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#ccc;
-  font-size:12px;font-weight:800;padding:8px 11px;border-radius:11px;cursor:pointer;
-  font-family:var(--body);min-height:40px;white-space:nowrap}
-.head-btn:active{background:rgba(255,255,255,.2)}
-.head-btn.vn{border-color:rgba(0,188,212,.4);color:#80deea}
+#qbar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:2px;overflow:hidden}
+#qfill{height:100%;background:linear-gradient(90deg,var(--gold),var(--pink));
+  border-radius:2px;transition:width .4s}
+.tbtns{display:flex;gap:5px;flex-shrink:0}
+.tbtn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#ccc;
+  font-size:12px;font-weight:800;padding:7px 10px;border-radius:10px;cursor:pointer;
+  font-family:var(--body);min-height:38px;white-space:nowrap}
+.tbtn:active{background:rgba(255,255,255,.2)}
+.tbtn.vn{border-color:rgba(0,188,212,.4);color:#80deea}
+.tbtn.nosay{border-color:rgba(255,152,0,.4);color:#ffcc80}
 
+/* Chat */
 #chat{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;
-  padding:11px 11px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
+  padding:10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
 #chat::-webkit-scrollbar{width:3px}
 #chat::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:3px}
-.msg{display:flex;align-items:flex-end;gap:7px;max-width:86%;animation:fadeUp .2s ease-out}
-@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg{display:flex;align-items:flex-end;gap:6px;max-width:86%;animation:fadeUp .2s ease-out}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 .msg.npc{align-self:flex-start}
 .msg.me{align-self:flex-end;flex-direction:row-reverse}
-.av{font-size:20px;flex-shrink:0}
-.bub{padding:9px 13px;border-radius:16px;font-size:15px;font-weight:700;line-height:1.5}
-.npc .bub{background:rgba(255,255,255,.11);color:#fff;border-bottom-left-radius:4px;
+.av{font-size:18px;flex-shrink:0}
+.bub{padding:8px 13px;border-radius:15px;font-size:14px;font-weight:700;line-height:1.5}
+.npc .bub{background:rgba(255,255,255,.11);color:#fff;border-bottom-left-radius:3px;
   border:1px solid rgba(255,255,255,.12)}
-.me  .bub{background:linear-gradient(135deg,#7c4dff,#512da8);color:#fff;border-bottom-right-radius:4px}
+.me .bub{background:linear-gradient(135deg,#7c4dff,#512da8);color:#fff;border-bottom-right-radius:3px}
 .fix .bub{background:rgba(255,160,50,.12);color:#ffcc88;border:1px solid rgba(255,160,50,.25);
-  font-size:13px;border-radius:11px}
-/* Vietnamese hint bubble */
+  font-size:13px;border-radius:10px}
 .vn-hint .bub{background:rgba(0,188,212,.12);color:#80deea;border:1px solid rgba(0,188,212,.3);
-  font-size:13px;border-radius:11px}
-/* Gemini analysis bubble */
-.analysis .bub{background:rgba(76,175,80,.1);color:#a5d6a7;border:1px solid rgba(76,175,80,.25);
-  font-size:13px;border-radius:11px;font-style:italic}
-.dots span{display:inline-block;width:7px;height:7px;background:rgba(255,255,255,.5);
+  font-size:13px;border-radius:10px}
+/* Repeat-after-me row */
+.ram-row{align-self:flex-start;display:flex;align-items:center;gap:8px;
+  background:rgba(76,175,80,.15);border:1px solid rgba(76,175,80,.3);
+  border-radius:12px;padding:8px 13px;max-width:86%;animation:fadeUp .2s ease-out}
+.ram-row .ram-txt{color:#a5d6a7;font-size:13px;font-weight:700;flex:1}
+.ram-btn{background:rgba(76,175,80,.3);border:1px solid rgba(76,175,80,.5);color:#a5d6a7;
+  font-size:11px;font-weight:800;padding:5px 10px;border-radius:8px;cursor:pointer;
+  font-family:var(--body);white-space:nowrap}
+.ram-btn:active{background:rgba(76,175,80,.5)}
+.dots span{display:inline-block;width:6px;height:6px;background:rgba(255,255,255,.5);
   border-radius:50%;margin:0 2px;animation:dot 1.2s ease-in-out infinite}
 .dots span:nth-child(2){animation-delay:.2s}.dots span:nth-child(3){animation-delay:.4s}
 @keyframes dot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
 
-/* Items */
-#item-row{padding:8px 11px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
-#item-row p{font-size:12px;color:#b8aadd;font-weight:800;margin-bottom:6px}
-#item-grid{display:flex;flex-wrap:wrap;gap:6px}
-.item-btn{background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);border-radius:12px;
-  padding:9px 13px;cursor:pointer;color:#fff;font-weight:800;font-size:13px;
-  font-family:var(--body);display:flex;align-items:center;gap:6px;min-height:46px}
-.item-btn:active{background:rgba(245,197,24,.25);border-color:var(--gold)}
-.item-icon{font-size:20px}
+/* Portrait item row */
+#item-row{padding:7px 10px;background:rgba(0,0,0,.3);border-top:1px solid rgba(255,255,255,.08);flex-shrink:0}
+#item-row p{font-size:11px;color:#b8aadd;font-weight:800;margin-bottom:5px}
+#item-grid{display:flex;flex-wrap:wrap;gap:5px}
+.ibtn{background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.18);border-radius:11px;
+  padding:8px 11px;cursor:pointer;color:#fff;font-weight:800;font-size:12px;
+  font-family:var(--body);display:flex;align-items:center;gap:5px;min-height:42px}
+.ibtn:active{background:rgba(245,197,24,.25);border-color:var(--gold)}
+.iico{font-size:18px}
 
 /* Input */
-#inp-area{padding:7px 9px;background:rgba(0,0,0,.4);border-top:2px solid rgba(255,255,255,.08);flex-shrink:0}
-#hint{background:rgba(110,198,245,.12);border:1px solid rgba(110,198,245,.3);border-radius:9px;
-  padding:5px 11px;margin-bottom:6px;font-size:12px;color:#90d8ff;font-weight:700;display:none}
-#inp-row{display:flex;gap:6px}
-#txt{flex:1;padding:11px 12px;border-radius:11px;border:2px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.09);color:#fff;font-size:15px;font-family:var(--body);
-  font-weight:700;outline:none;min-height:46px;-webkit-appearance:none}
+#inp-area{padding:7px 8px;background:rgba(0,0,0,.4);border-top:2px solid rgba(255,255,255,.08);flex-shrink:0;
+  padding-bottom:calc(7px + var(--sb))}
+#hint{background:rgba(110,198,245,.12);border:1px solid rgba(110,198,245,.3);border-radius:8px;
+  padding:5px 10px;margin-bottom:6px;font-size:12px;color:#90d8ff;font-weight:700;display:none}
+#inp-row{display:flex;gap:5px}
+#txt{flex:1;padding:10px 12px;border-radius:10px;border:2px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.09);color:#fff;font-size:14px;font-family:var(--body);
+  font-weight:700;outline:none;min-height:44px;-webkit-appearance:none}
 #txt::placeholder{color:rgba(255,255,255,.35)}
 #txt:focus{border-color:var(--purple)}
-#btn-mic{width:46px;height:46px;background:linear-gradient(135deg,#e91e63,#880e4f);
-  border:none;border-radius:11px;font-size:20px;cursor:pointer;box-shadow:0 3px 0 #560027;flex-shrink:0}
+#btn-mic{width:44px;height:44px;background:linear-gradient(135deg,#e91e63,#880e4f);
+  border:none;border-radius:10px;font-size:18px;cursor:pointer;box-shadow:0 3px 0 #560027;flex-shrink:0}
 #btn-mic:active{transform:translateY(2px);box-shadow:0 1px 0 #560027}
 #btn-mic.on{background:linear-gradient(135deg,#ff1744,#f50057);
   animation:pulseMic .7s ease-in-out infinite alternate}
-@keyframes pulseMic{from{box-shadow:0 3px 0 #560027}to{box-shadow:0 3px 0 #560027,0 0 0 9px rgba(255,23,68,0)}}
-#btn-send{padding:0 14px;height:46px;background:linear-gradient(135deg,#7c4dff,#512da8);
-  border:none;border-radius:11px;color:#fff;font-family:var(--font);font-size:14px;
+@keyframes pulseMic{from{box-shadow:0 3px 0 #560027}to{box-shadow:0 3px 0 #560027,0 0 0 8px rgba(255,23,68,0)}}
+#btn-send{padding:0 12px;height:44px;background:linear-gradient(135deg,#7c4dff,#512da8);
+  border:none;border-radius:10px;color:#fff;font-family:var(--font);font-size:13px;
   cursor:pointer;box-shadow:0 3px 0 #2a0080;flex-shrink:0}
 #btn-send:active{transform:translateY(2px);box-shadow:0 1px 0 #2a0080}
-#chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:7px}
+#chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.2);color:#e8e0ff;
-  font-size:13px;font-weight:800;padding:7px 13px;border-radius:18px;cursor:pointer;
-  font-family:var(--body);min-height:38px}
+  font-size:12px;font-weight:800;padding:6px 12px;border-radius:16px;cursor:pointer;
+  font-family:var(--body);min-height:36px}
 .chip:active{background:rgba(124,77,255,.3);border-color:var(--purple)}
 
-/* ── MODALS ── */
+/* ── MINI GAME SCREEN ────────────────────── */
+#s-mini{background:linear-gradient(160deg,#0d0628,#1a0840);
+  align-items:center;justify-content:center}
+#mini-box{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
+  border-radius:22px;padding:22px;width:min(440px,94%);text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.6)}
+#mini-title{font-family:var(--font);font-size:20px;color:var(--gold);margin-bottom:6px}
+#mini-inst{color:#c8b8ff;font-size:13px;font-weight:700;margin-bottom:16px;line-height:1.5}
+#mini-content{margin-bottom:16px}
+#mini-score{font-family:var(--font);font-size:15px;color:var(--gold);margin-bottom:12px}
+#mini-timer{height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;margin-bottom:16px}
+#mini-timer-bar{height:100%;background:linear-gradient(90deg,#4caf50,#f5c518);
+  border-radius:3px;transition:width .1s linear}
+/* Memory game */
+.mem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.mem-card{aspect-ratio:1;background:linear-gradient(135deg,#512da8,#311b92);border:2px solid rgba(255,255,255,.2);
+  border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:22px;transition:transform .15s;position:relative}
+.mem-card.flipped{background:rgba(255,255,255,.12);border-color:var(--gold)}
+.mem-card.matched{background:rgba(76,175,80,.2);border-color:#4caf50;cursor:default}
+.mem-card.hidden-face{font-size:0}
+/* Listen tap */
+.lt-choices{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.lt-choice{padding:12px 16px;background:rgba(255,255,255,.09);border:2px solid rgba(255,255,255,.2);
+  border-radius:12px;cursor:pointer;font-size:22px;font-weight:800;color:#fff;
+  font-family:var(--body);transition:all .15s;min-width:70px;text-align:center}
+.lt-choice:active{transform:scale(.95)}
+.lt-choice.correct{background:rgba(76,175,80,.3);border-color:#4caf50}
+.lt-choice.wrong{background:rgba(244,67,54,.2);border-color:#f44336}
+/* Drag sentence */
+.drag-target{min-height:44px;border:2px dashed rgba(255,255,255,.3);border-radius:10px;
+  padding:8px;display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;
+  background:rgba(255,255,255,.05)}
+.drag-word{padding:7px 12px;background:linear-gradient(135deg,#7c4dff,#512da8);
+  border-radius:8px;color:#fff;font-weight:800;font-size:13px;cursor:pointer;
+  font-family:var(--body);user-select:none;-webkit-user-select:none}
+.drag-word.in-bank{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25)}
+.word-bank{display:flex;flex-wrap:wrap;gap:5px;justify-content:center}
+/* Fast choice */
+.fc-question{font-family:var(--font);font-size:22px;color:#fff;margin-bottom:16px}
+.fc-choices{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc-choice{padding:14px;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);
+  border-radius:12px;cursor:pointer;font-weight:800;font-size:14px;color:#fff;
+  font-family:var(--body);transition:all .12s;text-align:center}
+.fc-choice:active{transform:scale(.96)}
+.fc-choice.correct{background:rgba(76,175,80,.3);border-color:#4caf50}
+.fc-choice.wrong{background:rgba(244,67,54,.2);border-color:#f44336}
+
+/* ── MODALS ──────────────────────────────── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;
   justify-content:center;z-index:100;backdrop-filter:blur(4px);
-  padding:14px;padding-bottom:calc(14px + var(--safe-bottom))}
+  padding:14px;padding-bottom:calc(14px + var(--sb))}
 .overlay.on{display:flex}
 .mbox{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
-  border-radius:22px;padding:22px;width:100%;max-width:420px;
-  max-height:86vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  border-radius:22px;padding:22px;width:100%;max-width:440px;
+  max-height:88vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .mbox h2{font-family:var(--font);font-size:20px;color:var(--gold);margin-bottom:13px;text-align:center}
-.mclose{display:block;margin:13px auto 0;padding:10px 24px;background:rgba(255,255,255,.1);
+.mclose{display:block;margin:12px auto 0;padding:10px 22px;background:rgba(255,255,255,.1);
   border:1px solid rgba(255,255,255,.2);color:#ccc;font-size:13px;font-weight:800;
-  border-radius:11px;cursor:pointer;font-family:var(--body);min-height:44px}
-#rew-anim{font-size:56px;animation:pop .5s cubic-bezier(.175,.885,.32,1.275);text-align:center}
+  border-radius:10px;cursor:pointer;font-family:var(--body);min-height:42px}
+
+/* Reward modal */
+#rew-anim{font-size:54px;animation:pop .5s cubic-bezier(.175,.885,.32,1.275);text-align:center}
 @keyframes pop{from{transform:scale(0) rotate(-20deg)}to{transform:scale(1)}}
-#rew-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:7px 0 5px;text-align:center}
+#rew-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:7px 0 4px;text-align:center}
 #rew-desc{color:#c8aaff;font-size:13px;font-weight:700;margin-bottom:13px;text-align:center}
-#rew-badges{display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+#rew-badges{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .rb{background:rgba(255,255,255,.09);border:2px solid #c8960c;border-radius:10px;
   padding:8px 12px;color:var(--gold);font-size:12px;font-weight:800;text-align:center}
+/* Pip reaction in reward */
+#rew-pip{font-size:36px;text-align:center;margin-bottom:6px;animation:bob 1s ease-in-out infinite}
+
+/* Sticker book */
+#m-sticker .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:10px}
+.sticker{aspect-ratio:1;background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;font-size:24px;text-align:center;padding:6px}
+.sticker.unlocked{border-color:var(--gold);background:rgba(245,197,24,.08)}
+.sticker.locked{filter:grayscale(1);opacity:.35}
+.sticker small{font-size:9px;color:#b8aadd;font-weight:700;margin-top:2px;font-family:var(--body);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+
+/* Pet modal */
+#m-pet{text-align:center}
+#pet-big{font-size:72px;animation:bob 2s ease-in-out infinite;margin-bottom:8px}
+#pet-name{font-family:var(--font);font-size:22px;color:var(--gold);margin-bottom:4px}
+#pet-mood{color:#c8aaff;font-size:13px;font-weight:700;margin-bottom:12px}
+.pet-stat{background:rgba(255,255,255,.06);border-radius:10px;padding:10px;margin-bottom:8px;text-align:left}
+.pet-stat label{font-size:11px;color:#b8aadd;font-weight:800;display:block;margin-bottom:4px}
+.pet-bar{height:8px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}
+.pet-bar-fill{height:100%;border-radius:4px;transition:width .5s}
+#pet-hunger-fill{background:linear-gradient(90deg,#4caf50,#8bc34a)}
+#pet-happy-fill{background:linear-gradient(90deg,#f5c518,#ff9800)}
+#pet-level-fill{background:linear-gradient(90deg,var(--purple),var(--pink))}
 
 /* Report */
-#m-report .sec{background:rgba(255,255,255,.06);border-radius:11px;padding:11px;margin-bottom:9px}
-#m-report .sec h3{font-family:var(--font);font-size:14px;color:var(--gold);margin-bottom:6px}
-#m-report .sec p{color:#d0c8ff;font-size:13px;font-weight:700;line-height:1.8}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+#m-report .sec{background:rgba(255,255,255,.06);border-radius:10px;padding:10px;margin-bottom:8px}
+#m-report .sec h3{font-family:var(--font);font-size:13px;color:var(--gold);margin-bottom:5px}
+#m-report .sec p{color:#d0c8ff;font-size:12px;font-weight:700;line-height:1.8}
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
 .tag{background:rgba(124,77,255,.25);border:1px solid rgba(124,77,255,.4);color:#d0aaff;
-  font-size:11px;padding:3px 9px;border-radius:16px;font-weight:800}
-/* Gemini analysis in report */
+  font-size:10px;padding:2px 8px;border-radius:14px;font-weight:800}
 .ai-analysis{background:rgba(76,175,80,.1);border:1px solid rgba(76,175,80,.3);
-  border-radius:10px;padding:10px;margin-top:8px;color:#a5d6a7;font-size:12px;
+  border-radius:9px;padding:9px;margin-top:7px;color:#a5d6a7;font-size:12px;
   font-weight:700;line-height:1.7;white-space:pre-wrap}
-.ai-analysis-loading{color:#666;font-style:italic;font-size:12px}
 
-.unlock-em{font-size:48px;animation:bob 2s ease-in-out infinite;text-align:center}
-#ul-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:8px 0 5px;text-align:center}
+/* Settings */
+#m-settings .sec{background:rgba(255,255,255,.06);border-radius:10px;padding:10px;margin-bottom:8px}
+#m-settings .sec h3{font-family:var(--font);font-size:13px;color:var(--gold);margin-bottom:4px}
+#m-settings .sec p{color:#b8aadd;font-size:11px;margin-bottom:7px;line-height:1.5}
+.set-status{text-align:center;font-size:12px;font-weight:700;padding:6px;
+  border-radius:8px;margin-bottom:5px;display:none}
+.set-status.ok{background:rgba(76,175,80,.15);color:#a5d6a7}
+.set-status.warn{background:rgba(255,160,50,.15);color:#ffcc88}
+
+/* Unlock modal */
+.unlock-em{font-size:46px;animation:bob 2s ease-in-out infinite;text-align:center}
+#ul-title{font-family:var(--font);font-size:20px;color:var(--gold);margin:7px 0 4px;text-align:center}
 #ul-desc{color:#c8aaff;font-size:13px;font-weight:700;margin-bottom:14px;text-align:center}
 
-/* Music btn */
-#btn-music{position:fixed;bottom:calc(14px + var(--safe-bottom));right:14px;
-  width:42px;height:42px;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.2);
-  border-radius:50%;font-size:18px;cursor:pointer;z-index:50;display:flex;
-  align-items:center;justify-content:center}
-#btn-music.muted{opacity:.45}
+/* Floating btns */
+#btn-music{position:fixed;bottom:calc(12px + var(--sb));right:12px;
+  width:40px;height:40px;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.2);
+  border-radius:50%;font-size:17px;cursor:pointer;z-index:50;display:flex;align-items:center;justify-content:center}
+#btn-music.muted{opacity:.4}
+#btn-settings{position:fixed;bottom:calc(12px + var(--sb));left:12px;
+  width:40px;height:40px;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.2);
+  border-radius:50%;font-size:17px;cursor:pointer;z-index:50;display:flex;align-items:center;justify-content:center}
 
 /* Status bars */
-#tts-bar{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(124,77,255,.9);color:#fff;font-weight:800;font-size:12px;
-  padding:6px 16px;border-radius:20px;z-index:200;display:none;font-family:var(--body)}
-#mic-toast{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(233,30,99,.9);color:#fff;font-weight:800;font-size:12px;
-  padding:7px 18px;border-radius:24px;z-index:200;display:none;font-family:var(--body)}
-#gemini-bar{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(0,188,212,.85);color:#fff;font-weight:800;font-size:12px;
-  padding:6px 16px;border-radius:20px;z-index:200;display:none;font-family:var(--body)}
-#toast{position:fixed;bottom:calc(14px + var(--safe-bottom));left:50%;transform:translateX(-50%);
-  background:rgba(0,0,0,.88);color:#fff;font-weight:800;font-size:13px;
-  padding:8px 20px;border-radius:24px;z-index:300;display:none;font-family:var(--body);
+#tts-bar,#mic-toast,#gemini-bar{position:fixed;bottom:calc(62px + var(--sb));left:50%;transform:translateX(-50%);
+  color:#fff;font-weight:800;font-size:12px;padding:6px 15px;border-radius:18px;
+  z-index:200;display:none;font-family:var(--body);white-space:nowrap}
+#tts-bar{background:rgba(124,77,255,.9)}
+#mic-toast{background:rgba(233,30,99,.9)}
+#gemini-bar{background:rgba(0,188,212,.85)}
+#toast{position:fixed;bottom:calc(12px + var(--sb));left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.88);color:#fff;font-weight:800;font-size:12px;
+  padding:7px 18px;border-radius:22px;z-index:300;display:none;font-family:var(--body);
   width:max-content;max-width:88vw;text-align:center}
-
-/* Audio unlock */
 #audio-unlock{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;
   display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 #audio-unlock div{background:linear-gradient(145deg,#1a0848,#2d1060);border:3px solid var(--gold);
-  border-radius:22px;padding:28px;text-align:center;width:min(300px,88%)}
-#audio-unlock .big{font-size:48px;margin-bottom:9px}
-#audio-unlock p{color:#c8b8ff;font-size:13px;font-weight:700;margin-bottom:16px;line-height:1.5}
-
-/* Settings modal */
-.set-inp{width:100%;padding:10px 13px;border-radius:11px;border:2px solid rgba(255,255,255,.2);
-  background:rgba(255,255,255,.08);color:#fff;font-size:14px;font-family:var(--body);
-  font-weight:600;outline:none;margin-bottom:8px;-webkit-appearance:none;display:block}
-.set-inp:focus{border-color:var(--gold)}
-.set-inp::placeholder{color:rgba(255,255,255,.3)}
-.set-label{color:#b8aadd;font-size:11px;font-weight:700;display:block;margin-bottom:4px}
-#m-settings .sec{background:rgba(255,255,255,.06);border-radius:11px;padding:12px;margin-bottom:10px}
-#m-settings .sec h3{font-family:var(--font);font-size:14px;color:var(--gold);margin-bottom:6px}
-/* Settings gear button */
-#btn-settings{position:fixed;bottom:calc(14px + var(--safe-bottom));left:14px;
-  width:42px;height:42px;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.2);
-  border-radius:50%;font-size:18px;cursor:pointer;z-index:50;display:flex;
-  align-items:center;justify-content:center}
+  border-radius:20px;padding:26px;text-align:center;width:min(280px,88%)}
+#audio-unlock .big{font-size:46px;margin-bottom:8px}
+#audio-unlock p{color:#c8b8ff;font-size:13px;font-weight:700;margin-bottom:14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -266,11 +381,11 @@ h1{font-family:var(--font);font-size:27px;color:var(--gold);margin:6px 0 3px}
 <!-- INTRO -->
 <div id="s-intro" class="screen">
   <div class="stars"></div>
-  <div class="intro-box">
+  <div class="ibox">
     <div class="logo">🗺️</div>
     <h1 translate="no">English Adventure</h1>
-    <p class="sub">Nói tiếng Anh để khám phá Magic Town! ✨</p>
-    <input id="inp-name" placeholder="What is your name?"
+    <p>Nói tiếng Anh để khám phá Magic Town! ✨</p>
+    <input id="inp-name" class="inp" placeholder="What is your name?"
       maxlength="18" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false">
     <button class="btn btn-gold" onclick="startGame()">🚀 Start Adventure!</button>
   </div>
@@ -280,92 +395,155 @@ h1{font-family:var(--font);font-size:27px;color:var(--gold);margin:6px 0 3px}
 <div id="s-map" class="screen">
   <div id="hud">
     <span id="hud-name">🧒 Explorer</span>
-    <div class="hud-badges">
-      <span class="badge star" id="b-stars">⭐ 0</span>
-      <span class="badge" id="b-coins">🪙 0</span>
+    <div id="hud-pet" onclick="openModal('m-pet')">
+      <span id="pip-face">🐣</span>
+      <div id="pip-hunger"><div id="pip-hunger-bar" style="width:100%"></div></div>
     </div>
-    <div class="hud-btns">
-      <button class="hud-btn" onclick="showReport()">📊 Report</button>
+    <div class="hbadges">
+      <span class="hb star" id="b-stars">⭐ 0</span>
+      <span id="streak-badge">🔥 0</span>
+    </div>
+    <div class="hbtns">
+      <button class="hbtn" onclick="openModal('m-sticker')">📒</button>
+      <button class="hbtn" onclick="showReport()">📊</button>
     </div>
   </div>
   <div id="map-scene">
-    <div class="npc-pin" id="pin-leo"  style="left:6%;top:36%"  onclick="openTalk('leo')">
-      <div class="npc-bubble"><span class="npc-face">💂</span><div class="npc-label" translate="no">Guard Leo</div><div class="q-dot" id="dot-leo">!</div></div>
+    <div class="npin" id="pin-leo"  style="left:6%;top:35%"  onclick="openTalk('leo')">
+      <div class="nbub"><span class="nface">💂</span><div class="nlabel" translate="no">Guard Leo</div><div class="qdot" id="dot-leo">!</div></div>
     </div>
-    <div class="npc-pin" id="pin-tom"  style="left:33%;top:11%" onclick="openTalk('tom')">
-      <div class="npc-bubble"><span class="npc-face">👨‍🌾</span><div class="npc-label" translate="no">Farmer Tom</div><div class="q-dot" id="dot-tom">!</div></div>
+    <div class="npin" id="pin-tom"  style="left:33%;top:10%" onclick="openTalk('tom')">
+      <div class="nbub"><span class="nface">👨‍🌾</span><div class="nlabel" translate="no">Farmer Tom</div><div class="qdot" id="dot-tom">!</div></div>
     </div>
-    <div class="npc-pin" id="pin-lucy" style="left:60%;top:9%"  onclick="openTalk('lucy')">
-      <div class="npc-bubble"><span class="npc-face">👩‍🍳</span><div class="npc-label" translate="no">Chef Lucy</div><div class="q-dot" id="dot-lucy">!</div></div>
+    <div class="npin" id="pin-lucy" style="left:60%;top:8%"  onclick="openTalk('lucy')">
+      <div class="nbub"><span class="nface">👩‍🍳</span><div class="nlabel" translate="no">Chef Lucy</div><div class="qdot" id="dot-lucy">!</div></div>
     </div>
-    <div class="npc-pin locked" id="pin-mia"  style="left:80%;top:16%" onclick="openTalk('mia')">
-      <div class="npc-bubble"><span class="npc-face">👩‍⚕️</span><div class="npc-label" translate="no">Dr. Mia</div></div>
-      <div class="lock-tag" id="lt-mia">🔒 3⭐</div>
+    <div class="npin locked" id="pin-mia"  style="left:80%;top:15%" onclick="openTalk('mia')">
+      <div class="nbub"><span class="nface">👩‍⚕️</span><div class="nlabel" translate="no">Dr. Mia</div></div>
+      <div class="ltag" id="lt-mia">🔒 3⭐</div>
     </div>
-    <div class="npc-pin locked" id="pin-nora" style="left:25%;top:58%" onclick="openTalk('nora')">
-      <div class="npc-bubble"><span class="npc-face">🧙‍♀️</span><div class="npc-label" translate="no">Wizard Nora</div></div>
-      <div class="lock-tag" id="lt-nora">🔒 5⭐</div>
+    <div class="npin locked" id="pin-nora" style="left:24%;top:57%" onclick="openTalk('nora')">
+      <div class="nbub"><span class="nface">🧙‍♀️</span><div class="nlabel" translate="no">Wizard Nora</div></div>
+      <div class="ltag" id="lt-nora">🔒 5⭐</div>
     </div>
-    <div class="npc-pin locked" id="pin-max"  style="left:60%;top:56%" onclick="openTalk('max')">
-      <div class="npc-bubble"><span class="npc-face">🐶</span><div class="npc-label" translate="no">Puppy Max</div></div>
-      <div class="lock-tag" id="lt-max">🔒 7⭐</div>
+    <div class="npin locked" id="pin-max"  style="left:60%;top:55%" onclick="openTalk('max')">
+      <div class="nbub"><span class="nface">🐶</span><div class="nlabel" translate="no">Puppy Max</div></div>
+      <div class="ltag" id="lt-max">🔒 7⭐</div>
     </div>
   </div>
 </div>
 
-<!-- DIALOGUE -->
+<!-- TALK -->
 <div id="s-talk" class="screen">
-  <div class="talk-wrap">
-    <div class="talk-head">
-      <div id="t-face">💂</div>
-      <div class="t-info">
-        <div id="t-name" translate="no">Guard Leo</div>
-        <div id="t-role">Town Gate Guardian</div>
-        <div id="quest-bar"><div id="quest-fill" style="width:0%"></div></div>
+  <div class="talk-port">
+    <!-- Landscape left panel -->
+    <div id="talk-left">
+      <div id="ls-face">💂</div>
+      <div id="ls-name">Guard Leo</div>
+      <div id="ls-role">Town Gate Guardian</div>
+      <div id="ls-qbar"><div id="ls-qfill" style="width:0%"></div></div>
+      <div id="ls-qlabel">Quest progress</div>
+      <div id="ls-items"></div>
+    </div>
+    <!-- Right / portrait main -->
+    <div id="talk-right">
+      <div class="thead">
+        <div id="t-face">💂</div>
+        <div class="tinfo">
+          <div id="t-name" translate="no">Guard Leo</div>
+          <div id="t-role">Town Gate Guardian</div>
+          <div id="qbar"><div id="qfill" style="width:0%"></div></div>
+        </div>
+        <div class="tbtns">
+          <button class="tbtn vn" onclick="getVNHint()">🇻🇳</button>
+          <button class="tbtn nosay" id="btn-nosay" onclick="toggleNoSay()">🔇</button>
+          <button class="tbtn" onclick="goMap()">← Map</button>
+        </div>
       </div>
-      <div class="head-btns">
-        <!-- 🇻🇳 Hint: Gemini dịch câu hiện tại sang tiếng Việt -->
-        <button class="head-btn vn" onclick="getVietnameseHint()" title="Gợi ý tiếng Việt">🇻🇳</button>
-        <button class="head-btn" onclick="goMap()">← Map</button>
+      <div id="chat"></div>
+      <div id="item-row" style="display:none">
+        <p>👇 Choose the right one:</p>
+        <div id="item-grid"></div>
+      </div>
+      <div id="inp-area">
+        <div id="hint"></div>
+        <div id="inp-row">
+          <input id="txt" placeholder="Type in English…"
+            autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+            onkeydown="if(event.key==='Enter'){event.preventDefault();send()}">
+          <button id="btn-mic" onclick="toggleMic()">🎤</button>
+          <button id="btn-send" onclick="send()">Go ➤</button>
+        </div>
+        <div id="chips"></div>
       </div>
     </div>
-    <div id="chat"></div>
-    <div id="item-row" style="display:none">
-      <p>👇 Choose the right one:</p>
-      <div id="item-grid"></div>
-    </div>
-    <div id="inp-area">
-      <div id="hint"></div>
-      <div id="inp-row">
-        <input id="txt" placeholder="Type in English…"
-          autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-          onkeydown="if(event.key==='Enter'){event.preventDefault();send()}">
-        <button id="btn-mic" onclick="toggleMic()">🎤</button>
-        <button id="btn-send" onclick="send()">Go ➤</button>
-      </div>
-      <div id="chips"></div>
-    </div>
+  </div>
+</div>
+
+<!-- MINI GAME -->
+<div id="s-mini" class="screen">
+  <div id="mini-box">
+    <div id="mini-title">🎮 Mini Game!</div>
+    <div id="mini-inst"></div>
+    <div id="mini-timer"><div id="mini-timer-bar" style="width:100%"></div></div>
+    <div id="mini-content"></div>
+    <div id="mini-score"></div>
+    <button class="btn btn-gold" id="mini-next" style="display:none" onclick="finishMini()">Next ➤</button>
   </div>
 </div>
 
 <!-- MODALS -->
 <div id="m-reward" class="overlay" onclick="if(event.target===this)closeModal('m-reward')">
   <div class="mbox" style="text-align:center">
+    <div id="rew-pip">🐣</div>
     <div id="rew-anim">🎉</div>
     <div id="rew-title">Quest Complete!</div>
     <div id="rew-desc"></div>
     <div id="rew-badges"></div>
-    <button class="btn btn-gold" style="font-size:16px" onclick="closeModal('m-reward')">Awesome! ✨</button>
+    <button class="btn btn-gold" style="font-size:15px" onclick="afterReward()">Play Mini Game! 🎮</button>
   </div>
 </div>
+
 <div id="m-unlock" class="overlay" onclick="if(event.target===this)closeModal('m-unlock')">
   <div class="mbox" style="text-align:center">
     <div class="unlock-em">🔓</div>
     <div id="ul-title">New Area!</div>
     <div id="ul-desc"></div>
-    <button class="btn btn-gold" style="font-size:16px" onclick="closeModal('m-unlock')">Explore! 🗺️</button>
+    <button class="btn btn-gold" style="font-size:15px" onclick="closeModal('m-unlock')">Explore! 🗺️</button>
   </div>
 </div>
+
+<div id="m-sticker" class="overlay" onclick="if(event.target===this)closeModal('m-sticker')">
+  <div class="mbox">
+    <h2>📒 Sticker Book</h2>
+    <div id="sticker-grid" class="sgrid"></div>
+    <button class="mclose" onclick="closeModal('m-sticker')">Close</button>
+  </div>
+</div>
+
+<div id="m-pet" class="overlay" onclick="if(event.target===this)closeModal('m-pet')">
+  <div class="mbox" id="m-pet">
+    <div id="pet-big">🐣</div>
+    <div id="pet-name">Pip</div>
+    <div id="pet-mood">I am hungry! Play with me! 🥺</div>
+    <div class="pet-stat">
+      <label>🍖 Hunger</label>
+      <div class="pet-bar"><div class="pet-bar-fill" id="pet-hunger-fill" style="width:100%"></div></div>
+    </div>
+    <div class="pet-stat">
+      <label>😊 Happiness</label>
+      <div class="pet-bar"><div class="pet-bar-fill" id="pet-happy-fill" style="width:80%"></div></div>
+    </div>
+    <div class="pet-stat">
+      <label>⬆️ Level</label>
+      <div class="pet-bar"><div class="pet-bar-fill" id="pet-level-fill" style="width:10%"></div></div>
+    </div>
+    <p style="color:#b8aadd;font-size:12px;font-weight:700;text-align:center;margin-top:8px">
+      Complete quests to feed Pip! 🐉</p>
+    <button class="mclose" onclick="closeModal('m-pet')">Close</button>
+  </div>
+</div>
+
 <div id="m-report" class="overlay" onclick="if(event.target===this)closeModal('m-report')">
   <div class="mbox">
     <h2>📊 Learning Report</h2>
@@ -374,74 +552,270 @@ h1{font-family:var(--font);font-size:27px;color:var(--gold);margin:6px 0 3px}
   </div>
 </div>
 
-<button id="btn-music" onclick="toggleMusic()" title="Music">🎵</button>
-<div id="tts-bar">🔊 Speaking…</div>
-<div id="mic-toast">🎤 Listening…</div>
-<div id="gemini-bar">✨ Gemini thinking…</div>
-<div id="toast"></div>
-
-
-<!-- MODAL: SETTINGS -->
 <div id="m-settings" class="overlay" onclick="if(event.target===this)closeModal('m-settings')">
   <div class="mbox">
     <h2>⚙️ Settings</h2>
     <div class="sec">
       <h3>🔊 ElevenLabs TTS</h3>
-      <p style="color:#b8aadd;font-size:12px;margin-bottom:8px">
-        Lấy key miễn phí tại <b style="color:#c8aaff">elevenlabs.io</b><br>
-        Hết quota → tự chuyển sang giọng tự nhiên
-      </p>
-      <input class="set-inp" id="set-el-key" placeholder="sk_..." type="password" autocomplete="off" spellcheck="false">
-      <label class="set-label">Voice ID (để trống = giọng Rachel mặc định)</label>
-      <input class="set-inp" id="set-el-voice" placeholder="21m00Tcm4TlvDq8ikWAM" autocomplete="off" spellcheck="false">
+      <p>Key miễn phí tại <b style="color:#c8aaff">elevenlabs.io</b></p>
+      <input class="inp" id="set-el-key" placeholder="sk_..." type="password" autocomplete="off" spellcheck="false">
+      <label style="color:#b8aadd;font-size:11px;font-weight:700;display:block;margin-bottom:4px">Voice ID (trống = Rachel)</label>
+      <input class="inp" id="set-el-voice" placeholder="21m00Tcm4TlvDq8ikWAM" autocomplete="off" spellcheck="false">
     </div>
     <div class="sec">
       <h3>✨ Gemini AI</h3>
-      <p style="color:#b8aadd;font-size:12px;margin-bottom:8px">
-        Lấy key miễn phí tại <b style="color:#c8aaff">aistudio.google.com</b><br>
-        AI hội thoại + gợi ý 🇻🇳 + phân tích báo cáo
-      </p>
-      <input class="set-inp" id="set-gem-key" placeholder="AIza..." type="password" autocomplete="off" spellcheck="false">
+      <p>Key miễn phí tại <b style="color:#c8aaff">aistudio.google.com</b></p>
+      <input class="inp" id="set-gem-key" placeholder="AIza..." type="password" autocomplete="off" spellcheck="false">
     </div>
-    <div id="set-status" style="display:none;margin-bottom:8px">
-      <p id="set-status-text" style="font-size:13px;font-weight:700;text-align:center;color:#a5d6a7"></p>
-    </div>
-    <button class="btn btn-gold" style="font-size:16px;margin-top:2px" onclick="saveKeys()">💾 Save</button>
+    <div id="set-status" class="set-status"></div>
+    <button class="btn btn-gold" style="font-size:15px;margin-top:4px" onclick="saveKeys()">💾 Save</button>
     <button class="mclose" onclick="closeModal('m-settings')">Close</button>
   </div>
 </div>
 
-<button id="btn-settings" onclick="openSettings()" title="Settings">⚙️</button>
+<button id="btn-settings" onclick="openSettings()">⚙️</button>
+<button id="btn-music" onclick="toggleMusic()">🎵</button>
+<div id="tts-bar">🔊 Speaking…</div>
+<div id="mic-toast">🎤 Listening…</div>
+<div id="gemini-bar">✨ Gemini…</div>
+<div id="toast"></div>
 
 <script>
-// ══════════════════════════════════════════
-// 🔑 API KEYS — điền vào đây
-// ══════════════════════════════════════════
-// Keys loaded from localStorage (set via ⚙️ Settings button)
-// Fallback to hardcoded values below if localStorage empty
-const DEFAULT_gKey()     = '';   // optional: paste key here
-const DEFAULT_ELEVENLABS_KEY = '';   // optional: paste key here
-const DEFAULT_EL_VOICE_ID    = '21m00Tcm4TlvDq8ikWAM'; // Rachel
+// ═══════════════════════════
+// KEY HELPERS
+// ═══════════════════════════
+var DEFAULT_EL='', DEFAULT_GEM='', DEFAULT_VOICE='21m00Tcm4TlvDq8ikWAM';
+function getEL()    { return localStorage.getItem('k_el')    || DEFAULT_EL; }
+function getGEM()   { return localStorage.getItem('k_gem')   || DEFAULT_GEM; }
+function getVOICE() { return localStorage.getItem('k_voice') || DEFAULT_VOICE; }
 
-function getKeys(){
-  return {
-    GEMINI_KEY:     localStorage.getItem('k_gem')  || DEFAULT_GEMINI_KEY,
-    ELEVENLABS_KEY: localStorage.getItem('k_el')   || DEFAULT_ELEVENLABS_KEY,
-    EL_VOICE_ID:    localStorage.getItem('k_voice')|| DEFAULT_EL_VOICE_ID,
-  };
+// ═══════════════════════════
+// NPC DATA
+// ═══════════════════════════
+var NPCS = {
+  leo:{name:'Guard Leo',face:'💂',role:'Town Gate Guardian',
+    words:['hello','name','key','open','find','red','gate'],
+    sticker:{icon:'🏰',label:'Gate Badge'},
+    quest:{id:'q1',stars:1},
+    script:[
+      {say:"Hello! Welcome to Magic Town! What is your name?",
+       key:'name',chips:["My name is Ben.","My name is Lily.","My name is Tom.","My name is Mai."],hint:"Say: My name is [your name]"},
+      {say:"Nice to meet you! Do you like Magic Town?",
+       key:'like',chips:["Yes, I like it!","I like Magic Town!","I love it!","Yes!"],hint:"Say: Yes, I like it!"},
+      {say:"I am a guard. I protect the gate. What is my job?",
+       key:'guard',chips:["You are a guard!","You protect the gate!","Guard!","A guard!"],hint:"Say: You are a guard!"},
+      {say:"Oh no! I lost my red key! Can you help me?",
+       key:'yes',chips:["Yes, I can help!","Sure!","Of course!","I will help!"],hint:"Say: Yes, I can help!"},
+      {say:"The key is near a tree. Find the red key!",
+       key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"You found it! Now say: I found the red key!",
+       key:'found',chips:["I found the red key!","I found it!","Here is the red key!","Found it!"],hint:"Say: I found the red key!",ram:true},
+      {say:"Now say: I give you the key.",
+       key:'give',chips:["I give you the key!","Here is the key!","Take the key!","I give the key!"],hint:"Say: I give you the key!",ram:true},
+      {say:"Thank you! What color was the key?",
+       key:'red',chips:["It was red!","The key is red!","Red!","Red key!"],hint:"Say: It was red!"},
+      {say:"Correct! You are a great helper! ⭐",
+       key:null,chips:["Thank you!","Yay!","I am happy!","Goodbye!"],hint:"",done:true},
+    ],
+    items:[{icon:'🗝️',label:'Red Key',ok:true},{icon:'🔑',label:'Blue Key',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false}]
+  },
+  tom:{name:'Farmer Tom',face:'👨‍🌾',role:'Happy Farmer',
+    words:['apple','water','tree','give','farm','cow','dog','big'],
+    sticker:{icon:'🍎',label:'Magic Apple'},
+    quest:{id:'q2',stars:1},
+    script:[
+      {say:"Hello! Welcome to my farm! Do you like animals?",
+       key:'like',chips:["Yes, I like animals!","I love animals!","Yes!","I like cows!"],hint:"Say: Yes, I like animals!"},
+      {say:"I have a cow and a dog. What animal do you like?",
+       key:'like',chips:["I like dogs!","I like cows!","I like both!","I like cats!"],hint:"Say: I like dogs! or I like cows!"},
+      {say:"My apple tree needs water. Can you help?",
+       key:'yes',chips:["Yes, I can help!","Sure!","I will help!","Of course!"],hint:"Say: Yes, I can help!"},
+      {say:"Find the water bucket for me!",
+       key:null,chips:[],hint:"Pick the right item!",items:true},
+      {say:"Now say: I water the tree.",
+       key:'water',chips:["I water the tree!","I give water to the tree!","Here is water!","Water!"],hint:"Say: I water the tree!",ram:true},
+      {say:"Is the apple big or small?",
+       key:'big',chips:["The apple is big!","It is big!","Big apple!","Very big!"],hint:"Say: The apple is big!"},
+      {say:"Say: Thank you, tree!",
+       key:'thank',chips:["Thank you, tree!","Thank you!","Thanks, tree!","Thank you!"],hint:"Say: Thank you, tree!",ram:true},
+      {say:"Here is a magic apple for you! 🍎⭐",
+       key:null,chips:["Thank you!","Wow!","I love apples!","Thank you!"],hint:"",done:true},
+    ],
+    items:[{icon:'💧',label:'Water Bucket',ok:true},{icon:'🍞',label:'Bread',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🥕',label:'Carrot',ok:false}]
+  },
+  lucy:{name:'Chef Lucy',face:'👩‍🍳',role:'Magic Kitchen Chef',
+    words:['hungry','egg','soup','milk','hot','delicious','cook'],
+    sticker:{icon:'🍲',label:'Magic Soup'},
+    quest:{id:'q3',stars:1},
+    script:[
+      {say:"Welcome! Are you hungry?",
+       key:'yes',chips:["Yes, I am hungry!","Yes!","Very hungry!","I want to eat!"],hint:"Say: Yes, I am hungry!"},
+      {say:"I am making magic soup! Do you like soup?",
+       key:'like',chips:["Yes, I like soup!","I love soup!","Yes!","Soup is yummy!"],hint:"Say: Yes, I like soup!"},
+      {say:"Is the soup hot or cold?",
+       key:'hot',chips:["It is hot!","The soup is hot!","Hot!","Very hot!"],hint:"Say: It is hot!"},
+      {say:"I need an egg. Find the egg first!",
+       key:null,chips:[],hint:"Pick the egg!",items:true},
+      {say:"Now find the milk!",
+       key:null,chips:[],hint:"Pick the milk!",items:true,
+       secondItems:[{icon:'🥛',label:'Milk',ok:true},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'🥚',label:'Egg',ok:false}]},
+      {say:"Say: I found the egg and the milk!",
+       key:'found',chips:["I found the egg and the milk!","I found them!","Here they are!","Found them!"],hint:"Say: I found the egg and the milk!",ram:true},
+      {say:"Say: The soup is ready!",
+       key:'ready',chips:["The soup is ready!","It is ready!","Ready!","Soup is ready!"],hint:"Say: The soup is ready!",ram:true},
+      {say:"Is it delicious?",
+       key:'delicious',chips:["Yes, it is delicious!","Very delicious!","Yummy!","So good!"],hint:"Say: Yes, it is delicious!"},
+      {say:"Magic soup is yours! 🍲⭐",
+       key:null,chips:["Thank you!","Yummy!","Thank you Chef Lucy!","I love soup!"],hint:"",done:true},
+    ],
+    items:[{icon:'🥚',label:'Egg',ok:true},{icon:'🥛',label:'Milk',ok:false},{icon:'🍞',label:'Bread',ok:false},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false}]
+  },
+  mia:{name:'Doctor Mia',face:'👩‍⚕️',role:'Town Doctor',unlock:3,
+    words:['feel','good','hurt','help','better','hand','head','sick'],
+    sticker:{icon:'💊',label:'Kind Helper'},
+    quest:{id:'q4',stars:2},
+    script:[
+      {say:"Hello! How do you feel today?",
+       key:'good',chips:["I feel good!","I feel great!","I am fine!","I feel happy!"],hint:"Say: I feel good!"},
+      {say:"Show me your hand!",
+       key:'hand',chips:["This is my hand!","Here is my hand!","My hand!","I show my hand!"],hint:"Say: This is my hand!"},
+      {say:"Now show me your head!",
+       key:'head',chips:["This is my head!","Here is my head!","My head!","I touch my head!"],hint:"Say: This is my head!"},
+      {say:"A bird has a hurt leg! Can you help?",
+       key:'help',chips:["Yes, I can help!","I want to help!","Sure!","I will help!"],hint:"Say: Yes, I can help!"},
+      {say:"Find a bandage for the bird!",
+       key:null,chips:[],hint:"Find the bandage!",items:true},
+      {say:"Now find the medicine!",
+       key:null,chips:[],hint:"Find the medicine!",items:true,
+       secondItems:[{icon:'💊',label:'Medicine',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'💧',label:'Water',ok:false}]},
+      {say:"Say: The bird feels better now!",
+       key:'better',chips:["The bird feels better!","It feels better!","Better now!","The bird is better!"],hint:"Say: The bird feels better now!",ram:true},
+      {say:"Does the bird feel happy or sad?",
+       key:'happy',chips:["Happy!","It feels happy!","The bird is happy!","Very happy!"],hint:"Say: The bird is happy!"},
+      {say:"Say: I help sick animals!",
+       key:'help',chips:["I help sick animals!","I like helping!","I am kind!","I help animals!"],hint:"Say: I help sick animals!",ram:true},
+      {say:"Wonderful! You earned two stars! ⭐⭐",
+       key:null,chips:["Thank you!","I love animals!","Goodbye!","See you!"],hint:"",done:true},
+    ],
+    items:[{icon:'🩹',label:'Bandage',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🗝️',label:'Key',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'💧',label:'Water',ok:false}]
+  },
+  nora:{name:'Wizard Nora',face:'🧙‍♀️',role:'Forest Wizard',unlock:5,
+    words:['brave','flower','river','magic','light','rainbow','beautiful'],
+    sticker:{icon:'🪄',label:'Magic Wand'},
+    quest:{id:'q5',stars:2},
+    script:[
+      {say:"Hello, brave explorer! Are you brave?",
+       key:'brave',chips:["Yes, I am brave!","I am very brave!","Yes!","I am brave!"],hint:"Say: Yes, I am brave!"},
+      {say:"What do you see in the Magic Forest?",
+       key:'see',chips:["I see a river!","I see a bridge!","I see trees!","I see flowers!"],hint:"Say: I see a river!"},
+      {say:"Do you like magic?",
+       key:'like',chips:["Yes, I like magic!","I love magic!","Magic is cool!","Yes!"],hint:"Say: Yes, I like magic!"},
+      {say:"My magic flower disappeared! Find it!",
+       key:null,chips:[],hint:"Find the magic flower!",items:true},
+      {say:"Now find the magic stone!",
+       key:null,chips:[],hint:"Find the magic stone!",items:true,
+       secondItems:[{icon:'🪨',label:'Magic Stone',ok:true},{icon:'💧',label:'Water',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🍄',label:'Mushroom',ok:false}]},
+      {say:"Say the magic words: Let there be light!",
+       key:'light',chips:["Let there be light!","Light!","Magic light!","Let there be light!"],hint:"Say: Let there be light!",ram:true},
+      {say:"A rainbow appeared! What colors do you see?",
+       key:'color',chips:["I see red and blue!","Many colors!","Rainbow colors!","Red and yellow!"],hint:"Say: I see many colors!"},
+      {say:"Say: The rainbow is beautiful!",
+       key:'beautiful',chips:["The rainbow is beautiful!","So beautiful!","Very beautiful!","Beautiful!"],hint:"Say: The rainbow is beautiful!",ram:true},
+      {say:"Take my magic wand! 🪄⭐⭐",
+       key:null,chips:["Thank you!","Wow!","I love magic!","Thank you Nora!"],hint:"",done:true},
+    ],
+    items:[{icon:'🌸',label:'Magic Flower',ok:true},{icon:'🪨',label:'Stone',ok:false},{icon:'💧',label:'Water',ok:false},{icon:'🍄',label:'Mushroom',ok:false},{icon:'🌙',label:'Moon',ok:false}]
+  },
+  max:{name:'Puppy Max',face:'🐶',role:'Lost Puppy',unlock:7,
+    words:['friend','big','dark','walk','crown','open','home'],
+    sticker:{icon:'👑',label:'Hero Crown'},
+    quest:{id:'q6',stars:2},
+    script:[
+      {say:"Woof! I am Max! I am lost! Are you my friend?",
+       key:'friend',chips:["Yes, I am your friend!","Yes!","I am your friend Max!","Hello Max!"],hint:"Say: Yes, I am your friend!"},
+      {say:"I live in the castle. Is the castle big?",
+       key:'big',chips:["Yes, it is big!","The castle is big!","Very big!","Yes!"],hint:"Say: Yes, it is big!"},
+      {say:"I am scared of the dark! Is it dark here?",
+       key:'dark',chips:["It is dark!","Very dark!","Yes, dark!","A little dark!"],hint:"Say: It is dark!"},
+      {say:"Can you walk with me to the castle?",
+       key:'yes',chips:["Yes, let's walk!","Let's go!","I walk with you!","Sure!"],hint:"Say: Yes, let's walk!"},
+      {say:"Find the golden crown to open the door!",
+       key:null,chips:[],hint:"Find the crown!",items:true},
+      {say:"Now find the castle key!",
+       key:null,chips:[],hint:"Find the key!",items:true,
+       secondItems:[{icon:'🗝️',label:'Castle Key',ok:true},{icon:'🔑',label:'Small Key',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🕯️',label:'Candle',ok:false}]},
+      {say:"Say: Open the door, please!",
+       key:'open',chips:["Open the door, please!","Please open it!","Open it!","Open the door!"],hint:"Say: Open the door, please!",ram:true},
+      {say:"Say: We are home, Max!",
+       key:'home',chips:["We are home, Max!","We are home!","You are home!","Home!"],hint:"Say: We are home, Max!",ram:true},
+      {say:"Do you want to play with me?",
+       key:'yes',chips:["Yes, let's play!","Yes!","I want to play!","Let's play!"],hint:"Say: Yes, let's play!"},
+      {say:"You are the BEST explorer! 👑⭐⭐",
+       key:null,chips:["Thank you!","Yay!","I love you Max!","You're welcome!"],hint:"",done:true},
+    ],
+    items:[{icon:'👑',label:'Golden Crown',ok:true},{icon:'🕯️',label:'Candle',ok:false},{icon:'🚪',label:'Door',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🗝️',label:'Old Key',ok:false}]
+  }
+};
+
+var UNLOCK_REQ = {mia:3,nora:5,max:7};
+
+// ═══════════════════════════
+// STICKERS (all possible)
+// ═══════════════════════════
+var ALL_STICKERS = [
+  {id:'s1',icon:'🏰',label:'Gate Badge',  questId:'q1'},
+  {id:'s2',icon:'🍎',label:'Magic Apple', questId:'q2'},
+  {id:'s3',icon:'🍲',label:'Magic Soup',  questId:'q3'},
+  {id:'s4',icon:'💊',label:'Kind Helper', questId:'q4'},
+  {id:'s5',icon:'🪄',label:'Magic Wand',  questId:'q5'},
+  {id:'s6',icon:'👑',label:'Hero Crown',  questId:'q6'},
+  {id:'s7',icon:'🌟',label:'Star Player', special:true},
+  {id:'s8',icon:'🔥',label:'On Fire!',    special:true},
+  {id:'s9',icon:'🎯',label:'Sharpshooter',special:true},
+  {id:'s10',icon:'🏆',label:'Champion',   special:true},
+  {id:'s11',icon:'🎵',label:'Wordsmith',  special:true},
+  {id:'s12',icon:'💎',label:'Explorer',   special:true},
+];
+
+// ═══════════════════════════
+// PET DATA
+// ═══════════════════════════
+var PIP_STAGES = [
+  {min:0,  face:'🥚', name:'Pip (Egg)',   mood:'...'},
+  {min:1,  face:'🐣', name:'Pip',         mood:'I just hatched! 🥺'},
+  {min:3,  face:'🐲', name:'Pip',         mood:'I am growing! 🌱'},
+  {min:6,  face:'🐉', name:'Pip the Dragon', mood:'I am a real dragon now! 🔥'},
+];
+
+// ═══════════════════════════
+// STATE
+// ═══════════════════════════
+var G = {
+  name:'Explorer', stars:0, done:[], words:[], mistakes:0,
+  stickers:[], streak:0, lastPlayDate:'', mistakeLog:[],
+  pip:{ hunger:100, happy:80, xp:0 },
+  start: Date.now()
+};
+var cur=null, step=0, micOn=false, recog=null;
+var awaitSecond=false, lastSay='', noSayMode=false;
+var pendingMiniQuest=null;
+
+function loadG(){
+  try{ var s=localStorage.getItem('eng_rpg7'); if(s) G=Object.assign(G,JSON.parse(s)); }catch(e){}
+  // Update streak
+  var today = new Date().toDateString();
+  if(G.lastPlayDate !== today){
+    var yesterday = new Date(Date.now()-86400000).toDateString();
+    G.streak = (G.lastPlayDate===yesterday) ? (G.streak||0)+1 : 1;
+    G.lastPlayDate = today;
+  }
 }
-// Shorthand getters (always fresh from storage)
-const gKey  = ()=> getKeys().GEMINI_KEY;
-const elKey = ()=> getKeys().ELEVENLABS_KEY || "";
-const elVoice = ()=> getKeys().EL_VOICE_ID;
+function saveG(){ try{ localStorage.setItem('eng_rpg7',JSON.stringify(G)); }catch(e){} }
 
-const GEMINI_MODEL = 'gemini-1.5-flash-latest';
-const geminiURL = ()=> `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${gKey()}`;
-
-// ══════════════════════════════════════════
+// ═══════════════════════════
 // AUDIO ENGINE
-// ══════════════════════════════════════════
-let AC = null;
+// ═══════════════════════════
+var AC=null;
 function getAC(){
   if(!AC) AC=new(window.AudioContext||window.webkitAudioContext)();
   if(AC.state==='suspended') AC.resume();
@@ -449,844 +823,839 @@ function getAC(){
 }
 function sfx(type){
   try{
-    const ac=getAC(), now=ac.currentTime;
-    const osc=ac.createOscillator(), gain=ac.createGain();
-    osc.connect(gain); gain.connect(ac.destination);
+    var ac=getAC(), now=ac.currentTime, osc=ac.createOscillator(), g=ac.createGain();
+    osc.connect(g); g.connect(ac.destination);
     if(type==='correct'){
       osc.type='sine';
-      osc.frequency.setValueAtTime(523,now);
-      osc.frequency.setValueAtTime(659,now+.12);
-      osc.frequency.setValueAtTime(784,now+.24);
-      gain.gain.setValueAtTime(.25,now);
-      gain.gain.exponentialRampToValueAtTime(.001,now+.6);
-      osc.start(now);osc.stop(now+.6);
-    }else if(type==='wrong'){
-      osc.type='sawtooth';
-      osc.frequency.setValueAtTime(180,now);
-      osc.frequency.linearRampToValueAtTime(120,now+.3);
-      gain.gain.setValueAtTime(.15,now);
-      gain.gain.exponentialRampToValueAtTime(.001,now+.35);
-      osc.start(now);osc.stop(now+.35);
-    }else if(type==='send'){
-      osc.type='sine';
-      osc.frequency.setValueAtTime(880,now);
-      osc.frequency.exponentialRampToValueAtTime(440,now+.1);
-      gain.gain.setValueAtTime(.12,now);
-      gain.gain.exponentialRampToValueAtTime(.001,now+.15);
-      osc.start(now);osc.stop(now+.15);
-    }else if(type==='reward'){
-      [523,659,784,1047].forEach((f,i)=>{
-        const o=ac.createOscillator(),g=ac.createGain();
-        o.connect(g);g.connect(ac.destination);
-        o.type='triangle';o.frequency.value=f;
-        const t=now+i*.13;
-        g.gain.setValueAtTime(.2,t);
-        g.gain.exponentialRampToValueAtTime(.001,t+.35);
-        o.start(t);o.stop(t+.35);
+      osc.frequency.setValueAtTime(523,now); osc.frequency.setValueAtTime(659,now+.12); osc.frequency.setValueAtTime(784,now+.24);
+      g.gain.setValueAtTime(.25,now); g.gain.exponentialRampToValueAtTime(.001,now+.6);
+      osc.start(now); osc.stop(now+.6);
+    } else if(type==='wrong'){
+      osc.type='sawtooth'; osc.frequency.setValueAtTime(180,now); osc.frequency.linearRampToValueAtTime(120,now+.3);
+      g.gain.setValueAtTime(.15,now); g.gain.exponentialRampToValueAtTime(.001,now+.35);
+      osc.start(now); osc.stop(now+.35);
+    } else if(type==='send'){
+      osc.type='sine'; osc.frequency.setValueAtTime(880,now); osc.frequency.exponentialRampToValueAtTime(440,now+.1);
+      g.gain.setValueAtTime(.12,now); g.gain.exponentialRampToValueAtTime(.001,now+.15);
+      osc.start(now); osc.stop(now+.15);
+    } else if(type==='reward'){
+      [523,659,784,1047].forEach(function(f,i){
+        var o=ac.createOscillator(), gn=ac.createGain();
+        o.connect(gn); gn.connect(ac.destination); o.type='triangle'; o.frequency.value=f;
+        var t=now+i*.13; gn.gain.setValueAtTime(.2,t); gn.gain.exponentialRampToValueAtTime(.001,t+.35);
+        o.start(t); o.stop(t+.35);
       });
-    }else if(type==='unlock'){
-      [784,988,1175,1319,1568].forEach((f,i)=>{
-        const o=ac.createOscillator(),g=ac.createGain();
-        o.connect(g);g.connect(ac.destination);
-        o.type='sine';o.frequency.value=f;
-        const t=now+i*.1;
-        g.gain.setValueAtTime(.18,t);
-        g.gain.exponentialRampToValueAtTime(.001,t+.3);
-        o.start(t);o.stop(t+.3);
+    } else if(type==='unlock'){
+      [784,988,1175,1319,1568].forEach(function(f,i){
+        var o=ac.createOscillator(), gn=ac.createGain();
+        o.connect(gn); gn.connect(ac.destination); o.type='sine'; o.frequency.value=f;
+        var t=now+i*.1; gn.gain.setValueAtTime(.18,t); gn.gain.exponentialRampToValueAtTime(.001,t+.3);
+        o.start(t); o.stop(t+.3);
       });
-    }else if(type==='tap'){
-      osc.type='sine';
-      osc.frequency.setValueAtTime(660,now);
-      gain.gain.setValueAtTime(.08,now);
-      gain.gain.exponentialRampToValueAtTime(.001,now+.08);
-      osc.start(now);osc.stop(now+.08);
-    }else if(type==='vn'){
-      // Soft teal chime for Vietnamese hint
-      osc.type='sine';
-      osc.frequency.setValueAtTime(440,now);
-      osc.frequency.setValueAtTime(550,now+.1);
-      gain.gain.setValueAtTime(.15,now);
-      gain.gain.exponentialRampToValueAtTime(.001,now+.4);
-      osc.start(now);osc.stop(now+.4);
+    } else if(type==='tap'){
+      osc.type='sine'; osc.frequency.setValueAtTime(660,now);
+      g.gain.setValueAtTime(.08,now); g.gain.exponentialRampToValueAtTime(.001,now+.08);
+      osc.start(now); osc.stop(now+.08);
+    } else if(type==='mini'){
+      [440,550,660].forEach(function(f,i){
+        var o=ac.createOscillator(), gn=ac.createGain();
+        o.connect(gn); gn.connect(ac.destination); o.type='triangle'; o.frequency.value=f;
+        var t=now+i*.08; gn.gain.setValueAtTime(.15,t); gn.gain.exponentialRampToValueAtTime(.001,t+.25);
+        o.start(t); o.stop(t+.25);
+      });
     }
-  }catch(e){}
+  } catch(e){}
 }
 
-let musicOn=true, musicNodes=[];
+var musicOn=true, musicNodes=[], musicTimer=null;
 function startMusic(){
-  if(!musicOn)return;
+  if(!musicOn) return;
   try{
-    const ac=getAC(); stopMusic();
-    const melody=[523,659,784,659,880,784,659,523,587,698,880,698];
-    const dur=0.45; let t=ac.currentTime+0.1;
+    stopMusic(); var ac=getAC();
+    var mel=[523,659,784,659,880,784,659,523,587,698,880,698], dur=0.45, t=ac.currentTime+0.1;
     function loop(){
-      melody.forEach((freq,i)=>{
-        const osc=ac.createOscillator(),gain=ac.createGain();
-        const delay=ac.createDelay(0.5),fb=ac.createGain();
-        delay.delayTime.value=0.25;fb.gain.value=0.25;
-        delay.connect(fb);fb.connect(delay);
-        osc.connect(gain);gain.connect(delay);gain.connect(ac.destination);delay.connect(ac.destination);
-        osc.type='triangle';osc.frequency.value=freq;
-        const s=t+i*dur;
-        gain.gain.setValueAtTime(0,s);
-        gain.gain.linearRampToValueAtTime(0.06,s+.05);
-        gain.gain.exponentialRampToValueAtTime(0.001,s+dur*.9);
-        osc.start(s);osc.stop(s+dur);
-        musicNodes.push(osc);
+      mel.forEach(function(freq,i){
+        var o=ac.createOscillator(), gn=ac.createGain(), dl=ac.createDelay(0.5), fb=ac.createGain();
+        dl.delayTime.value=0.25; fb.gain.value=0.25; dl.connect(fb); fb.connect(dl);
+        o.connect(gn); gn.connect(dl); gn.connect(ac.destination); dl.connect(ac.destination);
+        o.type='triangle'; o.frequency.value=freq;
+        var s=t+i*dur;
+        gn.gain.setValueAtTime(0,s); gn.gain.linearRampToValueAtTime(0.06,s+.05); gn.gain.exponentialRampToValueAtTime(0.001,s+dur*.9);
+        o.start(s); o.stop(s+dur); musicNodes.push(o);
       });
-      [261,329,392].forEach(freq=>{
-        const osc=ac.createOscillator(),gain=ac.createGain();
-        osc.connect(gain);gain.connect(ac.destination);
-        osc.type='sine';osc.frequency.value=freq;
-        gain.gain.setValueAtTime(0.02,t);
-        gain.gain.linearRampToValueAtTime(0.035,t+1);
-        gain.gain.linearRampToValueAtTime(0.02,t+melody.length*dur-1);
-        gain.gain.linearRampToValueAtTime(0,t+melody.length*dur);
-        osc.start(t);osc.stop(t+melody.length*dur);
-        musicNodes.push(osc);
+      [261,329,392].forEach(function(f){
+        var o=ac.createOscillator(), gn=ac.createGain();
+        o.connect(gn); gn.connect(ac.destination); o.type='sine'; o.frequency.value=f;
+        gn.gain.setValueAtTime(0.02,t); gn.gain.linearRampToValueAtTime(0.035,t+1);
+        gn.gain.linearRampToValueAtTime(0.02,t+mel.length*dur-1); gn.gain.linearRampToValueAtTime(0,t+mel.length*dur);
+        o.start(t); o.stop(t+mel.length*dur); musicNodes.push(o);
       });
-      const wait=(t+melody.length*dur-ac.currentTime)*1000-100;
-      if(musicOn) setTimeout(()=>{if(musicOn){t=ac.currentTime+.05;loop()}},Math.max(wait,100));
+      var wait=(t+mel.length*dur-ac.currentTime)*1000-100;
+      if(musicOn) musicTimer=setTimeout(function(){ if(musicOn){t=ac.currentTime+.05;loop();} }, Math.max(wait,100));
     }
     loop();
-  }catch(e){}
+  } catch(e){}
 }
-function stopMusic(){musicNodes.forEach(n=>{try{n.stop()}catch(e){}});musicNodes=[]}
+function stopMusic(){ clearTimeout(musicTimer); musicNodes.forEach(function(n){try{n.stop()}catch(e){};}); musicNodes=[]; }
 function toggleMusic(){
   musicOn=!musicOn;
   document.getElementById('btn-music').textContent=musicOn?'🎵':'🔇';
   document.getElementById('btn-music').classList.toggle('muted',!musicOn);
-  if(musicOn)startMusic();else stopMusic();
+  if(musicOn) startMusic(); else stopMusic();
 }
 
-// ══════════════════════════════════════════
-// NPC DATA
-// ══════════════════════════════════════════
-const NPCS = {
-  leo:{
-    name:'Guard Leo',face:'💂',role:'Town Gate Guardian',
-    words:['hello','name','key','open','find','lock','gate','red','blue','town'],
-    quest:{id:'q1',stars:1,coins:10,item:{icon:'🏰',label:'Gate Badge'}},
-    script:[
-      {say:"Hello, traveler! Welcome to Magic Town! What is your name?",
-        key:'name',chips:["My name is Ben.","My name is Lily.","My name is Tom.","My name is Mai."],hint:"Say: My name is [your name]"},
-      {say:"Nice to meet you! Do you like Magic Town?",
-        key:'like',chips:["Yes, I like it!","I like Magic Town!","I love it!","Yes, it is nice!"],hint:"Say: Yes, I like it!"},
-      {say:"I am a guard. I protect the gate. What is my job?",
-        key:'guard',chips:["You are a guard!","You protect the gate!","Guard!","Your job is guard!"],hint:"Say: You are a guard!"},
-      {say:"Oh no! I lost my red key! Can you help me find it?",
-        key:'yes',chips:["Yes, I can help!","Sure!","Of course!","I will help you!"],hint:"Say: Yes, I can help!"},
-      {say:"The key is near a tree. Look carefully! Find the red key!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"You found the red key! Say: I found the red key near the tree.",
-        key:'found',chips:["I found the red key!","I found the red key near the tree!","I found it!","Here is the red key!"],hint:"Say: I found the red key!"},
-      {say:"Wonderful! Now say: I give you the key.",
-        key:'give',chips:["I give you the key!","Here is the key!","Take the key!","I give the key to you!"],hint:"Say: I give you the key!"},
-      {say:"Thank you! The gate is open now! What color was the key?",
-        key:'red',chips:["It was red!","The key is red!","Red!","The red key!"],hint:"Say: It was red!"},
-      {say:"Correct! You are a great helper! You earned a star! ⭐",
-        key:null,chips:["Thank you!","Yay!","I am happy!","Goodbye, Leo!"],hint:"",done:true},
-    ],
-    items:[{icon:'🗝️',label:'Red Key',ok:true},{icon:'🔑',label:'Blue Key',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false}]
-  },
-  tom:{
-    name:'Farmer Tom',face:'👨‍🌾',role:'Happy Farmer',
-    words:['apple','water','tree','give','farm','cow','dog','hungry','big','small'],
-    quest:{id:'q2',stars:1,coins:12,item:{icon:'🍎',label:'Magic Apple'}},
-    script:[
-      {say:"Hello! Welcome to my farm! Do you like animals?",
-        key:'like',chips:["Yes, I like animals!","I love animals!","Yes!","I like cows and dogs!"],hint:"Say: Yes, I like animals!"},
-      {say:"I have a dog and a cow. What animal do you like?",
-        key:'like',chips:["I like dogs!","I like cows!","I like both!","I like cats too!"],hint:"Say: I like dogs! or I like cows!"},
-      {say:"My apple tree is thirsty. It needs water. Do you see the water?",
-        key:'yes',chips:["Yes, I see it!","Yes!","I see the water!","I can find it!"],hint:"Say: Yes, I see the water!"},
-      {say:"Can you bring the water to my tree?",
-        key:'yes',chips:["Yes, I can!","Sure!","I will bring it!","Of course!"],hint:"Say: Yes, I can!"},
-      {say:"Great! Find the water bucket!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"Perfect! Now say: I water the tree.",
-        key:'water',chips:["I water the tree!","I give water to the tree!","Here is water!","I water it!"],hint:"Say: I water the tree!"},
-      {say:"The tree looks happy! Is the apple big or small?",
-        key:'big',chips:["The apple is big!","It is big!","Big apple!","Very big!"],hint:"Say: The apple is big!"},
-      {say:"Say: Thank you, tree!",
-        key:'thank',chips:["Thank you, tree!","Thank you!","You are welcome, tree!","Thanks, tree!"],hint:"Say: Thank you, tree!"},
-      {say:"Haha! You made the tree laugh! Here is a magic apple for you! 🍎⭐",
-        key:null,chips:["Thank you!","Wow!","I love apples!","Thank you, Farmer Tom!"],hint:"",done:true},
-    ],
-    items:[{icon:'💧',label:'Water Bucket',ok:true},{icon:'🍞',label:'Bread',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🥕',label:'Carrot',ok:false}]
-  },
-  lucy:{
-    name:'Chef Lucy',face:'👩‍🍳',role:'Magic Kitchen Chef',
-    words:['hungry','egg','soup','bread','milk','cook','eat','hot','cold','delicious'],
-    quest:{id:'q3',stars:1,coins:12,item:{icon:'🍲',label:'Magic Soup'}},
-    script:[
-      {say:"Welcome to my kitchen! Are you hungry?",
-        key:'yes',chips:["Yes, I am hungry!","Yes!","Very hungry!","I want to eat!"],hint:"Say: Yes, I am hungry!"},
-      {say:"I am making magic soup! Do you like soup?",
-        key:'like',chips:["Yes, I like soup!","I love soup!","Yes!","Soup is delicious!"],hint:"Say: Yes, I like soup!"},
-      {say:"Is the soup hot or cold?",
-        key:'hot',chips:["It is hot!","The soup is hot!","Hot!","Very hot soup!"],hint:"Say: It is hot!"},
-      {say:"I need an egg and some milk. Find the egg first!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"The egg! Now find the milk!",
-        key:null,chips:[],hint:"Pick the right item!",items:true,
-        secondItems:[{icon:'🥛',label:'Milk',ok:true},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'🥚',label:'Egg',ok:false}]},
-      {say:"Say: I found the egg and the milk!",
-        key:'found',chips:["I found the egg and the milk!","I found them!","Here they are!","Found it!"],hint:"Say: I found the egg and the milk!"},
-      {say:"Now I cook! Say: The soup is ready!",
-        key:'ready',chips:["The soup is ready!","It is ready!","Ready!","The soup looks ready!"],hint:"Say: The soup is ready!"},
-      {say:"Taste it! Is it delicious?",
-        key:'delicious',chips:["Yes, it is delicious!","Very delicious!","Yummy!","So good!"],hint:"Say: Yes, it is delicious!"},
-      {say:"You are a great helper! Magic soup is yours! 🍲⭐",
-        key:null,chips:["Thank you!","Yummy!","Thank you, Chef Lucy!","I love cooking!"],hint:"",done:true},
-    ],
-    items:[{icon:'🥚',label:'Egg',ok:true},{icon:'🥛',label:'Milk',ok:false},{icon:'🍞',label:'Bread',ok:false},{icon:'🧀',label:'Cheese',ok:false},{icon:'🍯',label:'Honey',ok:false}]
-  },
-  mia:{
-    name:'Doctor Mia',face:'👩‍⚕️',role:'Town Doctor',unlock:3,
-    words:['feel','good','hurt','help','better','sick','hand','leg','head','medicine'],
-    quest:{id:'q4',stars:2,coins:15,item:{icon:'💊',label:'Magic Medicine'}},
-    script:[
-      {say:"Hello! I am Doctor Mia. How do you feel today?",
-        key:'good',chips:["I feel good!","I feel great!","I am fine!","I feel happy!"],hint:"Say: I feel good!"},
-      {say:"Good! Show me your hand!",
-        key:'hand',chips:["This is my hand!","Here is my hand!","My hand!","I show my hand!"],hint:"Say: This is my hand!"},
-      {say:"Now show me your head!",
-        key:'head',chips:["This is my head!","Here is my head!","My head!","I touch my head!"],hint:"Say: This is my head!"},
-      {say:"A little bird has a hurt leg. Can you help?",
-        key:'help',chips:["Yes, I can help!","I want to help!","Sure!","I will help the bird!"],hint:"Say: Yes, I can help!"},
-      {say:"Find a bandage for the bird!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"Now find the medicine for the bird!",
-        key:null,chips:[],hint:"Pick the right item!",items:true,
-        secondItems:[{icon:'💊',label:'Medicine',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🧂',label:'Salt',ok:false},{icon:'💧',label:'Water',ok:false}]},
-      {say:"You saved the bird! Say: The bird feels better now!",
-        key:'better',chips:["The bird feels better!","It feels better now!","Better now!","The bird is better!"],hint:"Say: The bird feels better now!"},
-      {say:"Does the bird feel happy or sad now?",
-        key:'happy',chips:["Happy!","It feels happy!","The bird is happy!","Very happy!"],hint:"Say: The bird is happy!"},
-      {say:"Say: I help sick animals!",
-        key:'help',chips:["I help sick animals!","I like helping!","I am kind!","I help animals!"],hint:"Say: I help sick animals!"},
-      {say:"Wonderful helper! You earned two stars! ⭐⭐",
-        key:null,chips:["Thank you!","I love animals!","Goodbye Dr. Mia!","See you!"],hint:"",done:true},
-    ],
-    items:[{icon:'🩹',label:'Bandage',ok:true},{icon:'🍎',label:'Apple',ok:false},{icon:'🗝️',label:'Key',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'💧',label:'Water',ok:false}]
-  },
-  nora:{
-    name:'Wizard Nora',face:'🧙‍♀️',role:'Forest Wizard',unlock:5,
-    words:['flower','river','bridge','stone','magic','spell','forest','light','dark','rainbow'],
-    quest:{id:'q5',stars:2,coins:18,item:{icon:'🪄',label:'Magic Wand'}},
-    script:[
-      {say:"Hello, brave explorer! Are you brave?",
-        key:'brave',chips:["Yes, I am brave!","I am very brave!","Yes!","I am a brave explorer!"],hint:"Say: Yes, I am brave!"},
-      {say:"What do you see in the Magic Forest?",
-        key:'see',chips:["I see a river!","I see a bridge!","I see trees!","I see flowers!"],hint:"Say: I see a river!"},
-      {say:"I am Wizard Nora. Do you like magic?",
-        key:'like',chips:["Yes, I like magic!","I love magic!","Magic is cool!","Yes, very much!"],hint:"Say: Yes, I like magic!"},
-      {say:"I need help! My magic flower disappeared! Can you find it?",
-        key:'yes',chips:["Yes, I can find it!","I will help!","Sure!","I will find the flower!"],hint:"Say: Yes, I can find it!"},
-      {say:"The flower is near the river. Look carefully!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"The magic flower! Now find the magic stone!",
-        key:null,chips:[],hint:"Pick the right item!",items:true,
-        secondItems:[{icon:'🪨',label:'Magic Stone',ok:true},{icon:'💧',label:'Water',ok:false},{icon:'🍎',label:'Apple',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🍄',label:'Mushroom',ok:false}]},
-      {say:"Now say the magic words: Let there be light!",
-        key:'light',chips:["Let there be light!","Light!","Magic light!","Let there be light!"],hint:"Say: Let there be light!"},
-      {say:"A rainbow appeared! What colors do you see?",
-        key:'color',chips:["I see red and blue!","Many colors!","Rainbow colors!","Red, yellow, blue!"],hint:"Say: I see many colors!"},
-      {say:"Say: The rainbow is beautiful!",
-        key:'beautiful',chips:["The rainbow is beautiful!","So beautiful!","Very beautiful!","It is beautiful!"],hint:"Say: The rainbow is beautiful!"},
-      {say:"You are a true magic explorer! Take my wand! 🪄⭐⭐",
-        key:null,chips:["Thank you!","Wow!","I love magic!","Thank you, Wizard Nora!"],hint:"",done:true},
-    ],
-    items:[{icon:'🌸',label:'Magic Flower',ok:true},{icon:'🪨',label:'Stone',ok:false},{icon:'💧',label:'Water',ok:false},{icon:'🍄',label:'Mushroom',ok:false},{icon:'🌙',label:'Moon',ok:false}]
-  },
-  max:{
-    name:'Puppy Max',face:'🐶',role:'Lost Puppy',unlock:7,
-    words:['lost','help','crown','home','door','dark','light','find','walk','friend'],
-    quest:{id:'q6',stars:2,coins:20,item:{icon:'👑',label:'Hero Crown'}},
-    script:[
-      {say:"Woof woof! I am Max! I am lost! Are you my friend?",
-        key:'friend',chips:["Yes, I am your friend!","Yes!","I am your friend, Max!","Hello Max!"],hint:"Say: Yes, I am your friend!"},
-      {say:"I live in the castle. Is the castle big?",
-        key:'big',chips:["Yes, it is big!","The castle is big!","Very big!","Yes, very big!"],hint:"Say: Yes, it is big!"},
-      {say:"I am scared of the dark! Is it dark here?",
-        key:'dark',chips:["It is dark!","Very dark!","A little dark!","Yes, dark here!"],hint:"Say: It is dark!"},
-      {say:"Can you walk with me to the castle?",
-        key:'yes',chips:["Yes, let's walk!","Let's go!","I walk with you!","Sure, let's go!"],hint:"Say: Yes, let's walk!"},
-      {say:"I need the golden crown to open the door. Find it!",
-        key:null,chips:[],hint:"Pick the right item!",items:true},
-      {say:"Now find the castle key too!",
-        key:null,chips:[],hint:"Pick the right item!",items:true,
-        secondItems:[{icon:'🗝️',label:'Castle Key',ok:true},{icon:'🔑',label:'Small Key',ok:false},{icon:'🪨',label:'Stone',ok:false},{icon:'🌸',label:'Flower',ok:false},{icon:'🕯️',label:'Candle',ok:false}]},
-      {say:"Say: Open the door, please!",
-        key:'open',chips:["Open the door, please!","Please open it!","Open it!","Open the door!"],hint:"Say: Open the door, please!"},
-      {say:"Say: We are home, Max!",
-        key:'home',chips:["We are home, Max!","We are home!","You are home!","Home at last!"],hint:"Say: We are home, Max!"},
-      {say:"Do you want to play with me?",
-        key:'yes',chips:["Yes, let's play!","Yes!","I want to play!","Let's play!"],hint:"Say: Yes, let's play!"},
-      {say:"You are the BEST explorer ever! Here is the Hero Crown! 👑⭐⭐",
-        key:null,chips:["Thank you!","Yay!","I love you, Max!","You're welcome!"],hint:"",done:true},
-    ],
-    items:[{icon:'👑',label:'Golden Crown',ok:true},{icon:'🕯️',label:'Candle',ok:false},{icon:'🚪',label:'Small Door',ok:false},{icon:'🌙',label:'Moon',ok:false},{icon:'🗝️',label:'Old Key',ok:false}]
-  }
-};
-
-const UNLOCK_REQ={mia:3,nora:5,max:7};
-
-// ══════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════
-let G={name:'Explorer',stars:0,coins:0,done:[],words:[],mistakes:0,inv:[],
-       mistakeLog:[],  // {npc, step, wrong, correct} for Gemini analysis
-       start:Date.now()};
-let cur=null,step=0,micOn=false,recog=null;
-let awaitingSecondItems=false;
-let lastNPCSay='';   // for Vietnamese hint
-
-function load(){try{const s=localStorage.getItem('eng_rpg5');if(s)G={...G,...JSON.parse(s)}}catch(e){}}
-function save(){try{localStorage.setItem('eng_rpg5',JSON.stringify(G))}catch(e){}}
-
-// ══════════════════════════════════════════
-// GEMINI API  — 3 tính năng
-// ══════════════════════════════════════════
-
-/* ── 1. AI Dialogue (thay mock khi có key) ── */
-async function geminiChat(npc, userMsg){
-  if(!gKey()||gKey()==='AIza...') return null;
-  const sys=`You are ${npc.name}, a friendly NPC in a children's English adventure RPG.
-The child is 6-10 years old and Vietnamese. STRICT RULES:
-- Max 12 words per sentence. Very simple English only.
-- One question at a time. Be warm, fun and encouraging.
-- Gently correct grammar mistakes (praise first, then model correct form).
-- Quest step: ${step} of ${npc.script.length}.
-- Signal ##QUEST_DONE## at end of quest completion message.
-- Signal ##SHOW_ITEMS## when child needs to find/pick an item.
-- Stay in the fantasy game world. Never discuss real world topics.`;
-  const prompt=`${sys}\n\nConversation so far:\nNPC last said: "${lastNPCSay}"\nChild says: "${userMsg}"\n\nRespond as ${npc.name}:`;
-  showGeminiBar();
-  try{
-    const res=await fetch(geminiURL(),{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
-        generationConfig:{maxOutputTokens:120,temperature:0.75}})
-    });
-    if(!res.ok)throw new Error(res.status);
-    const d=await res.json();
-    const reply=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim();
-    hideGeminiBar();
-    return{
-      reply:reply.replace(/##QUEST_DONE##|##SHOW_ITEMS##/g,'').trim(),
-      done:reply.includes('##QUEST_DONE##'),
-      showItems:reply.includes('##SHOW_ITEMS##')
-    };
-  }catch(e){hideGeminiBar();return null;}
-}
-
-/* ── 2. Vietnamese Hint ── */
-async function getVietnameseHint(){
-  sfx('vn');
-  if(!lastNPCSay){toast('Chưa có câu nào để dịch!');return}
-  if(!gKey()||gKey()==='AIza...'){
-    addVNHint('⚠️ Cần điền Gemini API key để dùng gợi ý tiếng Việt.');return;
-  }
-  const s=NPCS[cur]?.script[step];
-  const hintText = s?.hint || '';
-  const prompt=`Translate this English sentence to simple Vietnamese for a 6-10 year old child.
-Also explain what the child should say in response, in Vietnamese.
-Keep it short (max 2-3 sentences total).
-
-English sentence: "${lastNPCSay}"
-Expected response hint: "${hintText}"
-
-Reply in Vietnamese only, friendly tone:`;
-  showGeminiBar('🇻🇳 Đang dịch…');
-  try{
-    const res=await fetch(geminiURL(),{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
-        generationConfig:{maxOutputTokens:100,temperature:0.3}})
-    });
-    if(!res.ok)throw new Error(res.status);
-    const d=await res.json();
-    const vn=(d.candidates?.[0]?.content?.parts?.[0]?.text||'').trim();
-    hideGeminiBar();
-    addVNHint('🇻🇳 '+vn);
-  }catch(e){
-    hideGeminiBar();
-    addVNHint('⚠️ Không thể dịch lúc này. Thử lại sau!');
-  }
-}
-
-/* ── 3. End-of-session Gemini Analysis ── */
-async function geminiAnalysis(){
-  if(!gKey()||gKey()==='AIza...'){
-    return '<span class="ai-analysis-loading">Cần Gemini API key để phân tích.</span>';
-  }
-  if(G.done.length===0 && G.mistakes===0){
-    return '<span class="ai-analysis-loading">Chơi ít nhất 1 quest để xem phân tích!</span>';
-  }
-  const mistakeSummary = G.mistakeLog.length > 0
-    ? G.mistakeLog.slice(-8).map(m=>`- NPC: ${m.npc}, bước ${m.step}: trẻ nói "${m.wrong}" thay vì "${m.correct}"`).join('\n')
-    : 'Không có lỗi nào!';
-  const prompt=`Bạn là giáo viên tiếng Anh. Hãy phân tích kết quả học của trẻ 6-10 tuổi.
-
-Thông tin buổi học:
-- Tên trẻ: ${G.name}
-- Quests hoàn thành: ${G.done.length}/6
-- Từ vựng đã dùng: ${G.words.join(', ')||'chưa có'}
-- Tổng số lỗi: ${G.mistakes}
-- Chi tiết lỗi:\n${mistakeSummary}
-
-Viết nhận xét ngắn (3-4 câu) bằng tiếng Việt:
-1. Điểm mạnh của trẻ hôm nay
-2. Điểm cần luyện thêm
-3. Gợi ý cho buổi học tiếp theo
-
-Giọng văn nhẹ nhàng, động viên, dành cho phụ huynh đọc.`;
-  showGeminiBar('✨ Đang phân tích…');
-  try{
-    const res=await fetch(geminiURL(),{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:prompt}]}],
-        generationConfig:{maxOutputTokens:200,temperature:0.5}})
-    });
-    if(!res.ok)throw new Error(res.status);
-    const d=await res.json();
-    hideGeminiBar();
-    return (d.candidates?.[0]?.content?.parts?.[0]?.text||'Không thể phân tích.').trim();
-  }catch(e){
-    hideGeminiBar();
-    return 'Không thể kết nối Gemini lúc này.';
-  }
-}
-
-function showGeminiBar(msg='✨ Gemini thinking…'){
-  document.getElementById('gemini-bar').textContent=msg;
-  document.getElementById('gemini-bar').style.display='block';
-}
-function hideGeminiBar(){document.getElementById('gemini-bar').style.display='none'}
-
-// ══════════════════════════════════════════
-// ELEVENLABS TTS
-// ══════════════════════════════════════════
-let curAudio = null;
-// Khi ElevenLabs hết quota (429) → tự chuyển sang browser TTS cho cả session
-let elFallback = false;
-
-async function speak(text){
+// ═══════════════════════════
+// TTS
+// ═══════════════════════════
+var curAudio=null, elFallback=false;
+function speak(text, onDone){
   stopTTS();
-  const noKey = !elKey() || elKey() === 'sk_...';
-  if(noKey || elFallback){ browserSpeak(text); return; }
-
-  document.getElementById('tts-bar').style.display = 'block';
-  try{
-    const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${elVoice()}`,{
-      method: 'POST',
-      headers: {'xi-api-key':elKey(),'Content-Type':'application/json','Accept':'audio/mpeg'},
-      body: JSON.stringify({text, model_id:'eleven_turbo_v2',
-        voice_settings:{stability:0.5,similarity_boost:0.75,style:0.3,use_speaker_boost:true}})
-    });
-
-    // 429 = hết quota, 401 = sai key — cả 2 đều fallback vĩnh viễn trong session
-    if(res.status === 429){
-      elFallback = true;
-      document.getElementById('tts-bar').style.display = 'none';
-      toast('🔊 ElevenLabs hết quota — chuyển sang giọng tự nhiên');
-      browserSpeak(text); return;
+  var key=getEL();
+  if(!key||elFallback){ browserSpeak(text,onDone); return; }
+  document.getElementById('tts-bar').style.display='block';
+  fetch('https://api.elevenlabs.io/v1/text-to-speech/'+getVOICE(),{
+    method:'POST',
+    headers:{'xi-api-key':key,'Content-Type':'application/json','Accept':'audio/mpeg'},
+    body:JSON.stringify({text:text,model_id:'eleven_turbo_v2',
+      voice_settings:{stability:0.5,similarity_boost:0.75,style:0.3,use_speaker_boost:true}})
+  }).then(function(r){
+    if(r.status===429||r.status===401){
+      elFallback=true;
+      document.getElementById('tts-bar').style.display='none';
+      toast(r.status===429?'🔊 ElevenLabs hết quota → giọng tự nhiên':'🔑 Key lỗi → giọng tự nhiên');
+      browserSpeak(text,onDone); return;
     }
-    if(res.status === 401){
-      elFallback = true;
-      document.getElementById('tts-bar').style.display = 'none';
-      toast('🔑 ElevenLabs key không hợp lệ — chuyển sang giọng tự nhiên');
-      browserSpeak(text); return;
-    }
-    if(!res.ok) throw new Error(res.status);
-
-    const blob = await res.blob();
-    const url  = URL.createObjectURL(blob);
-    curAudio   = new Audio(url);
-    getAC();
-    curAudio.onended = ()=>{ document.getElementById('tts-bar').style.display='none'; URL.revokeObjectURL(url); };
-    curAudio.onerror = ()=>{ document.getElementById('tts-bar').style.display='none'; };
-    curAudio.play().catch(()=>{ document.getElementById('tts-bar').style.display='none'; browserSpeak(text); });
-
-  }catch(e){
-    document.getElementById('tts-bar').style.display = 'none';
-    browserSpeak(text);
-  }
+    if(!r.ok) throw new Error(r.status);
+    return r.blob();
+  }).then(function(blob){
+    if(!blob) return;
+    var url=URL.createObjectURL(blob);
+    curAudio=new Audio(url); getAC();
+    curAudio.onended=function(){ document.getElementById('tts-bar').style.display='none'; URL.revokeObjectURL(url); if(onDone)onDone(); };
+    curAudio.onerror=function(){ document.getElementById('tts-bar').style.display='none'; if(onDone)onDone(); };
+    curAudio.play().catch(function(){ document.getElementById('tts-bar').style.display='none'; browserSpeak(text,onDone); });
+  }).catch(function(){ document.getElementById('tts-bar').style.display='none'; browserSpeak(text,onDone); });
 }
-
 function stopTTS(){
-  if(curAudio){ curAudio.pause(); curAudio = null; }
-  document.getElementById('tts-bar').style.display = 'none';
-  window.speechSynthesis?.cancel();
+  if(curAudio){curAudio.pause();curAudio=null;}
+  document.getElementById('tts-bar').style.display='none';
+  if(window.speechSynthesis) window.speechSynthesis.cancel();
 }
-
-function browserSpeak(text){
-  const s = window.speechSynthesis; if(!s) return;
-  const u = new SpeechSynthesisUtterance(text);
-  u.lang  = 'en-US'; u.rate = 0.88; u.pitch = 1.1;
-  // Ưu tiên giọng Google US > Samantha (iOS) > bất kỳ giọng en nào
-  const v = s.getVoices();
-  const p = v.find(x => x.lang === 'en-US' && x.name.includes('Google US English'))
-         || v.find(x => x.lang.startsWith('en') && x.name.includes('Google'))
-         || v.find(x => x.lang.startsWith('en') && x.name.includes('Samantha'))
-         || v.find(x => x.lang.startsWith('en') && !x.localService === false) // online voices first
-         || v.find(x => x.lang.startsWith('en'));
-  if(p) u.voice = p;
-  // Hiện indicator nhỏ khi dùng browser TTS
-  const bar = document.getElementById('tts-bar');
-  bar.textContent = '🔊 Speaking…'; bar.style.display = 'block';
-  u.onend = u.onerror = ()=>{ bar.style.display='none'; bar.textContent='🔊 Speaking…'; };
+function browserSpeak(text,onDone){
+  var s=window.speechSynthesis; if(!s){if(onDone)onDone();return;}
+  var u=new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.88; u.pitch=1.1;
+  var v=s.getVoices();
+  var p=v.find(function(x){return x.lang==='en-US'&&x.name.indexOf('Google US')>=0;})
+     ||v.find(function(x){return x.lang.indexOf('en')===0&&x.name.indexOf('Google')>=0;})
+     ||v.find(function(x){return x.lang.indexOf('en')===0&&x.name.indexOf('Samantha')>=0;})
+     ||v.find(function(x){return x.lang.indexOf('en')===0;});
+  if(p) u.voice=p;
+  var bar=document.getElementById('tts-bar'); bar.style.display='block';
+  u.onend=function(){bar.style.display='none';if(onDone)onDone();};
+  u.onerror=function(){bar.style.display='none';if(onDone)onDone();};
   s.speak(u);
 }
 
-// ══════════════════════════════════════════
-// SCREENS
-// ══════════════════════════════════════════
-function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('on'));document.getElementById(id).classList.add('on')}
-function unlockAudio(){getAC();document.getElementById('audio-unlock').style.display='none';show('s-intro');setTimeout(startMusic,300)}
-function startGame(){sfx('tap');const n=document.getElementById('inp-name').value.trim();G.name=n||'Explorer';save();updateHUD();refreshMap();show('s-map')}
-function goMap(){stopTTS();stopMic();show('s-map');cur=null;sfx('tap')}
+// ═══════════════════════════
+// GEMINI
+// ═══════════════════════════
+var GEM_MODEL='gemini-1.5-flash-latest';
+function gemURL(){ return 'https://generativelanguage.googleapis.com/v1beta/models/'+GEM_MODEL+':generateContent?key='+getGEM(); }
+function callGem(prompt,maxTok,cb){
+  if(!getGEM()){cb(null);return;}
+  document.getElementById('gemini-bar').style.display='block';
+  fetch(gemURL(),{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:maxTok||120,temperature:0.7}})
+  }).then(function(r){return r.json();}).then(function(d){
+    document.getElementById('gemini-bar').style.display='none';
+    var t=(d.candidates&&d.candidates[0]&&d.candidates[0].content&&d.candidates[0].content.parts&&d.candidates[0].content.parts[0].text)||'';
+    cb(t.trim());
+  }).catch(function(){ document.getElementById('gemini-bar').style.display='none'; cb(null); });
+}
 
-// ══════════════════════════════════════════
-// HUD + MAP
-// ══════════════════════════════════════════
+// Gemini Judge: chấm câu trả lời đúng/sai trước khi NPC reply
+function gemJudge(npc, targetKey, userText, cb){
+  if(!getGEM()){ cb(mockJudge(targetKey,userText)); return; }
+  var prompt='You are a children English teacher. The child (6-10 years old, Vietnamese) said: "'+userText+'".\n'
+    +'The required keyword/meaning is: "'+targetKey+'".\n'
+    +'Did the child express this meaning correctly? Answer JSON only: {"pass":true/false,"correction":"short gentle correction in English if wrong, empty string if correct"}';
+  callGem(prompt,80,function(t){
+    try{
+      var clean=t.replace(/```json|```/g,'').trim();
+      cb(JSON.parse(clean));
+    }catch(e){ cb(mockJudge(targetKey,userText)); }
+  });
+}
+function mockJudge(key,text){
+  if(!key) return {pass:true,correction:''};
+  var low=text.toLowerCase();
+  var pass=low.indexOf(key)>=0;
+  return {pass:pass,correction:pass?'':'Try again! Say it clearly!'};
+}
+
+// Gemini NPC: reply after judge passed
+function gemNPC(npc, userText, nextSay, cb){
+  if(!getGEM()){ cb(null); return; }
+  var prompt='You are '+npc.name+', a friendly NPC in a children English RPG.\n'
+    +'Child said: "'+userText+'". Planned next line: "'+nextSay+'".\n'
+    +'Reply warmly in max 10 words, simple English, keep the story going. Just say the reply text, nothing else.';
+  callGem(prompt,60,function(t){ cb(t||null); });
+}
+
+// Vietnamese hint
+function getVNHint(){
+  sfx('tap');
+  if(!lastSay){ toast('Chưa có câu nào!'); return; }
+  if(!getGEM()){ addMsg('vn-hint','<div class="bub">🇻🇳 Cần Gemini key. Bấm ⚙️ để điền.</div>'); return; }
+  var s=NPCS[cur]&&NPCS[cur].script[step];
+  var prompt='Dịch câu tiếng Anh sau sang tiếng Việt đơn giản cho trẻ 6-10 tuổi.\n'
+    +'Giải thích ngắn trẻ cần nói gì. Tối đa 2 câu. Chỉ tiếng Việt.\n\n'
+    +'Câu: "'+lastSay+'"\nGợi ý: "'+(s&&s.hint||'')+'"';
+  callGem(prompt,90,function(t){ addMsg('vn-hint','<div class="bub">🇻🇳 '+(t||'Không thể dịch.')+' </div>'); });
+}
+
+// Gemini analysis for report
+function gemAnalysis(cb){
+  if(!getGEM()){ cb('Cần Gemini key. Bấm ⚙️ để điền.'); return; }
+  if(!G.done.length&&!G.mistakes){ cb('Chơi ít nhất 1 quest để xem phân tích!'); return; }
+  var ml=G.mistakeLog.slice(-8).map(function(m){return '- '+m.npc+': nói "'+m.wrong+'" → đúng là "'+m.correct+'"';}).join('\n')||'Không có lỗi!';
+  var prompt='Giáo viên tiếng Anh, phân tích kết quả học trẻ 6-10 tuổi.\n'
+    +'Tên: '+G.name+'\nQuests: '+G.done.length+'/6\nTừ vựng: '+(G.words.join(',')||'chưa có')
+    +'\nLỗi: '+G.mistakes+'\nChi tiết:\n'+ml
+    +'\n\nViết 3-4 câu tiếng Việt: điểm mạnh, cần luyện, gợi ý. Giọng nhẹ nhàng cho phụ huynh.';
+  callGem(prompt,180,function(t){ cb(t||'Không thể kết nối Gemini.'); });
+}
+
+// ═══════════════════════════
+// SCREENS
+// ═══════════════════════════
+function show(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('on');}); document.getElementById(id).classList.add('on'); }
+function unlockAudio(){ getAC(); document.getElementById('audio-unlock').style.display='none'; show('s-intro'); setTimeout(startMusic,300); }
+function startGame(){
+  sfx('tap');
+  var n=document.getElementById('inp-name').value.trim();
+  G.name=n||'Explorer'; saveG(); updateHUD(); refreshMap(); show('s-map');
+}
+function goMap(){ stopTTS(); stopMic(); show('s-map'); cur=null; sfx('tap'); }
+
+// ═══════════════════════════
+// HUD + MAP + PET
+// ═══════════════════════════
 function updateHUD(){
   document.getElementById('hud-name').textContent='🧒 '+G.name;
   document.getElementById('b-stars').textContent='⭐ '+G.stars;
-  document.getElementById('b-coins').textContent='🪙 '+G.coins;
+  document.getElementById('streak-badge').textContent='🔥 '+G.streak;
+  updatePipHUD();
+}
+function updatePipHUD(){
+  var stage=getPipStage();
+  document.getElementById('pip-face').textContent=stage.face;
+  document.getElementById('pip-hunger-bar').style.width=Math.max(0,G.pip.hunger)+'%';
+}
+function getPipStage(){
+  var quests=G.done.length;
+  for(var i=PIP_STAGES.length-1;i>=0;i--){ if(quests>=PIP_STAGES[i].min) return PIP_STAGES[i]; }
+  return PIP_STAGES[0];
+}
+function feedPip(questsDone){
+  G.pip.hunger=Math.min(100,G.pip.hunger+25);
+  G.pip.happy=Math.min(100,G.pip.happy+20);
+  G.pip.xp=(G.pip.xp||0)+1;
+  saveG(); updateHUD();
+}
+function openPetModal(){
+  var stage=getPipStage();
+  document.getElementById('pet-big').textContent=stage.face;
+  document.getElementById('pet-name').textContent=stage.name;
+  document.getElementById('pet-mood').textContent=
+    G.pip.hunger<30?'I am so hungry! Please help! 😭':
+    G.pip.hunger<60?'I could use some food... 🥺':
+    G.pip.happy>80?'I am so happy! 🐉💕':'Feed me by finishing quests!';
+  document.getElementById('pet-hunger-fill').style.width=G.pip.hunger+'%';
+  document.getElementById('pet-happy-fill').style.width=G.pip.happy+'%';
+  var levelPct=Math.min(100,(G.pip.xp||0)/6*100);
+  document.getElementById('pet-level-fill').style.width=levelPct+'%';
+  openModal('m-pet');
 }
 function refreshMap(){
-  Object.keys(NPCS).forEach(id=>{
-    const dot=document.getElementById('dot-'+id);
-    if(dot&&G.done.includes(NPCS[id].quest.id)){dot.textContent='✅';dot.classList.add('done-dot')}
+  Object.keys(NPCS).forEach(function(id){
+    var dot=document.getElementById('dot-'+id);
+    if(dot&&G.done.indexOf(NPCS[id].quest.id)>=0){dot.textContent='✅';dot.classList.add('done-dot');}
   });
-  Object.entries(UNLOCK_REQ).forEach(([id,req])=>{
-    if(G.stars>=req){
-      const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
-      if(pin)pin.classList.remove('locked');if(lt)lt.style.display='none';
+  Object.keys(UNLOCK_REQ).forEach(function(id){
+    if(G.stars>=UNLOCK_REQ[id]){
+      var pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
+      if(pin) pin.classList.remove('locked');
+      if(lt)  lt.style.display='none';
     }
   });
 }
 function updateProgress(){
-  if(!cur)return;
-  const pct=Math.round((step/NPCS[cur].script.length)*100);
-  document.getElementById('quest-fill').style.width=pct+'%';
+  if(!cur) return;
+  var pct=Math.round(step/NPCS[cur].script.length*100);
+  document.getElementById('qfill').style.width=pct+'%';
+  document.getElementById('ls-qfill').style.width=pct+'%';
+  document.getElementById('ls-qlabel').textContent='Step '+step+' / '+NPCS[cur].script.length;
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════
+// STICKER BOOK
+// ═══════════════════════════
+function openStickerBook(){
+  var grid=document.getElementById('sticker-grid'); grid.innerHTML='';
+  ALL_STICKERS.forEach(function(s){
+    var unlocked=G.stickers.indexOf(s.id)>=0;
+    var div=document.createElement('div');
+    div.className='sticker '+(unlocked?'unlocked':'locked');
+    div.innerHTML=s.icon+'<small>'+s.label+'</small>';
+    grid.appendChild(div);
+  });
+  openModal('m-sticker');
+}
+function earnSticker(id){
+  if(G.stickers.indexOf(id)<0){ G.stickers.push(id); saveG(); }
+}
+
+// ═══════════════════════════
 // DIALOGUE
-// ══════════════════════════════════════════
+// ═══════════════════════════
 function openTalk(id){
   sfx('tap');
-  const npc=NPCS[id];if(!npc)return;
-  if(npc.unlock&&G.stars<npc.unlock){toast(`🔒 Need ${npc.unlock} ⭐ first!`);sfx('wrong');return}
-  cur=id;step=0;awaitingSecondItems=false;lastNPCSay='';
+  var npc=NPCS[id]; if(!npc) return;
+  if(npc.unlock&&G.stars<npc.unlock){toast('🔒 Need '+npc.unlock+' ⭐ first!');sfx('wrong');return;}
+  cur=id; step=0; awaitSecond=false; lastSay='';
+  // Set both portrait header and landscape left panel
   document.getElementById('t-face').textContent=npc.face;
   document.getElementById('t-name').textContent=npc.name;
   document.getElementById('t-role').textContent=npc.role;
-  document.getElementById('quest-fill').style.width='0%';
-  clearChat();hideItems();setChips([]);setHint('');
+  document.getElementById('ls-face').textContent=npc.face;
+  document.getElementById('ls-name').textContent=npc.name;
+  document.getElementById('ls-role').textContent=npc.role;
+  document.getElementById('ls-items').innerHTML='';
+  document.getElementById('qfill').style.width='0%';
+  document.getElementById('ls-qfill').style.width='0%';
+  clearChat(); hideItems(); setChips([]); setHint('');
   document.getElementById('txt').value='';
+  document.getElementById('btn-nosay').textContent=noSayMode?'👆':'🔇';
   show('s-talk');
-  if(G.done.includes(npc.quest.id)){
-    const lines=["You already helped me! Thank you! 😊","Hi again, friend! You are great! ⭐","Welcome back, brave explorer! 🎉","Hello hello! Good to see you again!"];
-    const m=lines[~~(Math.random()*lines.length)];
-    setTimeout(()=>{addNPC(m);speak(m);lastNPCSay=m},400);return;
+  if(G.done.indexOf(npc.quest.id)>=0){
+    var lines=["You already helped me! Thank you! 😊","Hi again! You are great! ⭐","Welcome back, brave explorer!","Hello again, my friend!"];
+    var m=lines[Math.floor(Math.random()*lines.length)];
+    setTimeout(function(){addNPC(m);speak(m);lastSay=m;},400); return;
   }
-  setTimeout(runStep,450);
+  setTimeout(runStep,400);
 }
 
 function runStep(){
-  const npc=NPCS[cur];
-  if(!npc||step>=npc.script.length)return;
-  const s=npc.script[step];
-  updateProgress();
-  lastNPCSay=s.say;
-  addNPC(s.say);speak(s.say);
-  setChips(s.chips||[]);setHint(s.hint||'');
-  awaitingSecondItems=false;
-  if(s.items)showItems(npc.items);else hideItems();
+  var npc=NPCS[cur]; if(!npc||step>=npc.script.length) return;
+  var s=npc.script[step]; updateProgress();
+  lastSay=s.say; addNPC(s.say); speak(s.say);
+  setChips(s.chips||[]); setHint(s.hint||'');
+  awaitSecond=false;
+  // Show RAM (repeat after me) button if step has ram flag
+  if(s.ram) addRAM(s.say);
+  // Items: show in landscape left panel OR portrait item-row
+  if(s.items) showItems(npc.items); else hideItems();
+}
+
+function addRAM(text){
+  var div=document.createElement('div'); div.className='ram-row';
+  div.innerHTML='<span class="ram-txt">🎙️ Say: <b>'+text+'</b></span>'
+    +'<button class="ram-btn" onclick="speak(\''+text.replace(/'/g,"\\'")+'\')">'
+    +'🔊 Hear it</button>';
+  document.getElementById('chat').appendChild(div);
+  document.getElementById('chat').scrollTop=99999;
+}
+
+function toggleNoSay(){
+  noSayMode=!noSayMode; sfx('tap');
+  document.getElementById('btn-nosay').textContent=noSayMode?'👆':'🔇';
+  toast(noSayMode?'👆 Tap mode — just tap chips!':'🎤 Speaking mode');
 }
 
 function send(){
-  const v=document.getElementById('txt').value.trim();
-  if(!v||!cur)return;
-  sfx('send');
-  document.getElementById('txt').value='';
-  addMe(v);setChips([]);
+  var v=document.getElementById('txt').value.trim(); if(!v||!cur) return;
+  sfx('send'); document.getElementById('txt').value='';
+  addMe(v); setChips([]);
   processInput(v);
 }
 
-async function processInput(text){
-  showTyping();
-  const ai=await geminiChat(NPCS[cur],text);
-  removeTyping();
-  if(ai&&ai.reply){
-    lastNPCSay=ai.reply;
-    addNPC(ai.reply);speak(ai.reply);
-    if(ai.done){setTimeout(completeQuest,1200);return}
-    if(ai.showItems){showItems(NPCS[cur].items);return}
-    step++;updateProgress();
-    if(step>=NPCS[cur].script.length)completeQuest();
-    save();
-  }else{
-    handleMock(text);
+function processInput(text){
+  var npc=NPCS[cur], s=npc.script[step]; if(!s) return;
+  // If step needs keyword, judge first
+  if(s.key){
+    showTyping();
+    gemJudge(npc, s.key, text, function(result){
+      removeTyping();
+      if(!result.pass){
+        G.mistakes++;
+        G.mistakeLog.push({npc:npc.name,step:step,wrong:text,correct:s.chips[0]||s.key});
+        sfx('wrong');
+        var msg=result.correction||'Try again! Say: "'+s.chips[0]+'" 😊';
+        setTimeout(function(){addFix(msg);speak(msg);},200);
+        return;
+      }
+      sfx('correct');
+      if(s.key&&G.words.indexOf(s.key)<0) G.words.push(s.key);
+      npc.words.forEach(function(w){if(G.words.indexOf(w)<0)G.words.push(w);});
+      advanceStep(text);
+    });
+  } else {
+    advanceStep(text);
   }
 }
 
-function handleMock(text){
-  const npc=NPCS[cur],s=npc.script[step];if(!s)return;
-  const low=text.toLowerCase();
-  if(s.key){
-    const ok=low.includes(s.key)||(s.chips||[]).some(c=>low.includes(c.toLowerCase().split(' ')[0]));
-    if(!ok){
-      G.mistakes++;
-      // Log mistake for Gemini analysis
-      G.mistakeLog.push({npc:npc.name,step,wrong:text,correct:s.chips[0]});
-      const corrections=[
-        `Almost! Try saying: "${s.chips[0]}" 😊`,
-        `Good try! Can you say: "${s.chips[0]}"?`,
-        `Nice effort! Try: "${s.chips[0]}" 💪`,
-        `You can do it! Say: "${s.chips[0]}"`,
-      ];
-      const f=corrections[~~(Math.random()*corrections.length)];
-      sfx('wrong');
-      setTimeout(()=>{addFix(f);speak(f)},300);return;
-    }
-    if(!G.words.includes(s.key))G.words.push(s.key);
-    sfx('correct');
-  }
-  npc.words.forEach(w=>{if(!G.words.includes(w))G.words.push(w)});
-  step++;updateProgress();
-  if(step>=npc.script.length){completeQuest();return}
-  const ns=npc.script[step];if(ns.done){completeQuest();return}
+function advanceStep(userText){
+  var npc=NPCS[cur]; step++; updateProgress();
+  saveG();
+  if(step>=npc.script.length){completeQuest();return;}
+  var ns=npc.script[step]; if(ns.done){completeQuest();return;}
   showTyping();
-  setTimeout(()=>{removeTyping();runStep()},900);
-  save();
+  // Try Gemini NPC for natural reply, fallback to script
+  gemNPC(npc, userText, ns.say, function(aiReply){
+    removeTyping();
+    var msg=aiReply||ns.say;
+    lastSay=msg; addNPC(msg); speak(msg);
+    setChips(ns.chips||[]); setHint(ns.hint||'');
+    awaitSecond=false;
+    if(ns.ram) addRAM(ns.say);
+    if(ns.items) showItems(npc.items); else hideItems();
+  });
 }
 
 // Items
 function showItems(items){
-  const g=document.getElementById('item-grid');g.innerHTML='';
-  items.forEach(it=>{
-    const b=document.createElement('button');b.className='item-btn';
-    b.innerHTML=`<span class="item-icon">${it.icon}</span>${it.label}`;
-    b.onclick=()=>pickItem(it);g.appendChild(b);
+  // Portrait
+  var g=document.getElementById('item-grid'); g.innerHTML='';
+  items.forEach(function(it){
+    var b=document.createElement('button'); b.className='ibtn';
+    b.innerHTML='<span class="iico">'+it.icon+'</span>'+it.label;
+    b.onclick=function(){pickItem(it);}; g.appendChild(b);
   });
   document.getElementById('item-row').style.display='';
+  // Landscape left panel
+  var ls=document.getElementById('ls-items'); ls.innerHTML='';
+  items.forEach(function(it){
+    var b=document.createElement('button'); b.className='ls-item-btn';
+    b.innerHTML='<span style="font-size:20px">'+it.icon+'</span>'+it.label;
+    b.onclick=function(){pickItem(it);}; ls.appendChild(b);
+  });
 }
-function hideItems(){document.getElementById('item-row').style.display='none'}
+function hideItems(){
+  document.getElementById('item-row').style.display='none';
+  document.getElementById('ls-items').innerHTML='';
+}
 function pickItem(it){
   sfx('tap');
-  const npc=NPCS[cur],s=npc.script[step];
-  addMe(`${it.icon} ${it.label}`);hideItems();
+  var npc=NPCS[cur], s=npc.script[step];
+  addMe(it.icon+' '+it.label); hideItems();
   if(it.ok){
     sfx('correct');
-    if(!awaitingSecondItems&&s.secondItems){
-      awaitingSecondItems=true;
+    if(!awaitSecond&&s.secondItems){
+      awaitSecond=true;
+      var msg='Nice! Now find the next item!';
+      lastSay=msg; addNPC(msg); speak(msg);
+      setHint('Find the next item!');
+      showItems(s.secondItems);
+    } else {
+      awaitSecond=false;
+      step++; updateProgress(); saveG();
+      if(step>=npc.script.length){completeQuest();return;}
+      var ns2=npc.script[step]; if(ns2.done){completeQuest();return;}
       showTyping();
-      setTimeout(()=>{removeTyping();const msg=`${it.icon} Nice! Now find the next one!`;lastNPCSay=msg;addNPC(msg);speak(msg);setHint("Pick the right item!");showItems(s.secondItems)},700);
-    }else{
-      awaitingSecondItems=false;step++;updateProgress();
-      showTyping();setTimeout(()=>{removeTyping();runStep()},900);
+      setTimeout(function(){
+        removeTyping(); lastSay=ns2.say; addNPC(ns2.say); speak(ns2.say);
+        setChips(ns2.chips||[]); setHint(ns2.hint||'');
+        awaitSecond=false;
+        if(ns2.ram) addRAM(ns2.say);
+        if(ns2.items) showItems(npc.items); else hideItems();
+      },800);
     }
-  }else{
-    sfx('wrong');
-    G.mistakes++;
-    const w=["That is not it! Try again! 😊","Hmm, look carefully! 👀","Not that one! Keep looking!","Almost! Try another one!"][~~(Math.random()*4)];
-    setTimeout(()=>{
-      lastNPCSay=w;addNPC(w);speak(w);
-      if(awaitingSecondItems&&s.secondItems)showItems(s.secondItems);
-      else showItems(npc.items);
+  } else {
+    sfx('wrong'); G.mistakes++;
+    var w=["That is not it! Try again! 😊","Hmm, look carefully! 👀","Not that one!","Almost! Try another!"][Math.floor(Math.random()*4)];
+    setTimeout(function(){
+      lastSay=w; addNPC(w); speak(w);
+      if(awaitSecond&&s.secondItems) showItems(s.secondItems); else showItems(npc.items);
     },500);
   }
 }
 
 function completeQuest(){
-  const npc=NPCS[cur],q=npc.quest;
+  var npc=NPCS[cur], q=npc.quest;
   sfx('reward');
-  if(!G.done.includes(q.id))G.done.push(q.id);
-  G.stars+=q.stars;G.coins+=q.coins;
-  if(q.item&&!G.inv.some(i=>i.label===q.item.label))G.inv.push(q.item);
-  save();updateHUD();checkUnlocks();goMap();
+  if(G.done.indexOf(q.id)<0) G.done.push(q.id);
+  G.stars+=q.stars;
+  // Earn sticker
+  earnSticker('s'+G.done.length);
+  // Extra stickers for milestones
+  if(G.done.length===3) earnSticker('s7');
+  if(G.done.length===6) earnSticker('s10');
+  if(G.streak>=3) earnSticker('s8');
+  if(G.mistakes===0) earnSticker('s9');
+  feedPip();
+  saveG(); updateHUD(); checkUnlocks();
+  pendingMiniQuest = cur;
+  goMap();
+  // Show reward modal
+  var stage=getPipStage();
+  document.getElementById('rew-pip').textContent=stage.face;
   document.getElementById('rew-anim').textContent='🎉';
   document.getElementById('rew-title').textContent='Quest Complete!';
-  document.getElementById('rew-desc').textContent=npc.name+' is very happy!';
+  document.getElementById('rew-desc').textContent=npc.name+' is happy! '+stage.face+' Pip is full!';
   document.getElementById('rew-badges').innerHTML=
-    `<div class="rb">⭐ +${q.stars}</div><div class="rb">🪙 +${q.coins}</div>`+
-    (q.item?`<div class="rb">${q.item.icon} ${q.item.label}</div>`:'');
-  openModal('m-reward');speak(`Quest complete! You earned ${q.stars} star!`);
+    '<div class="rb">⭐ +'+q.stars+'</div>'
+    +'<div class="rb">'+npc.sticker.icon+' '+npc.sticker.label+'</div>'
+    +'<div class="rb">🔥 Streak '+G.streak+'</div>';
+  openModal('m-reward');
+  speak('Quest complete! You earned '+q.stars+' star!');
   refreshMap();
 }
+
+function afterReward(){
+  closeModal('m-reward');
+  if(pendingMiniQuest) startMiniGame(pendingMiniQuest);
+}
+
 function checkUnlocks(){
-  Object.entries(UNLOCK_REQ).forEach(([id,req])=>{
-    const pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
-    if(G.stars>=req&&pin&&pin.classList.contains('locked')){
-      pin.classList.remove('locked');if(lt)lt.style.display='none';sfx('unlock');
-      const n={mia:'🏥 Clinic open! Meet Dr. Mia!',nora:'🌲 Magic Forest! Find Wizard Nora!',max:'🏯 Castle! Help Puppy Max!'};
+  Object.keys(UNLOCK_REQ).forEach(function(id){
+    var pin=document.getElementById('pin-'+id),lt=document.getElementById('lt-'+id);
+    if(G.stars>=UNLOCK_REQ[id]&&pin&&pin.classList.contains('locked')){
+      pin.classList.remove('locked'); if(lt) lt.style.display='none'; sfx('unlock');
+      var names={mia:'🏥 Clinic open! Meet Dr. Mia!',nora:'🌲 Magic Forest! Find Wizard Nora!',max:'🏯 Castle! Help Puppy Max!'};
       document.getElementById('ul-title').textContent='New Area Unlocked!';
-      document.getElementById('ul-desc').textContent=n[id]||id;
-      setTimeout(()=>openModal('m-unlock'),1800);
+      document.getElementById('ul-desc').textContent=names[id]||id;
+      setTimeout(function(){openModal('m-unlock');},1800);
     }
   });
 }
 
-// ══════════════════════════════════════════
-// CHAT HELPERS
-// ══════════════════════════════════════════
-function addNPC(t){removeTyping();add('npc',`<span class="av">${NPCS[cur]?.face||'🤖'}</span><div class="bub">${t}</div>`)}
-function addMe(t){add('me',`<span class="av">🧒</span><div class="bub">${t}</div>`)}
-function addFix(t){add('fix',`<div class="bub">💡 ${t}</div>`)}
-function addVNHint(t){sfx('vn');add('vn-hint',`<div class="bub">${t}</div>`)}
-function add(cls,html){
-  const d=document.createElement('div');d.className='msg '+cls;d.innerHTML=html;
-  const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;
+// ═══════════════════════════
+// MINI GAMES
+// ═══════════════════════════
+var miniType=0, miniData=null, miniScore=0, miniTimerInt=null;
+
+function startMiniGame(npcId){
+  var npc=NPCS[npcId]; if(!npc) return;
+  miniType=(miniType+1)%4; // cycle through 4 types
+  miniScore=0;
+  clearInterval(miniTimerInt);
+  document.getElementById('mini-next').style.display='none';
+  document.getElementById('mini-timer-bar').style.width='100%';
+  show('s-mini');
+  sfx('mini');
+  if(miniType===0)      buildMemory(npc);
+  else if(miniType===1) buildListenTap(npc);
+  else if(miniType===2) buildDragSentence(npc);
+  else                  buildFastChoice(npc);
 }
-function clearChat(){document.getElementById('chat').innerHTML=''}
+
+// 1. Memory card flip
+function buildMemory(npc){
+  document.getElementById('mini-title').textContent='🃏 Memory Match!';
+  document.getElementById('mini-inst').textContent='Find matching pairs! Tap two cards.';
+  document.getElementById('mini-score').textContent='';
+  var pairs=npc.words.slice(0,4).concat(npc.words.slice(0,4));
+  // shuffle
+  for(var i=pairs.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=pairs[i];pairs[i]=pairs[j];pairs[j]=t; }
+  miniData={pairs:pairs,flipped:[],matched:0,locked:false};
+  var grid=document.createElement('div'); grid.className='mem-grid';
+  pairs.forEach(function(word,i){
+    var card=document.createElement('div');
+    card.className='mem-card hidden-face'; card.dataset.word=word; card.dataset.idx=i;
+    card.textContent=word;
+    card.onclick=function(){flipCard(card);};
+    grid.appendChild(card);
+  });
+  document.getElementById('mini-content').innerHTML=''; document.getElementById('mini-content').appendChild(grid);
+  startMiniTimer(45);
+}
+function flipCard(card){
+  if(miniData.locked) return;
+  if(card.classList.contains('flipped')||card.classList.contains('matched')) return;
+  card.classList.remove('hidden-face'); card.classList.add('flipped');
+  miniData.flipped.push(card);
+  if(miniData.flipped.length===2){
+    miniData.locked=true;
+    var a=miniData.flipped[0], b=miniData.flipped[1];
+    if(a.dataset.word===b.dataset.word){
+      sfx('correct'); a.classList.add('matched'); b.classList.add('matched');
+      miniData.matched++; miniData.flipped=[]; miniData.locked=false;
+      miniScore+=10; document.getElementById('mini-score').textContent='Score: '+miniScore;
+      if(miniData.matched===4) finishMini();
+    } else {
+      sfx('wrong');
+      setTimeout(function(){
+        a.classList.remove('flipped'); b.classList.remove('flipped');
+        a.classList.add('hidden-face'); b.classList.add('hidden-face');
+        miniData.flipped=[]; miniData.locked=false;
+      },900);
+    }
+  }
+}
+
+// 2. Listen & tap
+function buildListenTap(npc){
+  document.getElementById('mini-title').textContent='👂 Listen & Tap!';
+  document.getElementById('mini-inst').textContent='Listen, then tap the correct word!';
+  miniData={words:npc.words.slice(0,5),round:0,correct:0};
+  document.getElementById('mini-content').innerHTML='';
+  nextListenTap();
+  startMiniTimer(30);
+}
+function nextListenTap(){
+  if(miniData.round>=5||miniData.round>=miniData.words.length){ finishMini(); return; }
+  var correct=miniData.words[miniData.round];
+  var others=miniData.words.filter(function(w){return w!==correct;});
+  var choices=[correct];
+  while(choices.length<4&&others.length){ choices.push(others.splice(Math.floor(Math.random()*others.length),1)[0]); }
+  for(var i=choices.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=choices[i];choices[i]=choices[j];choices[j]=t; }
+  var c=document.getElementById('mini-content');
+  c.innerHTML='<button class="btn btn-gold" style="margin-bottom:12px;font-size:16px" onclick="speakWord(\''+correct+'\')">🔊 Listen!</button>'
+    +'<div class="lt-choices" id="lt-choices"></div>';
+  speak(correct);
+  var grid=document.getElementById('lt-choices');
+  choices.forEach(function(w){
+    var b=document.createElement('div'); b.className='lt-choice'; b.textContent=w;
+    b.onclick=function(){
+      if(w===correct){sfx('correct');b.classList.add('correct');miniScore+=10;miniData.correct++;
+        setTimeout(function(){miniData.round++;document.getElementById('mini-score').textContent='Score: '+miniScore;nextListenTap();},600);
+      } else {sfx('wrong');b.classList.add('wrong');}
+    };
+    grid.appendChild(b);
+  });
+  document.getElementById('mini-score').textContent='Round '+(miniData.round+1)+'/'+Math.min(5,miniData.words.length);
+}
+function speakWord(w){ speak(w); }
+
+// 3. Drag sentence
+function buildDragSentence(npc){
+  document.getElementById('mini-title').textContent='🧩 Build a Sentence!';
+  document.getElementById('mini-inst').textContent='Tap words in the right order!';
+  var templates=[
+    {words:['I','found','the','key'],answer:'I found the key'},
+    {words:['The','soup','is','hot'],answer:'The soup is hot'},
+    {words:['I','like','apples'],answer:'I like apples'},
+    {words:['You','are','a','guard'],answer:'You are a guard'},
+  ];
+  var tpl=templates[Math.floor(Math.random()*templates.length)];
+  var bank=[].concat(tpl.words); for(var i=bank.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=bank[i];bank[i]=bank[j];bank[j]=t; }
+  miniData={answer:tpl.answer,selected:[]};
+  var c=document.getElementById('mini-content');
+  c.innerHTML='<div class="drag-target" id="drag-target"></div><div class="word-bank" id="word-bank"></div>';
+  bank.forEach(function(w){
+    var d=document.createElement('div'); d.className='drag-word in-bank'; d.textContent=w;
+    d.onclick=function(){tapWord(d,w);};
+    document.getElementById('word-bank').appendChild(d);
+  });
+  document.getElementById('mini-score').textContent='';
+  startMiniTimer(30);
+}
+function tapWord(el,word){
+  sfx('tap');
+  if(el.classList.contains('in-bank')){
+    el.classList.remove('in-bank');
+    miniData.selected.push({el:el,word:word});
+    document.getElementById('drag-target').appendChild(el);
+  } else {
+    el.classList.add('in-bank');
+    miniData.selected=miniData.selected.filter(function(s){return s.el!==el;});
+    document.getElementById('word-bank').appendChild(el);
+  }
+  var current=miniData.selected.map(function(s){return s.word;}).join(' ');
+  if(miniData.selected.length>0 && current===miniData.answer){
+    sfx('correct'); miniScore+=20;
+    document.getElementById('mini-score').textContent='✅ Correct! +20';
+    clearInterval(miniTimerInt);
+    setTimeout(finishMini,1000);
+  }
+}
+
+// 4. Fast choice
+function buildFastChoice(npc){
+  document.getElementById('mini-title').textContent='⚡ Fast Choice!';
+  document.getElementById('mini-inst').textContent='Answer quickly!';
+  var qs=[];
+  npc.words.slice(0,4).forEach(function(w){
+    qs.push({q:'What is this? '+getEmoji(w),answer:w,
+      choices:[w,npc.words[Math.floor(Math.random()*npc.words.length)]||'apple','tree','key']
+        .filter(function(v,i,a){return a.indexOf(v)===i;}).slice(0,4)});
+  });
+  miniData={qs:qs,round:0,score:0};
+  nextFC();
+  startMiniTimer(20);
+}
+function getEmoji(w){
+  var em={key:'🗝️',gate:'🏰',apple:'🍎',water:'💧',tree:'🌳',egg:'🥚',soup:'🍲',milk:'🥛',
+    hand:'✋',head:'🤔',flower:'🌸',river:'🌊',magic:'✨',crown:'👑',home:'🏠',light:'💡',
+    dog:'🐕',cow:'🐄',cook:'👩‍🍳',soup:'🍲',rain:'🌈'};
+  return em[w]||'❓';
+}
+function nextFC(){
+  if(miniData.round>=miniData.qs.length){finishMini();return;}
+  var q=miniData.qs[miniData.round];
+  var c=document.getElementById('mini-content');
+  c.innerHTML='<div class="fc-question">'+q.q+'</div><div class="fc-choices" id="fc-choices"></div>';
+  document.getElementById('mini-score').textContent='Round '+(miniData.round+1)+'/'+miniData.qs.length;
+  var grid=document.getElementById('fc-choices');
+  q.choices.forEach(function(w){
+    var b=document.createElement('div'); b.className='fc-choice'; b.textContent=w;
+    b.onclick=function(){
+      if(w===q.answer){sfx('correct');b.classList.add('correct');miniScore+=10;
+        setTimeout(function(){miniData.round++;nextFC();},500);
+      }else{sfx('wrong');b.classList.add('wrong');}
+    };
+    grid.appendChild(b);
+  });
+}
+
+function startMiniTimer(secs){
+  clearInterval(miniTimerInt); var left=secs;
+  var bar=document.getElementById('mini-timer-bar');
+  miniTimerInt=setInterval(function(){
+    left-=0.1; bar.style.width=(left/secs*100)+'%';
+    if(left<=0){ clearInterval(miniTimerInt); finishMini(); }
+  },100);
+}
+
+function finishMini(){
+  clearInterval(miniTimerInt);
+  document.getElementById('mini-timer-bar').style.width='0%';
+  document.getElementById('mini-score').textContent='🎉 Mini game done! Score: '+miniScore;
+  document.getElementById('mini-next').style.display='block';
+  if(miniScore>=20) earnSticker('s11');
+  sfx('reward');
+}
+
+// ═══════════════════════════
+// CHAT HELPERS
+// ═══════════════════════════
+function addNPC(t){ removeTyping(); addMsg('npc','<span class="av">'+(NPCS[cur]&&NPCS[cur].face||'🤖')+'</span><div class="bub">'+t+'</div>'); }
+function addMe(t){  addMsg('me','<span class="av">🧒</span><div class="bub">'+t+'</div>'); }
+function addFix(t){ addMsg('fix','<div class="bub">💡 '+t+'</div>'); }
+function addMsg(cls,html){
+  var d=document.createElement('div'); d.className='msg '+cls; d.innerHTML=html;
+  var c=document.getElementById('chat'); c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+function clearChat(){ document.getElementById('chat').innerHTML=''; }
 function showTyping(){
   removeTyping();
-  const d=document.createElement('div');d.className='msg npc typing-msg';
-  d.innerHTML=`<span class="av">${NPCS[cur]?.face||'🤖'}</span><div class="bub"><div class="dots"><span></span><span></span><span></span></div></div>`;
-  const c=document.getElementById('chat');c.appendChild(d);c.scrollTop=c.scrollHeight;
+  var d=document.createElement('div'); d.className='msg npc typing-msg';
+  d.innerHTML='<span class="av">'+(NPCS[cur]&&NPCS[cur].face||'🤖')+'</span><div class="bub"><div class="dots"><span></span><span></span><span></span></div></div>';
+  var c=document.getElementById('chat'); c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
-function removeTyping(){document.querySelectorAll('.typing-msg').forEach(e=>e.remove())}
+function removeTyping(){ document.querySelectorAll('.typing-msg').forEach(function(e){e.remove();}); }
 function setChips(arr){
-  const c=document.getElementById('chips');c.innerHTML='';
-  arr.forEach(t=>{const b=document.createElement('button');b.className='chip';b.textContent=t;
-    b.onclick=()=>{sfx('tap');document.getElementById('txt').value=t;send()};c.appendChild(b)});
+  var c=document.getElementById('chips'); c.innerHTML='';
+  arr.forEach(function(t){
+    var b=document.createElement('button'); b.className='chip'; b.textContent=t;
+    b.onclick=function(){sfx('tap');document.getElementById('txt').value=t;send();};
+    c.appendChild(b);
+  });
 }
-function setHint(t){const h=document.getElementById('hint');h.textContent=t?'💡 '+t:'';h.style.display=t?'':'none'}
+function setHint(t){ var h=document.getElementById('hint'); h.textContent=t?'💡 '+t:''; h.style.display=t?'':'none'; }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════
 // MIC
-// ══════════════════════════════════════════
+// ═══════════════════════════
 function toggleMic(){
   sfx('tap');
-  if(micOn){stopMic();return}
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){toast('Microphone not supported');return}
-  // Tắt nhạc + TTS trước khi nghe — tránh mic nghe lộn
+  if(noSayMode){toast('👆 Tap mode is on. Tap 🔇 to switch back.');return;}
+  if(micOn){stopMic();return;}
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast('Microphone not supported on this browser');return;}
   stopTTS();
-  const wasMusicOn = musicOn;
-  if(musicOn){ stopMusic(); }
-
-  recog=new SR();recog.lang='en-US';recog.interimResults=false;recog.maxAlternatives=1;
+  var wasMusic=musicOn; if(musicOn) stopMusic();
+  recog=new SR(); recog.lang='en-US'; recog.interimResults=false; recog.maxAlternatives=1;
   micOn=true;
   document.getElementById('btn-mic').classList.add('on');
   document.getElementById('mic-toast').style.display='block';
-
-  recog.onresult=e=>{
-    const t=e.results[0][0].transcript;
-    stopMic();
+  recog.onresult=function(e){
+    var t=e.results[0][0].transcript; stopMic();
     document.getElementById('txt').value=t;
-    // Bật lại nhạc sau khi nghe xong
-    if(wasMusicOn){ setTimeout(startMusic, 800); }
+    if(wasMusic) setTimeout(startMusic,700);
     send();
   };
-  recog.onerror=e=>{
-    stopMic();
-    if(wasMusicOn) setTimeout(startMusic, 500);
-    if(e.error!=='aborted') toast("Couldn't hear. Try again! 🎤");
-  };
-  recog.onend=()=>{
-    stopMic();
-    if(wasMusicOn) setTimeout(startMusic, 500);
-  };
+  recog.onerror=function(e){ stopMic(); if(wasMusic) setTimeout(startMusic,400); if(e.error!=='aborted') toast("Couldn't hear. Try again! 🎤"); };
+  recog.onend=function(){ if(micOn){stopMic();if(wasMusic)setTimeout(startMusic,400);} };
   recog.start();
 }
 function stopMic(){
-  micOn=false;try{recog&&recog.stop()}catch(e){}
+  micOn=false; try{if(recog)recog.stop();}catch(e){}
   document.getElementById('btn-mic').classList.remove('on');
   document.getElementById('mic-toast').style.display='none';
 }
 
-// ══════════════════════════════════════════
-// MODALS / TOAST
-// ══════════════════════════════════════════
-function openModal(id){document.getElementById(id).classList.add('on')}
-function closeModal(id){sfx('tap');document.getElementById(id).classList.remove('on')}
-function toast(msg){
-  const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';
-  clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2500);
-}
-
-// ══════════════════════════════════════════
-// REPORT (với Gemini analysis)
-// ══════════════════════════════════════════
-async function showReport(){
-  sfx('tap');
-  const mins=Math.floor((Date.now()-G.start)/60000);
-  const words=G.words.length?G.words.map(w=>`<span class="tag">${w}</span>`).join(''):'<span style="color:#888">none yet</span>';
-  const inv=G.inv.length?G.inv.map(i=>`<span class="tag">${i.icon} ${i.label}</span>`).join(''):'<span style="color:#888">none yet</span>';
-
-  document.getElementById('report-body').innerHTML=`
-    <div class="sec"><h3>👦 Player</h3><p>Name: <b>${G.name}</b><br>Session: ~${mins} min</p></div>
-    <div class="sec"><h3>⭐ Progress</h3><p>Stars: <b>${G.stars}</b> &nbsp; Coins: <b>${G.coins}</b><br>Quests: <b>${G.done.length}/6</b> &nbsp; Mistakes: <b>${G.mistakes}</b></p></div>
-    <div class="sec"><h3>📚 Words practiced</h3><div class="tags">${words}</div></div>
-    <div class="sec"><h3>🎒 Items collected</h3><div class="tags">${inv}</div></div>
-    <div class="sec"><h3>✨ Gemini Analysis</h3>
-      <div class="ai-analysis" id="ai-analysis-text"><span class="ai-analysis-loading">⏳ Đang phân tích…</span></div>
-    </div>`;
-  openModal('m-report');
-
-  // Gọi Gemini phân tích sau khi modal mở
-  const analysis = await geminiAnalysis();
-  const el=document.getElementById('ai-analysis-text');
-  if(el) el.textContent=analysis;
-}
-
-
-// ══════════════════════════════════════════
-// SETTINGS — key management
-// ══════════════════════════════════════════
+// ═══════════════════════════
+// SETTINGS
+// ═══════════════════════════
 function openSettings(){
   sfx('tap');
-  // Pre-fill with saved values (show partial for security)
-  const k=getKeys();
-  document.getElementById('set-el-key').value   = k.ELEVENLABS_KEY || '';
-  document.getElementById('set-el-voice').value = k.EL_VOICE_ID === DEFAULT_EL_VOICE_ID ? '' : k.EL_VOICE_ID;
-  document.getElementById('set-gem-key').value  = k.GEMINI_KEY || '';
+  document.getElementById('set-el-key').value=getEL();
+  document.getElementById('set-el-voice').value=localStorage.getItem('k_voice')||'';
+  document.getElementById('set-gem-key').value=getGEM();
   document.getElementById('set-status').style.display='none';
   openModal('m-settings');
 }
 function saveKeys(){
   sfx('tap');
-  const el    = document.getElementById('set-el-key').value.trim();
-  const voice = document.getElementById('set-el-voice').value.trim();
-  const gem   = document.getElementById('set-gem-key').value.trim();
-
-  if(el)    localStorage.setItem('k_el', el);    else localStorage.removeItem('k_el');
-  if(voice) localStorage.setItem('k_voice', voice); else localStorage.removeItem('k_voice');
-  if(gem)   localStorage.setItem('k_gem', gem);  else localStorage.removeItem('k_gem');
-
-  // Reset ElevenLabs fallback so it tries again with new key
-  elFallback = false;
-
-  const st = document.getElementById('set-status');
-  const stxt = document.getElementById('set-status-text');
-  const parts = [];
-  if(el)  parts.push('✅ ElevenLabs key saved');
-  if(gem) parts.push('✅ Gemini key saved');
-  if(!el && !gem) stxt.textContent = '⚠️ No keys entered — using free modes';
-  else stxt.textContent = parts.join('   ');
-  stxt.style.color = (!el && !gem) ? '#ffcc88' : '#a5d6a7';
-  st.style.display = 'block';
-
-  setTimeout(()=>{ closeModal('m-settings'); sfx('correct'); }, 1200);
+  var el=document.getElementById('set-el-key').value.trim();
+  var voice=document.getElementById('set-el-voice').value.trim();
+  var gem=document.getElementById('set-gem-key').value.trim();
+  if(el) localStorage.setItem('k_el',el); else localStorage.removeItem('k_el');
+  if(voice) localStorage.setItem('k_voice',voice); else localStorage.removeItem('k_voice');
+  if(gem) localStorage.setItem('k_gem',gem); else localStorage.removeItem('k_gem');
+  elFallback=false;
+  var st=document.getElementById('set-status');
+  if(el||gem){ st.textContent=(el?'✅ ElevenLabs  ':'')+(gem?'✅ Gemini':''); st.className='set-status ok'; }
+  else { st.textContent='⚠️ No keys — free modes only'; st.className='set-status warn'; }
+  st.style.display='block';
+  setTimeout(function(){closeModal('m-settings');sfx('correct');},1200);
 }
 
-// ══════════════════════════════════════════
+// ═══════════════════════════
+// MODALS / TOAST
+// ═══════════════════════════
+function openModal(id){ document.getElementById(id).classList.add('on'); }
+function closeModal(id){ sfx('tap'); document.getElementById(id).classList.remove('on'); }
+function toast(msg){
+  var t=document.getElementById('toast'); t.textContent=msg; t.style.display='block';
+  clearTimeout(t._t); t._t=setTimeout(function(){t.style.display='none';},2800);
+}
+
+// ═══════════════════════════
+// REPORT
+// ═══════════════════════════
+function showReport(){
+  sfx('tap');
+  var mins=Math.floor((Date.now()-G.start)/60000);
+  var words=G.words.length?G.words.map(function(w){return '<span class="tag">'+w+'</span>';}).join(''):'<span style="color:#888">none yet</span>';
+  var stks=G.stickers.length?G.stickers.map(function(id){
+    var s=ALL_STICKERS.find(function(x){return x.id===id;}); return s?'<span class="tag">'+s.icon+' '+s.label+'</span>':'';
+  }).join(''):'<span style="color:#888">none yet</span>';
+  document.getElementById('report-body').innerHTML=
+    '<div class="sec"><h3>👦 Player</h3><p>Name: <b>'+G.name+'</b><br>Session: ~'+mins+' min<br>Streak: <b>🔥 '+G.streak+' days</b></p></div>'
+   +'<div class="sec"><h3>⭐ Progress</h3><p>Stars: <b>'+G.stars+'</b><br>Quests: <b>'+G.done.length+'/6</b><br>Mistakes: <b>'+G.mistakes+'</b></p></div>'
+   +'<div class="sec"><h3>📒 Stickers</h3><div class="tags">'+stks+'</div></div>'
+   +'<div class="sec"><h3>📚 Words</h3><div class="tags">'+words+'</div></div>'
+   +'<div class="sec"><h3>✨ AI Analysis</h3><div class="ai-analysis" id="ai-txt">⏳ Đang phân tích…</div></div>';
+  openModal('m-report');
+  gemAnalysis(function(t){ var el=document.getElementById('ai-txt'); if(el)el.textContent=t; });
+}
+
+// ═══════════════════════════
 // INIT
-// ══════════════════════════════════════════
-load();
-document.getElementById('inp-name').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();startGame()}});
-window.speechSynthesis?.getVoices();
-window.speechSynthesis?.addEventListener?.('voiceschanged',()=>window.speechSynthesis.getVoices());
+// ═══════════════════════════
+loadG();
+document.getElementById('inp-name').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();startGame();}});
+document.getElementById('hud-pet').onclick=openPetModal;
+document.getElementById('m-sticker').querySelector('.sgrid')||document.getElementById('m-sticker').addEventListener('click',function(){});
+// override sticker open button
+document.querySelector('.hbtn').onclick=openStickerBook;
+if(window.speechSynthesis){
+  window.speechSynthesis.getVoices();
+  if(window.speechSynthesis.onvoiceschanged!==undefined) window.speechSynthesis.onvoiceschanged=function(){window.speechSynthesis.getVoices();};
+}
 </script>
 </body>
 </html>
